@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frogger In Canvas</title>
+    <meta name="viewport" content="width=1920, initial-scale=1.0">
+    <style>
+    @font-face {
+        font-family: 'Arcade Classic';
+        src: url('fonts/arcadeclassic.eot');
+        src: url('fonts/arcadeclassic.eot?#iefix') format('embedded-opentype'),
+             url('fonts/arcadeclassic.woff') format('woff'),
+             url('fonts/arcadeclassic.ttf') format('truetype'),
+             url('fonts/arcadeclassic.svg#arcadeclassic') format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    .canvas {
+        position: absolute;
+        top: 28px;
+        left: 576px;
+        border: 2px solid #000;
+        width: 768px;
+        height: 1024px;
+    }
+    html, body {margin: 0; max-height: 1920px; background: #000;overflow: hidden}
+    </style>
+</head>
+<body>
+    <canvas id="background-canvas" class="canvas" width="960" height="1280"></canvas>
+    <canvas id="canvas" class="canvas" width="960" height="1280"></canvas>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
