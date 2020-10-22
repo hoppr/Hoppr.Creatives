@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <style>
+            .onClick {
+                
+            }
+
+            .unselected {
+
+                opacity: 0.5;
+                
+            }
+            .selected {
+
+                opacity: 1.0;
+            }
+            
+            .container {
+                width: 720px;
+                height: 90px;
+                background-color: black;
+
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="target-container" class="container unselected">
+            <img class="ad-image" src="https://firebasestorage.googleapis.com/v0/b/hoppr-androidtv-test.appspot.com/o/advert-assets%2FBlackWidow.jpg?alt=media&token=a546e274-e473-4f61-93ba-bc1625eaf23e"/>
+        </div>
+
+        <script type="text/javascript">
+
+            function setSelected(value) {
+                
+                var element = document.getElementById('target-container')
+                if(value) {
+                    element.classList.add('selected')
+                    element.classList.remove('unselected')
+                } else {
+                    element.classList.add('unselected')
+                    element.classList.remove('selected')
+                }
+            }
+
+            
+            function onAdWindowClicked() {
+
+                if(!!window.Android) {
+                    
+                    setTimeout(()=> {
+                        Android.onAdWindowClickAnimationEnded()
+                    },200)
+                }
+            }
+        </script>
+    </body>
+
+</html>
