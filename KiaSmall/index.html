@@ -1,0 +1,65 @@
+<html>
+    <head>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<meta name="ad.size" content="width=328,height=171">
+        <style>
+            .onClick {
+                
+            }
+
+            .unselected {
+
+                opacity: 0.5;
+                
+            }
+            .selected {
+
+                opacity: 1.0;
+            }
+            
+            .container {
+                width: 328px;
+                height: 171px;
+                background-color: black;
+
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="target-container" class="container unselected">
+            <img class="ad-image" src="https://btvm.s3-ap-southeast-2.amazonaws.com/kia_banner_sm.jpg"/>
+        </div>
+
+        <script type="text/javascript">
+
+            function setSelected(value) {
+                
+                var element = document.getElementById('target-container')
+                if(value) {
+                    element.classList.add('selected')
+                    element.classList.remove('unselected')
+                } else {
+                    element.classList.add('unselected')
+                    element.classList.remove('selected')
+                }
+            }
+
+            
+            function onAdWindowClicked() {
+
+                if(!!window.Android) {
+                    
+                    setTimeout(()=> {
+                        Android.onAdWindowClickAnimationEnded()
+                    },200)
+                }
+            }
+        </script>
+    </body>
+
+</html>
