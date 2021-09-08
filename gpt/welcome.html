@@ -1,0 +1,53 @@
+<html lang="en">
+  <head>
+    <title>Welcome Size Test Banner</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=1920, height=500, initial-scale=2.4, user-scalable=no"
+    />
+  </head>
+  <body style="margin: 0px;">
+    <!--- GAM variables --->
+    <script type="text/javascript">
+      var adUnit = "/21854952015/TIMItalia/Display/Welcome";
+      var adSize = [1920, 500];
+      var kvPairs = { ppid: ["47c19c1f-bac4-3833-b201-43fd53fd37ed"] };
+      var ppid = "47c19c1f-bac4-3833-b201-43fd53fd37ed";
+    </script>
+    <script
+      async
+      src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"
+    ></script>
+    <script>
+      var googletag = googletag || {};
+      googletag.cmd = googletag.cmd || [];
+      googletag.cmd.push(function() {
+        googletag.pubads().setCentering(true);
+        googletag.pubads().setPublisherProvidedId(ppid);
+        googletag.pubads().setRequestNonPersonalizedAds(0);
+        googletag.enableServices();
+      });
+    </script>
+    <!--- GPT Slot Definition --->
+    <div id="div-gpt-ad-1630296840865-0">
+      <script type="text/javascript">
+        googletag.cmd.push(function() {
+          var adObj = googletag.defineSlot(
+            adUnit,
+            adSize,
+            "div-gpt-ad-1630296840865-0"
+          );
+          if (kvPairs) {
+            Object.keys(kvPairs).forEach(function(key) {
+              adObj.setTargeting(key, kvPairs[key]);
+            });
+          }
+          adObj.addService(googletag.pubads());
+          googletag.display("div-gpt-ad-1630296840865-0");
+        });
+      </script>
+    </div>
+  </body>
+</html>
