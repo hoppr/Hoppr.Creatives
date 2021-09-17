@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>IMA HTML5 Attempt to Autoplay</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <script type="text/javascript" src="ads.js"></script>
+  </head>
+
+  <body onload=initDesktopAutoplayExample()>
+    <p style="font-size: 16px; font-family: sans-serif;">
+    This player does the following:
+      <ol>
+        <li>Attempt to autoplay unmuted. If that works, do so. If not, move on to step 2.</li>
+        <li>Attempt to autoplay muted. If that works, do so. If not, move on to step 3.</li>
+        <li>Fall back to click-to-play.</li>
+      </ol>
+    </p>
+    <div id="mainContainer">
+      <div id="content">
+        <video id="contentElement" playsinline>
+          <source src="https://storage.googleapis.com/gvabox/media/samples/stock.mp4"></source>
+        </video>
+      </div>
+      <div id="adContainer"></div>
+    </div>
+    <button id="playButton">Play</button>
+  </body>
+</html>
