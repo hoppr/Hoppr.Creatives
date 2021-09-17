@@ -39,14 +39,14 @@ function setUpIMA() {
   // Request video ads.
   var adsRequest = new google.ima.AdsRequest();
   adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
-      'sz=640x480&iu=/21854952015/TIMItalia/Video/15Sec&ciu_szs=1920x1080&' +
+      'sz=1920x1080&iu=/21854952015/TIMItalia/Video/15Sec&ciu_szs=1920x1080&' +
       'impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&' +
       'cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=';
 
   // Specify the linear and nonlinear slot sizes. This helps the SDK to
   // select the correct creative if multiple are returned.
-  adsRequest.linearAdSlotWidth = 640;
-  adsRequest.linearAdSlotHeight = 400;
+  adsRequest.linearAdSlotWidth = 1920;
+  adsRequest.linearAdSlotHeight = 1080;
 
   adsRequest.nonLinearAdSlotWidth = 640;
   adsRequest.nonLinearAdSlotHeight = 150;
