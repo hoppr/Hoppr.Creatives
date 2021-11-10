@@ -103,7 +103,7 @@
 			"key":"TIM_Series_synopsis",
 			"name":"TIM_Series_synopsis",
 			"componentName":"timvision.launcher/.ui.HomeActivity",
-			"priority":100,
+			"priority":1,
 			"operatorType":"all",
 			"conditionGroups":[
 				{
