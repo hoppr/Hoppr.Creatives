@@ -98,6 +98,48 @@
 					]
 				}
 			]
+		},
+		{
+			"key":"TIM_Series_synopsis",
+			"name":"TIM_Series_synopsis",
+			"componentName":"timvision.launcher/.ui.HomeActivity",
+			"priority":1,
+			"operatorType":"all",
+			"conditionGroups":[
+				{
+					"operatorType":"all",
+					"conditions":[
+						{
+							"conditionType":"control",
+							"controlType":"controlID",
+							"controlQuery":"timvision.launcher:id/title",
+							"valueTextsOperator":"all",
+							"valueTextsDelimiter":"",
+							"valueTextsRegex":"",
+							"valueTexts":[
+								"STAGIONE"
+							],
+							"isVisible":true
+						}
+					]
+				}
+			],
+			"actionItems":[
+				{
+					"actionType":"show-advert",
+					"advertId":"kRDbQIn9FeKovnMe97Hn",
+					"operatorType":"all",
+					"conditions":[
+						
+					],
+					"triggers":[
+						
+					],
+					"contexts":[
+						
+					]
+				}
+			]
 		}
 	]
 }
