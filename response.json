@@ -137,6 +137,7 @@
 							"conditionType":"click-event",
 							"controlType":"WindowPos",
 							"controlQuery":"90 623 500 923",
+							"valueTextsOperator":"none",
 							"isVisible":true
 						},
 						{
