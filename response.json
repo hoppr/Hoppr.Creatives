@@ -1,7 +1,7 @@
 {
 	"screens":[
 		{
-			"key":"gV0K5wgren5zQsXM170N",
+			"key":"TIM_movie_synopsis",
 			"name":"TIM_movie_synopsis",
 			"componentName":"timvision.launcher/.ui.HomeActivity",
 			"priority":100,
@@ -16,7 +16,7 @@
 							"controlQuery":"timvision.launcher:id/main_title",
 							"valueTextsOperator":"none",
 							"isVisible":true
-						}	,
+						},
 						{
 							"conditionType":"control",
 							"controlType":"controlID",
@@ -47,6 +47,48 @@
 								"PRESCHOOL"
 							]
 						}
+					],
+					"triggers":[
+						
+					],
+					"contexts":[
+						
+					]
+				}
+			]
+		},
+		{
+			"key":"TIM_TV_guide",
+			"name":"TIM_TV_guide",
+			"componentName":"timvision.launcher/.ui.HomeActivity",
+			"priority":100,
+			"operatorType":"all",
+			"conditionGroups":[
+				{
+					"operatorType":"all",
+					"conditions":[
+						{
+							"conditionType":"control",
+							"controlType":"controlID",
+							"controlQuery":"timvision.launcher:id/text_view",
+							"valueTextsOperator":"all",
+							"valueTextsDelimiter":"",
+							"valueTextsRegex":"",
+							"valueTexts":[
+								"TV"
+							],
+							"isVisible":true
+						}
+					]
+				}
+			],
+			"actionItems":[
+				{
+					"actionType":"show-advert",
+					"advertId":"QmucNouJLNa7TtIVUexz",
+					"operatorType":"all",
+					"conditions":[
+						
 					],
 					"triggers":[
 						
