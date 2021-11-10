@@ -8,12 +8,18 @@
 			"operatorType":"all",
 			"conditionGroups":[
 				{
-					"operatorType":"all",
+					"operatorType":"any",
 					"conditions":[
 						{
 							"conditionType":"control",
 							"controlType":"controlID",
 							"controlQuery":"timvision.launcher:id/main_title",
+							"isVisible":true
+						}	,
+						{
+							"conditionType":"control",
+							"controlType":"controlID",
+							"controlQuery":"timvision.launcher:id/movie_params_container",
 							"isVisible":true
 						}
 					]
