@@ -31,23 +31,25 @@
 				{
 					"actionType":"show-advert",
 					"advertId":"ASDBVH1236347",
-					"operatorType":"all",
-					"conditions":[
-						{
-							"conditionType":"control",
-							"controlType":"controlID",
-							"controlQuery":"timvision.launcher:id/genre",
-							"valueTextsDelimiter":",",
-							"valueTextsRegex":"[^a-zA-Z0-9À]",
-							"valueTextsOperator":"none",
-							"valueTexts":[
-								"ANIMAZIONE",
-								"FAMILY",
-								"AVVENTURA",
-								"PRESCHOOL"
-							]
-						}
-					],
+					"conditionGroup":{
+						"operatorType":"any",
+						"conditions":[
+							{
+								"conditionType":"control",
+								"controlType":"controlID",
+								"controlQuery":"timvision.launcher:id/genre",
+								"valueTextsDelimiter":",",
+								"valueTextsRegex":"[^a-zA-Z0-9À]",
+								"valueTextsOperator":"none",
+								"valueTexts":[
+									"ANIMAZIONE",
+									"FAMILY",
+									"AVVENTURA",
+									"PRESCHOOL"
+								]
+							}
+						]
+					},
 					"triggers":[
 						
 					],
