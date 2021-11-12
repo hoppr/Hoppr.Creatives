@@ -30,7 +30,7 @@
                "actionType":"show-advert",
                "advertId":"ASDBVH1236347",
                "conditionGroup":{
-                  "operatorType":"any",
+                  "operatorType":"all",
                   "conditions":[
                      {
                         "conditionType":"control",
