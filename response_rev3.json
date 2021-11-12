@@ -40,9 +40,11 @@
                         "textCondition":{
                            "valueTextsDelimiter":",",
                            "valueTextsRegex":"[^a-zA-Z0-9À]",
-                           "valueTextsOperator":"none",
+                           "valueTextsOperator":"all",
                            "valueTexts":[
-
+                              "HORROR",
+                              "DRAMMATICO",
+                              "MYSTERY"
                            ]
                         }
                      }
