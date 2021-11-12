@@ -30,7 +30,7 @@
                "actionType":"show-advert",
                "advertId":"ASDBVH1236347",
                "conditionGroup":{
-                  "operatorType":"all",
+                  "operatorType":"any",
                   "conditions":[
                      {
                         "conditionType":"control",
@@ -40,11 +40,12 @@
                         "textCondition":{
                            "valueTextsDelimiter":",",
                            "valueTextsRegex":"[^a-zA-Z0-9À]",
-                           "valueTextsOperator":"all",
+                           "valueTextsOperator":"none",
                            "valueTexts":[
-                              "HORROR",
-                              "MYSTERY",
-                              "DRAMMATICO"
+                              "ANIMAZIONE",
+                              "FAMILY",
+                              "AVVENTURA",
+                              "PRESCHOOL"
                            ]
                         }
                      }
