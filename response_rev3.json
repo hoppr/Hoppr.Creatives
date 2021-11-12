@@ -42,11 +42,7 @@
                            "valueTextsRegex":"[^a-zA-Z0-9À]",
                            "valueTextsOperator":"none",
                            "valueTexts":[
-                              "ANIMAZIONE",
-                              "FAMILY",
-                              "AVVENTURA",
-                              "MYSTERY",
-                              "PRESCHOOL"
+
                            ]
                         }
                      }
