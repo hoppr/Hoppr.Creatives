@@ -98,5 +98,23 @@
             }
          ]
       }
+      ,
+      {
+         "key":"TIMTIM",
+         "name":"TIMTIM",
+         "componentName":"timvision.launcher/.ui.HomeActivity",
+         "priority":100,
+         "operatorType":"all",
+         "conditionGroups":[
+            {
+               "operatorType":"none",
+               "conditions":[
+
+               ]
+            }
+         ],
+         "actionItems":[
+        ]
+      }
    ]
 }
