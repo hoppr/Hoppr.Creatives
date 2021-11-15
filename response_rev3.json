@@ -65,7 +65,8 @@
                },
                "triggers":[
                {
-                  "controlType":"isFocused",                  
+                  "controlType":"isFocused",     
+                  "controlQuery":"", //unused
                   "isVisible":true,
                   "textCondition":{
                      "valueTextsDelimiter":",",
