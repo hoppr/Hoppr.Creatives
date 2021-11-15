@@ -75,8 +75,8 @@
                         "valueTextsOperator":"any",
                         "valueTexts":[
                            "CONTINUA A GUARDARE",
-                           "GUARDA DALL'INIZIO",
-                           "AGGIUNGI A LISTA"
+                           "GUARDA DALL'INIZIO" // "AGGIUNGI A LISTA"
+
                         ]
                      }
                   }
