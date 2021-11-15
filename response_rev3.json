@@ -139,7 +139,7 @@
          "operatorType":"all",
          "conditionGroups":[
             {
-               "operatorType":"none",
+               "operatorType":"any",
                "conditions":[
                   
                ]
