@@ -71,7 +71,7 @@
                      "isVisible":true,
                      "textCondition":{
                         "valueTextsDelimiter":",",
-                        "valueTextsRegex":"[^a-zA-Z0-9À^'^\\s]", //exclude (') & white spaces in between
+                        "valueTextsRegex":"[^a-zA-Z0-9À^'^\\s]",
                         "valueTextsOperator":"any",
                         "valueTexts":[
                            "CONTINUA A GUARDARE",
@@ -99,7 +99,15 @@
                   {
                      "controlType":"controlID",
                      "controlQuery":"timvision.launcher:id/text_view",
-                     "isVisible":true
+                     "isVisible":true,
+                     "textCondition":{
+                        "valueTextsDelimiter":"",
+                        "valueTextsRegex":"",
+                        "valueTextsOperator":"any",
+                        "valueTexts":[
+                           "TV"
+                        ]
+                     }
                   }
                ]
             }
