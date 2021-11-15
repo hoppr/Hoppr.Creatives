@@ -100,7 +100,7 @@
       }
       ,
       {
-         "key":"TIMTIM", //Malformed/Incomplete data example for handling
+         "key":"TIMTIM", // Incomplete/Malformed data example for handling
          "name":"TIMTIM",
          "componentName":"timvision.launcher/.ui.HomeActivity",
          "priority":100,
