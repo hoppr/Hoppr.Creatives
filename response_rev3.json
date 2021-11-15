@@ -59,7 +59,7 @@
                "actionType":"showAdvert",
                "advertId":"kRDbQIn9FeKovnMe97Hn",
                "conditionGroup":{
-                  "operatorType":"any",
+                  "operatorType":"skip",
                   "conditions":[
                      
                   ]
@@ -110,7 +110,7 @@
                "actionType":"showAdvert",
                "advertId":"QmucNouJLNa7TtIVUexz",
                "conditionGroup":{
-                  "operatorType":"none",
+                  "operatorType":"skip",
                   "conditions":[
                      
                   ]
