@@ -71,12 +71,11 @@
                      "isVisible":true,
                      "textCondition":{
                         "valueTextsDelimiter":",",
-                        "valueTextsRegex":"[^a-zA-Z0-9À^\s]", //leave white space in between
+                        "valueTextsRegex":"[^a-zA-Z0-9À^\\s]",
                         "valueTextsOperator":"any",
                         "valueTexts":[
                            "CONTINUA A GUARDARE",
-                           "GUARDA DALL'INIZIO" // "AGGIUNGI A LISTA"
-
+                           "GUARDA DALL'INIZIO"
                         ]
                      }
                   }
