@@ -11,7 +11,7 @@
                "operatorType":"all",
                "conditions":[
                   {
-                     "controlType":"controlID",
+                     "controlType":"controlID", 
                      "controlQuery":"timvision.launcher:id/main_title",
                      "isVisible":true
                   },
@@ -26,7 +26,7 @@
          "actionItems":[
             {
                "actionType":"showAdvert",
-               "advertId":"ASDBVH1236347",
+               "advertId":"TIM_skyscraper",
                "conditionGroup":{
                   "operatorType":"any",
                   "conditions":[
