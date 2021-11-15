@@ -71,7 +71,7 @@
                      "isVisible":true,
                      "textCondition":{
                         "valueTextsDelimiter":",",
-                        "valueTextsRegex":"[^a-zA-Z0-9À]",
+                        "valueTextsRegex":"[^a-zA-Z0-9À^\s]", //leave white space in between
                         "valueTextsOperator":"any",
                         "valueTexts":[
                            "CONTINUA A GUARDARE",
