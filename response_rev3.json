@@ -57,7 +57,7 @@
             },
             {
                "actionType":"showAdvert",
-               "advertId":"kRDbQIn9FeKovnMe97Hn",
+               "advertId":"TIM_skyscraper", //kRDbQIn9FeKovnMe97Hn
                "conditionGroup":{
                   "operatorType":"skip",
                   "conditions":[
@@ -155,7 +155,7 @@
          "actionItems":[
             {
                "actionType":"showAdvert",
-               "advertId":"QmucNouJLNa7TtIVUexz",
+               "advertId":"TV Guide - 728x90Banner", //"QmucNouJLNa7TtIVUexz"
                "conditionGroup":{
                   "operatorType":"skip",
                   "conditions":[
