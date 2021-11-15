@@ -83,6 +83,46 @@
                "contexts":[
                   
                ]
+            },
+            {
+               "actionType":"captureData",
+               "captureEventName":"CAPTURE_EVENT_NAME",
+               "conditionGroup":{
+                  "operatorType":"skip",
+                  "conditions":[
+                     {
+                        "controlType":"controlID",
+                        "controlQuery":"timvision.launcher:id/main_title",
+                        "isVisible":true
+                     }
+                  ]
+               },
+               "triggers":[
+                  {
+                     "controlType":"isFocused",
+                     "controlQuery":"",
+                     "isVisible":true,
+                     "textCondition":{
+                        "valueTextsDelimiter":",",
+                        "valueTextsRegex":"[^a-zA-Z0-9À^'^\\s]",
+                        "valueTextsOperator":"any",
+                        "valueTexts":[
+                           "AGGIUNGI A LISTA"
+                        ]
+                     }
+                  }
+               ],
+               "contexts":[
+                  
+               ],
+               "captureNodes":[
+                  {
+                     "controlType":"controlID",
+                     "controlQuery":"timvision.launcher:id/main_title",
+                     "controlLabel":"Title",
+                     "isVisible":true
+                  }
+               ]
             }
          ]
       },
