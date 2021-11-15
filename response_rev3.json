@@ -11,13 +11,11 @@
                "operatorType":"all",
                "conditions":[
                   {
-                     "conditionType":"control",
                      "controlType":"controlID",
                      "controlQuery":"timvision.launcher:id/main_title",
                      "isVisible":true
                   },
                   {
-                     "conditionType":"control",
                      "controlType":"controlID",
                      "controlQuery":"timvision.launcher:id/movie_params_container",
                      "isVisible":true
@@ -27,13 +25,12 @@
          ],
          "actionItems":[
             {
-               "actionType":"show-advert",
+               "actionType":"showAdvert",
                "advertId":"ASDBVH1236347",
                "conditionGroup":{
                   "operatorType":"any",
                   "conditions":[
                      {
-                        "conditionType":"control",
                         "controlType":"controlID",
                         "controlQuery":"timvision.launcher:id/genre",
                         "isVisible":true,
@@ -52,10 +49,37 @@
                   ]
                },
                "triggers":[
-                  
+
                ],
                "contexts":[
-                  
+
+               ]
+            },
+            {
+               "actionType":"showAdvert",
+               "advertId":"kRDbQIn9FeKovnMe97Hn",
+               "conditionGroup":{
+                  "operatorType":"any",
+                  "conditions":[
+                  ]
+               },
+               "triggers":[
+               {
+                  "controlType":"isFocused",                  
+                  "isVisible":true,
+                  "textCondition":{
+                     "valueTextsDelimiter":",",
+                     "valueTextsRegex":"[^a-zA-Z0-9À]",
+                     "valueTextsOperator":"any",
+                     "valueTexts":[
+                        "CONTINUA A GUARDARE",
+                        "GUARDA DALL'INIZIO",
+                        "AGGIUNGI A LISTA"
+                     ]
+                  }
+               }
+               ],
+               "contexts":[
                ]
             }
          ]
@@ -71,7 +95,6 @@
                "operatorType":"all",
                "conditions":[
                   {
-                     "conditionType":"control",
                      "controlType":"controlID",
                      "controlQuery":"timvision.launcher:id/text_view",
                      "isVisible":true
@@ -81,19 +104,19 @@
          ],
          "actionItems":[
             {
-               "actionType":"show-advert",
+               "actionType":"showAdvert",
                "advertId":"QmucNouJLNa7TtIVUexz",
                "conditionGroup":{
                   "operatorType":"none",
                   "conditions":[
-                     
+
                   ]
                },
                "triggers":[
-                  
+
                ],
                "contexts":[
-                  
+
                ]
             }
          ]
