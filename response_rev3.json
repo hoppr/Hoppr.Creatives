@@ -156,7 +156,7 @@
 			"actionItems":[
 				{
 					"actionType":"showAdvert",
-					"advertId":"TV Guide - 728x90Banner",
+					"advertId":"KeyValuePairAd", 
 					"conditionGroup":{
 						"operatorType":"skip",
 						"conditions":[
