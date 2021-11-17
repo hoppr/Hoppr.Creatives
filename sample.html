@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<!-- meta tag magic stops html webview video default ugly play button from showing -->
+<meta http-equiv="Content-Security-Policy"
+  content="default-src *;
+  style-src 'self' http://* 'unsafe-inline' ;
+  media-src * ;
+  img-src * 'self' http://* 'unsafe-inline';
+  script-src 'self' http://* https://* 'unsafe-inline' 'unsafe-eval'"/>
+<style>
+
+</style>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <link href="https://vjs.zencdn.net/7.0.4/video-js.css" rel="stylesheet">
+  <script src="https://vjs.zencdn.net/7.0.4/video.js"></script>
+</head>
+<body>
+<video class="video-js" id="player" data-setup='{"fluid": true}'>
+     <source src="https://european-videos.s3.eu-west-2.amazonaws.com/Porsche.mp4" type=video/mp4>
+</video>
+<script>
+var player = videojs("player");
+
+player.ready(function() {
+      player.play();
+  });
+  </script>
+</body>
+</html>
