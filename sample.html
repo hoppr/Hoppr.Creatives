@@ -2,16 +2,24 @@
 <html>
 <body>
 
-<p>Data from HopprTV for "Contextual Targeting":</p>
+<h1>Data from HopprTV for "Contextuals":</h1>
+<h1 id="contextual"> </h1>
+  
+<h1>Data from HopprTV for "User Properties":</h1>
+<h1 id="properties"> </h1>
 
-<p id="demo"></p>
 
 <script>
-function myFunction() {
-  return Android.getKeyValuePairs();
+function getContextualData() {
+  return Android.getContextualData();
 }
 
-document.getElementById("demo").innerHTML = myFunction();
+function getPropertiesData() {
+  return Android.getPropertiesData();
+}
+  
+document.getElementById("contextual").innerHTML = getContextualData();
+document.getElementById("properties").innerHTML = getPropertiesData();
 </script>
 
 </body>
