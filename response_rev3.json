@@ -156,7 +156,7 @@
 			"actionItems":[
 				{
 					"actionType":"showAdvert",
-					"advertId":"KeyValuePairAd", 
+					"advertId":"KeyValuePairAd",
 					"conditionGroup":{
 						"operatorType":"skip",
 						"conditions":[
@@ -167,7 +167,12 @@
 						
 					],
 					"contexts":[
-						
+						{
+							"controlType":"windowPos",
+							"controlQuery":"111 530 341 560",
+							"controlLabel":"TV_GUIDE_FIRST_BOX_TOP",
+							"isVisible":true
+						}
 					]
 				},
 				{
