@@ -11,12 +11,12 @@
 					"operatorType":"all",
 					"conditions":[
 						{
-							"controlType":"controlID",
+							"controlType":"controlId",
 							"controlQuery":"timvision.launcher:id/main_title",
 							"isVisible":true
 						},
 						{
-							"controlType":"controlID",
+							"controlType":"controlId",
 							"controlQuery":"timvision.launcher:id/movie_params_container",
 							"isVisible":true
 						}
@@ -31,7 +31,7 @@
 						"operatorType":"any",
 						"conditions":[
 							{
-								"controlType":"controlID",
+								"controlType":"controlId",
 								"controlQuery":"timvision.launcher:id/genre",
 								"isVisible":true,
 								"textCondition":{
