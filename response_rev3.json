@@ -107,7 +107,8 @@
                         "valueTextsRegex":"[^a-zA-Z0-9À^'^\\s]",
                         "valueTextsOperator":"any",
                         "valueTexts":[
-                           "AGGIUNGI A LISTA"
+                           "AGGIUNGI A LISTA",
+                           "CONTINUA A GUARDARE",
                         ]
                      }
                   }
