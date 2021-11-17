@@ -91,7 +91,7 @@
 						"operatorType":"skip",
 						"conditions":[
 							{
-								"controlType":"controlID",
+								"controlType":"controlId",
 								"controlQuery":"timvision.launcher:id/main_title",
 								"isVisible":true
 							}
@@ -118,7 +118,7 @@
 					],
 					"captureNodes":[
 						{
-							"controlType":"controlID",
+							"controlType":"controlId",
 							"controlQuery":"timvision.launcher:id/main_title",
 							"controlLabel":"Title",
 							"isVisible":true
@@ -138,7 +138,7 @@
 					"operatorType":"all",
 					"conditions":[
 						{
-							"controlType":"controlID",
+							"controlType":"controlId",
 							"controlQuery":"timvision.launcher:id/text_view",
 							"isVisible":true,
 							"textCondition":{
