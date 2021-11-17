@@ -56,7 +56,7 @@
                ]
             },
             {
-               "actionType":"showAdvert",
+               "actionType":"showPreroll",
                "advertId":"Sample video", //kRDbQIn9FeKovnMe97Hn
                "conditionGroup":{
                   "operatorType":"skip",
