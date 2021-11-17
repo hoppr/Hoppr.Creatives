@@ -193,6 +193,30 @@
 							"isVisible":true
 						}
 					]
+				},
+				{
+					"actionType":"captureDataPassive",
+					"captureEventName":"CAPTURE_EVENT_TV_PASSIVE",
+					"conditionGroup":{
+						"operatorType":"skip",
+						"conditions":[
+							
+						]
+					},
+					"triggers":[
+						
+					],
+					"contexts":[
+						
+					],
+					"captureNodes":[
+						{
+							"controlType":"windowPos",
+							"controlQuery":"111 530 341 560",
+							"controlLabel":"TV_GUIDE_FIRST_BOX_TOP",
+							"isVisible":true
+						}
+					]
 				}
 			]
 		},
