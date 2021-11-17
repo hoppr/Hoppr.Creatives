@@ -57,7 +57,7 @@
             },
             {
                "actionType":"showAdvert",
-               "advertId":"TIM_skyscraper", //kRDbQIn9FeKovnMe97Hn
+               "advertId":"Sample video", //kRDbQIn9FeKovnMe97Hn
                "conditionGroup":{
                   "operatorType":"skip",
                   "conditions":[
