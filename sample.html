@@ -18,9 +18,21 @@ function getPropertiesData() {
   return Android.getPropertiesData();
 }
   
+function setInteractive() {
+    var adClickConfig = {behavior: "deepLink"};
+    adClickConfig.appLaunchOnly = false;
+    adClickConfig.packageName = "com.netflix.ninja";
+    adClickConfig.clickThruLink = "https://www.netflix.com/au/title/80180373?source=30";
+    return Android.setInteractive(JSON.stringify(adClickConfig));
+}
+  
 document.getElementById("contextual").innerHTML = getContextualData();
 document.getElementById("properties").innerHTML = getPropertiesData();
+  
+setInteractive();
+
 </script>
 
+  
 </body>
 </html>
