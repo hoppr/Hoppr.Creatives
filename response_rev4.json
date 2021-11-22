@@ -519,6 +519,51 @@
                ]
             }
          ]
-      }
+      },
+			{
+				 "key":"TIM_LivePause",
+				 "name":"TIM_LivePause",
+				 "componentName":"timvision.launcher/.ui.HomeActivity",
+				 "priority":100,
+				 "operatorType":"all",
+				 "conditionGroups":[
+						{
+							 "operatorType":"all",
+							 "conditions":[
+									{
+										 "controlType":"controlId",
+										 "controlQuery":"timvision.launcher:id/tv_label",
+										 "isVisible":true,
+										 "textCondition":{
+												"valueTextsDelimiter":"",
+												"valueTextsRegex":"",
+												"valueTextsOperator":"any",
+												"valueTexts":[
+													 "IN PAUSA"
+												]
+										 }
+									}
+							 ]
+						}
+				 ],
+				 "actionItems":[
+						{
+							 "actionType":"showAdvert",
+							 "advertId":"Live Pause - 1920x500",
+							 "conditionGroup":{
+									"operatorType":"skip",
+									"conditions":[
+
+									]
+							 },
+							 "triggers":[
+
+							 ],
+							 "contexts":[
+
+							 ]
+						}
+				 ]
+			}
    ]
 }
