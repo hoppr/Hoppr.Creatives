@@ -19,7 +19,7 @@
             }
          ],
          "actionItems":[
-            
+
          ]
       },
       {
@@ -52,14 +52,14 @@
                "conditionGroup":{
                   "operatorType":"skip",
                   "conditions":[
-                     
+
                   ]
                },
                "triggers":[
-                  
+
                ],
                "contexts":[
-                  
+
                ]
             }
          ]
@@ -94,7 +94,7 @@
                "conditionGroup":{
                   "operatorType":"skip",
                   "conditions":[
-                     
+
                   ]
                },
                "triggers":[
@@ -113,7 +113,7 @@
                   }
                ],
                "contexts":[
-                  
+
                ]
             }
          ]
@@ -151,16 +151,58 @@
                "conditionGroup":{
                   "operatorType":"skip",
                   "conditions":[
-                     
+
                   ]
                },
                "triggers":[
-                  
+
                ],
                "contexts":[
-                  
+
                ]
-            }
+            },
+						{
+							 "actionType":"captureData",
+							 "captureEventName":"TIM_TV_guide_capture_data",
+							 "conditionGroup":{
+									"operatorType":"skip",
+									"conditions":[
+
+									]
+							 },
+							 "triggers":[
+									{
+										 "controlType":"isFocused",
+										 "controlQuery":"parentOnly",
+										 "isVisible":true,
+										 "rectCondition":{
+												"rectMatching":true,
+												"rectAcceptanceRatio":0.8,
+												"rectValuesOperator":"any",
+												"rectValues":[
+													 "90 300 490 600"
+												]
+										 }
+									}
+							 ],
+							 "contexts":[
+									 
+							 ],
+							 "captureNodes":[
+								 {
+									 "controlType":"windowPos",
+									 "controlQuery":"111 530 341 560",
+									 "controlLabel":"ProgramName",
+									 "isVisible":true
+								 },
+								 {
+									 "controlType":"windowPos",
+									 "controlQuery":"111 560 220 582",
+									 "controlLabel":"ProgramTitle",
+									 "isVisible":true
+								 }
+							 ]
+						}
          ]
       },
       {
@@ -196,14 +238,14 @@
                "conditionGroup":{
                   "operatorType":"skip",
                   "conditions":[
-                     
+
                   ]
                },
                "triggers":[
-                  
+
                ],
                "contexts":[
-                  
+
                ]
             }
          ]
@@ -299,7 +341,7 @@
                   }
                ],
                "contexts":[
-                  
+
                ]
             },
             {
@@ -308,14 +350,14 @@
                "conditionGroup":{
                   "operatorType":"skip",
                   "conditions":[
-                     
+
                   ]
                },
                "triggers":[
-                  
+
                ],
                "contexts":[
-                  
+
                ],
                "captureNodes":[
                   {
@@ -419,7 +461,7 @@
                   }
                ],
                "contexts":[
-                  
+
                ]
             },
             {
@@ -428,14 +470,14 @@
                "conditionGroup":{
                   "operatorType":"skip",
                   "conditions":[
-                     
+
                   ]
                },
                "triggers":[
-                  
+
                ],
                "contexts":[
-                  
+
                ],
                "captureNodes":[
                   {
