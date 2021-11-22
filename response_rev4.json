@@ -117,6 +117,51 @@
                ]
             }
          ]
+      },
+      {
+         "key":"TIM_TV_guide",
+         "name":"TIM_TV_guide",
+         "componentName":"timvision.launcher/.ui.HomeActivity",
+         "priority":100,
+         "operatorType":"all",
+         "conditionGroups":[
+					 {
+	 					"operatorType":"all",
+	 					"conditions":[
+	 						{
+	 							"controlType":"controlId",
+	 							"controlQuery":"timvision.launcher:id/text_view",
+	 							"isVisible":true,
+	 							"textCondition":{
+	 								"valueTextsDelimiter":"",
+	 								"valueTextsRegex":"",
+	 								"valueTextsOperator":"any",
+	 								"valueTexts":[
+	 									"TV"
+	 								]
+	 							}
+	 						}
+	 					]
+	 				}
+         ],
+         "actionItems":[
+            {
+               "actionType":"showAdvert",
+               "advertId":"TV Guide - 728x90Banner",
+               "conditionGroup":{
+                  "operatorType":"skip",
+                  "conditions":[
+                     
+                  ]
+               },
+               "triggers":[
+
+               ],
+               "contexts":[
+                  
+               ]
+            }
+         ]
       }
    ]
 }
