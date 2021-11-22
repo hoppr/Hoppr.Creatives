@@ -186,19 +186,19 @@
 									}
 							 ],
 							 "contexts":[
-									 
+
 							 ],
 							 "captureNodes":[
 								 {
-									 "controlType":"windowPos",
-									 "controlQuery":"111 530 341 560",
-									 "controlLabel":"ProgramName",
+									 "controlType":"controlId",
+									 "controlQuery":"timvision.launcher:id/program_title",
+									 "controlLabel":"ProgramTitle",
 									 "isVisible":true
 								 },
-								 {
-									 "controlType":"windowPos",
-									 "controlQuery":"111 560 220 582",
-									 "controlLabel":"ProgramTitle",
+								 { 
+									 "controlType":"controlId",
+									 "controlQuery":"timvision.launcher:id/program_event_schedule",
+									 "controlLabel":"ProgramTime",
 									 "isVisible":true
 								 }
 							 ]
