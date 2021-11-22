@@ -176,8 +176,8 @@
 										 "controlQuery":"parentOnly",
 										 "isVisible":true,
 										 "rectCondition":{
-												"rectMatching":true,
-												"rectAcceptanceRatio":0.8,
+												"rectMatching":false,
+												"rectAcceptanceRatio":1,
 												"rectValuesOperator":"any",
 												"rectValues":[
 													 "90 300 490 600"
