@@ -115,7 +115,22 @@
                "contexts":[
 
                ]
-            }
+            },{
+                    "actionType": "showAdvert",
+                    "advertId": "Welcome - 1920x500 Banner",
+                    "conditionGroup": {
+                        "operatorType": "skip",
+                        "conditions": [
+
+                        ]
+                    },
+                    "triggers": [
+
+                    ],
+                    "contexts": [
+
+                    ]
+                }
          ]
       },
       {
