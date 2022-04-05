@@ -1,0 +1,175 @@
+/************ 
+TAG STYLES
+ ************/
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: white;
+	color: white;
+	font-size: 12px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.btn {
+    min-width: 100px;
+    height: 30px;
+    color: #111;
+    box-sizing: border-box;
+    border-color: #f0c246 #ebbc3c #bf9a3b;
+    border-style: solid;
+    border-width: 1px;
+    background: -webkit-gradient(linear,left top,left bottom,from(#f9cf6f),color-stop(80%,#f6bd42),to(#f6bd41));
+    background: -webkit-linear-gradient(#f9cf6f,#f6bd42 80%,#f6bd41);
+    background: linear-gradient(#f9cf6f,#f6bd42 80%,#f6bd41);
+    border-radius: 3px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    line-height: 18px;
+    padding: 5px 5px;
+	user-select: none;    
+    cursor: pointer;
+}
+
+.btn:hover, .btn:active {
+    text-decoration: none;
+    background: -webkit-gradient(linear,left top,left bottom,from(#f4be48),to(#f3ac14));
+    background: -webkit-linear-gradient(#f4be48,#f3ac14);
+    background: linear-gradient(#f4be48,#f3ac14);
+}
+
+button:hover,
+button:active {
+	color: #0D2A4D;
+}
+
+button:active {
+	font-size: 11px;
+}
+
+
+/*******************
+BANNER STYLES
+*******************/
+
+#banner {
+	height: 100%;
+	width: 100%;
+	background-size: auto 40px, cover;
+	background-position: 10px 10px, 0 0;
+	background-image: url(../images/logo.png), url(../images/background.jpg);
+	background-repeat: no-repeat;
+	border: 1px solid black;
+	box-sizing: border-box;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+
+/*******************
+DISPLAY STYLES
+*******************/
+
+.hide {
+	display: none;
+}
+
+
+/************************
+CREATIVE CONTENT STYLES
+************************/
+
+video {
+	background-color: black;
+	height: 169px;
+	width: 300px;
+}
+
+.label {
+	left: 10px;
+	position: absolute;
+	top: 60px;
+}
+
+.buttons {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
+
+#primary-content {
+	display: -ms-flexbox;
+	display: -webkit-box;
+	display: flex;
+	-ms-flex-align: center;
+	-webkit-box-align: center;
+	align-items: center;
+	-ms-flex-pack: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-ms-flex: 1 1 50%;
+	-webkit-box-flex: 1;
+	flex: 1 1 50%;
+	height: 70%;
+	width: 100%;
+
+	/* CENTERING */
+	position: absolute;
+	margin: auto;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;	
+}
+
+.sub-content {}
+
+#video-container {
+	display: -ms-flexbox;
+	display: -webkit-box;
+	display: flex;
+	-ms-flex-align: center;
+	-webkit-box-align: center;
+	align-items: center;
+	-ms-flex-pack: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+	min-width: 300px;
+	width: 300px;
+}
+
+#example-text {
+	box-sizing: border-box;
+	max-height: 170px;
+	max-width: 300px;
+	padding: 1em;
+}
+
+
+/**************************
+MEDIA QUERY SIZING STYLES
+**************************/
+
+@media (max-width: 605px) and (max-height: 440px),
+(max-width: 1190px) and (max-height: 330px) {
+	#example-text {
+		display: none;
+	}
+}
+
+@media (max-width: 850px) and (max-height: 330px),
+(max-height: 200px),
+(max-width: 310px) {
+	#primary-content {
+		display: none;
+	}
+}
