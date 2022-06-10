@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content=
+            "width=device-width, initial-scale=1.0">
+        <title>Hoppr Web Experience</title>
+        <style>
+            /* Styling the Body element i.e. Color,
+            Font, Alignment */
+            body {
+            background-color: #05c46b;
+            font-family: Verdana;
+            text-align: center;
+            }
+            /* Styling the Form (Color, Padding, Shadow) */
+            form {
+            text-align: left;
+            background-color: #fff;
+            max-width: 90%;
+            margin: 10px auto;
+            padding: 30px 20px;
+            box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+            }
+            /* Styling form-control Class */
+            .form-control {
+            text-align: left;
+            margin-bottom: 25px;
+            }
+            /* Styling form-control Label */
+            .form-control label {
+            display: block;
+            margin-bottom: 10px;
+            }
+            /* Styling Button */
+            button {
+            background-color: #05c46b;
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-family: inherit;
+            font-size: 21px;
+            display: block;
+            width: 50%;
+            margin-bottom: 10px;
+            }
+            .column {
+            float: left;
+            width: 33%;
+            }
+            /* Clear floats after the columns */
+            .row:after {
+            content: "";
+            display: table;
+            clear: both;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Hoppr Web Experience</h1>
+        <!-- Create Form -->
+        <form id="form">
+            <div>
+                <h4>How would you rate your experience with our products?</h4>
+                <div class="row">
+                    <div class="column" align=Left>
+                        <!-- Input Type Radio Button -->
+                        <label for="recommed-1">
+                        <input type="radio"id="recommed-1" name="recommed">
+                        Very satisfied</input>
+                        </label>
+                        </br>
+                        </br>
+                        <label for="recommed-2">
+                        <input type="radio" id="recommed-2" name="recommed">
+                        Satisfied</input>
+                        </label>
+                    </div>
+                    <div class="column" align=Left>            
+                        <label for="recommed-3">
+                        <input type="radio"id="recommed-3" name="recommed">
+                        Neither agree nor disagree</input>
+                        </label>
+                        </label>
+                        </br>
+                        </br>
+                        <label for="recommed-4">
+                        <input type="radio"id="recommed-3" name="recommed">
+                        Dissatisfied</input>
+                        </label>
+                    </div>
+                    <div class="column" align=Right>
+                        <!-- Multi-line Text Input Control -->
+                        <button id="submitSurvey" type="button">Cancel</button>
+                        <button id="submitSurvey2" type="button">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+    <script type="text/javascript">
+        Android?.allowConsumeKeys();
+        document.getElementById("submitSurvey").onclick = function () { Android?.closeAdvertWindow(); };
+        document.getElementById("submitSurvey2").onclick = function () { Android?.closeAdvertWindow(); };
+    </script>
+</html>
