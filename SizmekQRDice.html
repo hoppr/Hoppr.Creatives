@@ -1,0 +1,57 @@
+<html lang="en">
+  <head>
+    <title>QR Code testing for Mat - Script</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=300, height=600, initial-scale=2.4, user-scalable=no"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body style="margin: 0px;">
+    <!--- GAM variables --->
+    <script type="text/javascript">
+      var adUnit = "/21854952015/DevUnit/DevDisplay/SizmekDev/SizmekHalfPage/HPQRCode";
+      var adSize = [300, 600];
+      var kvPairs = {};
+      var ppid = '';
+    </script>
+
+    <script
+      async
+      src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"
+    ></script>
+    <script>
+      var googletag = googletag || {};
+      googletag.cmd = googletag.cmd || [];
+
+      googletag.cmd.push(function() {
+        googletag.pubads().setCentering(true);
+        //googletag.pubads().setPublisherProvidedId(ppid);
+        //googletag.pubads().setRequestNonPersonalizedAds(0);
+        googletag.pubads().setPrivacySettings();
+        googletag.enableServices();
+      });
+    </script>
+
+    <!--- GPT Slot Definition --->
+    <div id="div-gpt-ad-1655871301188-0">
+      <script type="text/javascript">
+        googletag.cmd.push(function() {
+          var adObj = googletag.defineSlot(adUnit, adSize, "div-gpt-ad-1655871301188-0");
+
+          if (kvPairs) {
+            Object.keys(kvPairs).forEach(function(key) {
+              adObj.setTargeting(key, kvPairs[key]);
+            });
+          }
+
+          adObj.addService(googletag.pubads());
+          googletag.display("div-gpt-ad-1655871301188-0");
+        });
+      </script>
+    </div>
+  </body>
+</html>
