@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <title>Spideo Demo</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .contentPopup {
+      margin: 0;
+      padding: 0 0.5rem;
+    }
+
+    .contentPopup h2 {
+      margin-bottom: 0;
+    }
+
+    .contentPopup h4 {
+      margin-top: 0.5rem;
+    }
+
+    .contents {
+      display: flex;
+      flex-direction: column;
+      width: 95%;
+    }
+
+    .contents .content {
+      height: 150px;
+      padding: 0.5rem;
+      display: flex;
+      width: 100%;
+
+    }
+
+    .contents .content .contentInfo {
+      width: calc(100% - 250px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contents .content img {
+      width: 150px;
+      height: 100%;
+      object-fit: contain;
+      object-position: left;
+
+    }
+
+    .contents .content .title {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+
+    .contents .content .title span {
+      font-size: 14px;
+      color: #464646;
+      margin-left: 0.4rem;
+    }
+
+    .contents .content .synopsis {
+      font-size: 14px;
+      margin: 0.3rem 0;
+      width: 100%;
+      height: 80px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .buttons {
+      margin-top: 0.5rem;
+    }
+
+    .buttons button {
+      outline: none;
+      color: white;
+      padding: 0.5rem 2rem;
+      border: none;
+      border-radius: 5.98983px;
+      cursor: pointer;
+    }
+
+    .playButton {
+      background-color: #0267FD;
+    }
+
+    .addButton {
+      background: #111111;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="contentPopup">
+    <h2>Recommended for you</h2>
+    <h4>Even more <span class="category"></span> titles based on your recent activity</h4>
+    <div class="contents">
+    </div>
+  </div>
+</body>
+<script>
+  const runner = async () => {
+    //utils 
+    const BASE_URL = 'http://hoppr.poc.spideo.com';
+    const defaultHeaders = { 'Content-Type': 'application/json', 'x-api-key': '0ciiTTYgo61bwLEl4kF566KMyfSdqN09zA49aZQe' }
+    const defaultRequestOptions = {
+      mode: 'cors'
+    }
+    //helpers
+    const getRandomEl = array => array && array[Math.floor(Math.random() * array.length)];
+    //helpers
+    const getUrl = (path) => BASE_URL + path;
+    function get(url, headers) {
+      const requestOptions = {
+        ...defaultRequestOptions,
+        method: 'GET',
+        headers
+      };
+      return fetch(getUrl(url), requestOptions).then(handleResponse);
+    }
+
+    function post(url, body, headers) {
+      const requestOptions = {
+        ...defaultRequestOptions,
+        method: 'POST',
+        headers: headers ? { defaultHeaders, ...headers } : defaultHeaders,
+        body: JSON.stringify(body)
+      };
+      return fetch(getUrl(url), requestOptions).then(handleResponse);
+    }
+
+    function put(url, body, headers) {
+      const requestOptions = {
+        ...defaultRequestOptions,
+        method: 'PUT',
+        headers: headers ? { defaultHeaders, ...headers } : defaultHeaders,
+        body: JSON.stringify(body)
+      };
+      return fetch(getUrl(url), requestOptions).then(handleResponse);
+    }
+
+    // prefixed with underscored because delete is a reserved word in javascript
+    function _delete(url) {
+      const requestOptions = {
+        ...defaultRequestOptions,
+        method: 'DELETE'
+      };
+      return fetch(getUrl(url), requestOptions).then(handleResponse);
+    }
+
+    // helper functions
+
+    function handleResponse(response) {
+      return response.text().then(text => {
+        const data = text && JSON.parse(text);
+
+        if (!response.ok) {
+          const error = (data && data.message) || response.statusText;
+          return Promise.reject(error);
+        }
+
+        return data;
+      });
+    }
+    //utils 
+
+    //logic
+    const headers = {}
+
+
+    const personas = [{ id: '1069', name: 'New horizons' }, { id: '1070', name: 'Music' }, { id: '1071', name: 'Gastronomy' }];
+    const randomUser = getRandomEl(personas);
+    document.querySelector('.contentPopup h4 span.category').innerHTML = randomUser.name;
+    if (randomUser) {
+      const contents = await performUserRecommendation(randomUser.id);
+      createAndPushHtmlForContents(contents);
+    }
+    async function performUserRecommendation(userId) {
+      if (!userId) return;
+      const recommendationUrl = `/users/${userId}/recommendation/vod,week,catchup?limit=100&skip=0`;
+      const { recommendation: recommendations } = await get(recommendationUrl, headers) || {};
+      console.log('recommendations : ', recommendations);
+      let contents = recommendations?.contents;
+      if (contents?.length) {
+        contents = await Promise.all(contents?.map(async (id) => {
+          const contentMetaData = await get(`/contents/${id}/metadata`, headers);
+          return contentMetaData;
+        }))
+        return contents;
+      }
+
+    }
+
+    function createAndPushHtmlForContents(contents = []) {
+      const contentHtml = contents?.map(content => {
+        const { title, posterUrl, synopsis, duration, genres } = content;
+        return `<div class="content">
+                    <div class="image"><img src=${'https://' + posterUrl}></div>
+                    <div class="contentInfo">
+                      <div class="title">${title}
+                        <span>${duration} min | ${genres?.join(', ')}</span>
+                        </div>
+                      <div class="synopsis">${synopsis}</div>
+                      <div class="buttons">
+                        <button class="playButton">Play</button>
+                        <button class="addButton">Add to Playlist</button>
+                      </div>
+                    </div>
+                  </div>`
+      }).join('\n')
+
+      document.querySelector('.contents').innerHTML = contentHtml;
+    }
+  }
+
+  runner();
+</script>
+
+</html>
