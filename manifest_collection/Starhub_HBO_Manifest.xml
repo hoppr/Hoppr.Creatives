@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1901121602" android:versionName="r34.v1.0.159.6" android:compileSdkVersion="30" android:compileSdkVersionCodename="11" package="com.hbo.asia.androidtv" platformBuildVersionCode="30" platformBuildVersionName="11">
+    <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="30"/>
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false"/>
+    <uses-feature android:name="android.software.leanback" android:required="true"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.android.providers.tv.permission.READ_EPG_DATA"/>
+    <uses-permission android:name="com.android.providers.tv.permission.WRITE_EPG_DATA"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <application android:theme="@style/AppTheme" android:label="@string/app_name" android:icon="@mipmap/ic_app" android:name="com.onwardsmg.hbo.p094tv.MyApplication" android:allowBackup="false" android:largeHeap="true" android:supportsRtl="true" android:banner="@mipmap/ic_app_banner" android:fullBackupContent="@xml/appsflyer_backup_rules" android:usesCleartextTraffic="true" android:appComponentFactory="androidx.core.app.CoreComponentFactory">
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.parentalcontrol.SetAgeLimitActivity" android:screenOrientation="landscape" android:windowSoftInputMode="adjustUnspecified|stateUnchanged|stateHidden|stateAlwaysHidden|adjustPan"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.parentalcontrol.PINSettingActivity" android:screenOrientation="landscape" android:windowSoftInputMode="adjustUnspecified|stateUnchanged|stateHidden|stateAlwaysHidden|adjustPan"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.parentalcontrol.PinUiActivity" android:screenOrientation="landscape" android:windowSoftInputMode="adjustUnspecified|stateUnchanged|stateHidden|stateAlwaysHidden|adjustPan"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.jwt.JwtForgetPasswordActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.jwt.JwtCreateAccountActivity" android:screenOrientation="landscape" android:windowSoftInputMode="adjustUnspecified|stateUnchanged|stateHidden|stateAlwaysHidden|adjustPan"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.jwt.JwtSignInActivity" android:screenOrientation="landscape" android:windowSoftInputMode="adjustUnspecified|stateUnchanged|stateHidden|stateAlwaysHidden|adjustPan"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.jwt.JwtWelcomeActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.ChannelLinkActivity" android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="tvrecommendation" android:host="hbo"/>
+            </intent-filter>
+        </activity>
+        <meta-data android:name="firebase_performance_logcat_enabled" android:value="false"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.SplashActivity" android:exported="true" android:launchMode="singleTask" android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="hbotv"/>
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="https" android:host="link-hbouat.onwardsmg.net"/>
+                <data android:scheme="https" android:host="uatlink.hbogoasia.com"/>
+                <data android:scheme="https" android:host="link.hbogoasia.com"/>
+                <data android:scheme="https" android:host="www.hbogoasia.com"/>
+            </intent-filter>
+        </activity>
+        <provider android:name="com.onwardsmg.hbo.p094tv.data.VideoContentProvider" android:enabled="true" android:exported="true" android:authorities="com.hbo.asia.androidtv"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.SearchableActivity" android:exported="true" android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
+            </intent-filter>
+            <meta-data android:name="android.app.searchable" android:resource="@xml/searchable"/>
+        </activity>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.MainActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.WelcomeActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.SignInActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.CollectionGenreActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.detail.MovieDetailActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.detail.TrailerDetailActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.detail.SeriesDetailActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.parentalcontrol.PINVerifyActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.player.PlayerSignInActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.player.PlayerActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.detail.EpisodeDetailActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.jwt.JwtNoIndiHomeWelcomeActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.onwardsmg.hbo.p094tv.activity.jwt.JwtNoIndiHomeSignInActivity" android:screenOrientation="landscape"/>
+        <service android:name="com.onwardsmg.hbo.p094tv.channel.service.SyncChannelJobService" android:permission="android.permission.BIND_JOB_SERVICE" android:exported="false"/>
+        <service android:name="com.onwardsmg.hbo.p094tv.channel.service.SyncProgramsJobService" android:permission="android.permission.BIND_JOB_SERVICE" android:exported="false"/>
+        <receiver android:name="com.onwardsmg.hbo.p094tv.channel.receiver.InitializeChannelsReceiver">
+            <intent-filter>
+                <action android:name="android.media.tv.action.INITIALIZE_PROGRAMS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.onwardsmg.hbo.p094tv.channel.receiver.WatchNextNotificationReceiver" android:enabled="true" android:exported="true">
+            <intent-filter>
+                <action android:name="android.media.tv.action.WATCH_NEXT_PROGRAM_BROWSABLE_DISABLED"/>
+                <action android:name="android.media.tv.action.PREVIEW_PROGRAM_ADDED_TO_WATCH_NEXT"/>
+            </intent-filter>
+        </receiver>
+        <meta-data android:name="ulog.enable" android:value="true"/>
+        <meta-data android:name="ulog.level" android:value="DEBUG"/>
+        <meta-data android:name="ulog.local" android:value="true"/>
+        <meta-data android:name="ulog.remote" android:value="true"/>
+        <meta-data android:name="ulog.remote_interval" android:value="500"/>
+        <meta-data android:name="ulog.remote_url" android:value="http://120.78.147.166:8082/"/>
+        <provider android:name="com.google.firebase.perf.provider.FirebasePerfProvider" android:exported="false" android:authorities="com.hbo.asia.androidtv.firebaseperfprovider" android:initOrder="101"/>
+        <service android:name="com.google.firebase.components.ComponentDiscoveryService" android:exported="false" android:directBootAware="true">
+            <meta-data android:name="com.google.firebase.components:com.google.firebase.perf.FirebasePerfRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
+            <meta-data android:name="com.google.firebase.components:com.google.firebase.crashlytics.CrashlyticsRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
+            <meta-data android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
+            <meta-data android:name="com.google.firebase.components:com.google.firebase.remoteconfig.RemoteConfigRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
+            <meta-data android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
+            <meta-data android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
+            <meta-data android:name="com.google.firebase.components:com.google.firebase.abt.component.AbtRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
+        </service>
+        <meta-data android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule" android:value="GlideModule"/>
+        <service android:name="com.google.android.gms.tagmanager.TagManagerService" android:enabled="true" android:exported="false"/>
+        <activity android:name="com.google.android.gms.tagmanager.TagManagerPreviewActivity" android:exported="true" android:noHistory="true">
+            <intent-filter>
+                <data android:scheme="tagmanager.c.com.hbo.asia.androidtv"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.appboy.p030ui.AppboyWebViewActivity" android:exported="false"/>
+        <activity android:name="com.appboy.p030ui.activities.AppboyFeedActivity" android:exported="false"/>
+        <activity android:name="com.appboy.p030ui.activities.AppboyContentCardsActivity" android:exported="false"/>
+        <activity android:theme="@style/Theme.Translucent.NoTitleBar" android:name="com.appboy.push.AppboyNotificationRoutingActivity" android:exported="false" android:launchMode="singleInstance"/>
+        <receiver android:name="com.appboy.BrazePushReceiver" android:exported="false"/>
+        <provider android:name="androidx.work.impl.WorkManagerInitializer" android:exported="false" android:multiprocess="true" android:authorities="com.hbo.asia.androidtv.workmanager-init" android:directBootAware="false"/>
+        <service android:name="androidx.work.impl.background.systemalarm.SystemAlarmService" android:enabled="@bool/enable_system_alarm_service_default" android:exported="false" android:directBootAware="false"/>
+        <service android:name="androidx.work.impl.background.systemjob.SystemJobService" android:permission="android.permission.BIND_JOB_SERVICE" android:enabled="@bool/enable_system_job_service_default" android:exported="true" android:directBootAware="false"/>
+        <service android:name="androidx.work.impl.foreground.SystemForegroundService" android:enabled="@bool/enable_system_foreground_service_default" android:exported="false" android:directBootAware="false"/>
+        <receiver android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver" android:enabled="true" android:exported="false" android:directBootAware="false"/>
+        <receiver android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy" android:enabled="false" android:exported="false" android:directBootAware="false">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy" android:enabled="false" android:exported="false" android:directBootAware="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_OKAY"/>
+                <action android:name="android.intent.action.BATTERY_LOW"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy" android:enabled="false" android:exported="false" android:directBootAware="false">
+            <intent-filter>
+                <action android:name="android.intent.action.DEVICE_STORAGE_LOW"/>
+                <action android:name="android.intent.action.DEVICE_STORAGE_OK"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy" android:enabled="false" android:exported="false" android:directBootAware="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver" android:enabled="false" android:exported="false" android:directBootAware="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.TIME_SET"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver" android:enabled="@bool/enable_system_alarm_service_default" android:exported="false" android:directBootAware="false">
+            <intent-filter>
+                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver" android:permission="android.permission.DUMP" android:enabled="true" android:exported="true" android:directBootAware="false">
+            <intent-filter>
+                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS"/>
+            </intent-filter>
+        </receiver>
+        <activity android:theme="@style/Theme.Translucent.NoTitleBar" android:name="com.google.android.gms.common.api.GoogleApiActivity" android:exported="false"/>
+        <provider android:name="com.google.firebase.provider.FirebaseInitProvider" android:exported="false" android:authorities="com.hbo.asia.androidtv.firebaseinitprovider" android:initOrder="100" android:directBootAware="true"/>
+        <receiver android:name="com.google.android.gms.measurement.AppMeasurementReceiver" android:enabled="true" android:exported="false"/>
+        <service android:name="com.google.android.gms.measurement.AppMeasurementService" android:enabled="true" android:exported="false"/>
+        <service android:name="com.google.android.gms.measurement.AppMeasurementJobService" android:permission="android.permission.BIND_JOB_SERVICE" android:enabled="true" android:exported="false"/>
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
+        <service android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery" android:exported="false">
+            <meta-data android:name="backend:com.google.android.datatransport.cct.CctBackendFactory" android:value="cct"/>
+        </service>
+        <service android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService" android:permission="android.permission.BIND_JOB_SERVICE" android:exported="false"/>
+        <receiver android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver" android:exported="false"/>
+        <service android:name="androidx.room.MultiInstanceInvalidationService" android:exported="false" android:directBootAware="true"/>
+        <receiver android:name="com.appboy.receivers.AppboyActionReceiver" android:exported="false"/>
+    </application>
