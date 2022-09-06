@@ -115,7 +115,7 @@
 <script>
   const runner = async () => {
     //utils 
-    const BASE_URL = 'http://hoppr.poc.spideo.com';
+    const BASE_URL = 'https://hoppr.poc.spideo.com';
     const defaultHeaders = { 'Content-Type': 'application/json', 'x-api-key': '0ciiTTYgo61bwLEl4kF566KMyfSdqN09zA49aZQe' }
     const defaultRequestOptions = {
       mode: 'cors'
@@ -128,7 +128,7 @@
       const requestOptions = {
         ...defaultRequestOptions,
         method: 'GET',
-        headers
+        headers: headers ? { ...defaultHeaders, ...headers } : defaultHeaders,
       };
       return fetch(getUrl(url), requestOptions).then(handleResponse);
     }
@@ -137,7 +137,7 @@
       const requestOptions = {
         ...defaultRequestOptions,
         method: 'POST',
-        headers: headers ? { defaultHeaders, ...headers } : defaultHeaders,
+        headers: headers ? { ...defaultHeaders, ...headers } : defaultHeaders,
         body: JSON.stringify(body)
       };
       return fetch(getUrl(url), requestOptions).then(handleResponse);
