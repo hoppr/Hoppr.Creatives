@@ -1,0 +1,29 @@
+body {
+  background-color: black;
+  color: white;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  padding: 0 1rem;
+}
+
+footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: black;
+  position: fixed;
+  padding: 1rem;
+  bottom: 0;
+  right: 1rem;
+}
+
+footer span {
+  font-weight: 500;
+  font-size: 20px;
+  color: #626262;
+}
+footer img {
+  margin-left: 0.5rem;
+  width: 150px;
+}
