@@ -13,17 +13,17 @@ footer {
   align-items: center;
   background-color: black;
   position: fixed;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   bottom: 0;
-  right: 1rem;
+  right: 0;
 }
 
 footer span {
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
   color: #626262;
 }
 footer img {
   margin-left: 0.5rem;
-  width: 150px;
+  width: 140px;
 }
