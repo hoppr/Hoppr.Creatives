@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <title>Spideo Product(New Horizon) Demo</title>
+  <link rel="stylesheet" href="../../common.css">
+  <style>
+    .contentPopup h4 {
+      margin-top: -0.75rem;
+    }
+
+    .contentsContainer {
+      display: grid;
+      place-items: center;
+    }
+
+    #slideshow {
+      display: grid;
+      place-items: center;
+    }
+
+    [data-component="slideshow"] .slide {
+      display: none;
+      text-align: center;
+    }
+
+    [data-component="slideshow"] .slide.active {
+      display: block;
+      width: 80%;
+      height: 80%;
+    }
+
+    [data-component="slideshow"] .slide.active img {
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="../common.css">
+</head>
+
+<body>
+  <div class="contentPopup">
+    <h2>Enjoying <span class="category"></span></h2>
+    <h4>We thought you’d like these...</h4>
+    <div id="slideshow" data-component="slideshow">
+      <div role="list">
+        <div class="slide">
+          <img src="../../assets/images/newHorizon1.gif" alt="">
+        </div>
+        <div class="slide">
+          <img src="../../assets/images/newHorizon2.png" alt="">
+        </div>
+        <div class="slide">
+          <img src="../../assets/images/newHorizon3.gif" alt="">
+        </div>
+        <div class="slide">
+          <img src="../../assets/images/newHorizon4.jpeg" alt="">
+        </div>
+        <div class="slide">
+          <img src="../../assets/images/newHorizon5.jpeg" alt="">
+        </div>
+      </div>
+    </div>
+    <footer>
+      <span class="title">Profiles powered by</span>
+      <img src="../../assets/images/spideoLogo.png" alt="" srcset="">
+    </footer>
+  </div>
+</body>
+<script>
+  const runner = async () => {
+
+    //helpers
+    const getRandomEl = array => array && array[Math.floor(Math.random() * array.length)];
+    //helpers
+
+    const adData = [
+      {
+        id: '1070',
+        name: 'New Horizon',
+      }
+    ]
+
+    const randomUser = getRandomEl(adData);
+    document.querySelector('.contentPopup h2 span.category').innerHTML = `'${randomUser.name}'`;
+    if (randomUser) {
+      const contents = randomUser.ads;
+    }
+    const slideshows = document.querySelectorAll('[data-component="slideshow"]');
+    slideshows.forEach(initSlideShow);
+
+    function initSlideShow(slideshow) {
+
+      const slides = document.querySelectorAll(`#${slideshow.id} [role="list"] .slide`);
+      let index = 0;
+      const time = 6000;
+      slides[index].classList.add('active');
+      setInterval(() => {
+        slides[index].classList.remove('active');
+        index++;
+        if (index === slides.length) index = 0;
+        slides[index].classList.add('active');
+      }, time);
+    }
+  }
+
+  runner();
+</script>
+
+</html>
