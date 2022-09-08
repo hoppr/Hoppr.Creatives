@@ -11,8 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap"
     rel="stylesheet">
   <title>Spideo Product Demo</title>
+  <link rel="stylesheet" href="../common.css">
   <style>
-
     .contentPopup h4 {
       margin-top: -0.75rem;
     }
@@ -26,8 +26,9 @@
       display: flex;
       gap: 1rem;
       justify-content: space-between;
-      
+
     }
+
     .contents .card {
       background-color: white;
       max-width: 260px;
@@ -38,6 +39,7 @@
       border-radius: 6px;
       position: relative;
     }
+
     .card .image {
       height: 60%;
       min-height: 60%;
@@ -45,10 +47,12 @@
       display: flex;
       justify-content: center;
     }
+
     .card .image img {
       height: 100%;
       object-fit: contain;
     }
+
     .card .title {
       font-weight: 500;
       font-size: 16px;
@@ -58,33 +62,37 @@
       text-overflow: ellipsis;
       margin: 0.5rem 0;
     }
+
     .card .ratingContainer {
       display: flex;
       align-items: center;
     }
-    .card .ratingContainer .stars{
+
+    .card .ratingContainer .stars {
       color: rgb(255, 208, 54);
     }
-    
-    .card .ratingContainer .ratingCount{
+
+    .card .ratingContainer .ratingCount {
       font-weight: 500;
       font-size: 13px;
       margin-left: 0.1rem;
       color: #D5D5D5;
     }
+
     .card .priceContainer .discountedPrice {
       display: flex;
       align-items: center;
       font-weight: 700;
       font-size: 16px;
     }
+
     .card .priceContainer .originalPrice {
       font-size: 14px;
       text-decoration: line-through;
     }
 
-    .card .priceContainer .discountedPrice img{
-      width: 60px;    
+    .card .priceContainer .discountedPrice img {
+      width: 60px;
     }
 
     button {
@@ -103,7 +111,6 @@
       cursor: pointer;
     }
   </style>
-  <link rel="stylesheet" href="../common.css">
 </head>
 
 <body>
@@ -219,7 +226,7 @@
                   </div>
                   <button class="shop">Shop On Amazon</button>
                 </div>`
-                    }).join('\n')
+      }).join('\n')
 
       document.querySelector('.contents').innerHTML = contentHtml;
     }
