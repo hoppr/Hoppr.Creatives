@@ -1,0 +1,159 @@
+$greyTextClr : #C4C4C4;
+body {
+  color: white;
+  font-family: 'Inter', serif;
+}
+
+.banner {
+  width: 550px;
+  height: 52px;
+  background-color: black;
+  position: relative;
+  .logo {
+    position: absolute;
+    right: 30%;
+    display: flex;
+    flex-direction: column;
+    .logoImg {
+      width: 78px;
+      height: 20px;
+    }
+  }
+  .animatedSubtext {
+    font-size: 12px;
+    color: white;
+    margin-top: 0.2rem;
+    position: absolute;
+    top: 1.2rem;
+    white-space: nowrap;
+    .clickthroughBtn {
+      outline: none;
+      background: none;
+      border: 1px solid white;
+      font-size: 12px;
+      border-radius: 4px;
+      padding: 0.15rem;
+      transition: opacity 0.5s linear;
+      position: absolute;
+      top: 0.1rem;
+    }
+  }
+}
+.expandedBanner {
+  width: 0;
+  height: 0;
+  margin-top: 1rem;
+  background-image: url('../assets/expandedBannerBackImg.png');
+  background-size: cover;
+  background-color: black;
+  display: none;
+  gap: 1rem;
+  position: fixed;
+  padding: 1rem;
+  overflow: hidden;
+  animation: aa 1s;
+  transform: translate(-50%,-50%);
+  left: 50%;
+  top: 50%;
+  .bannerLeft {
+    flex: 0.55;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .videoContainer {
+      background: rgb(0, 0, 0);
+      width: 90%;
+      max-height: 50%;
+      overflow: hidden;
+      background-repeat: no-repeat;
+      background-size: contain;
+      video {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .bannerRight {
+    flex: 0.45;
+    height: 100%;
+    position: relative;
+    .infoContainer {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .ogawaLogo {
+        width: 90%;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        img {
+          width: 50%;
+        }
+        .logoText {
+          font-size: 2rem;
+          text-align: center;
+        }
+      }
+      .infoText {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 200;
+        color: $greyTextClr;
+        font-size: 14px;
+      }
+      .shareControl {
+        padding: 0.5rem 0;
+        font-weight: 200;
+        .header {
+          margin-bottom: 0.5rem;
+          color: $greyTextClr;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  .skipAd {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: $greyTextClr;
+    padding: 1rem;
+    span {
+      background-color:#FFD600;
+      color: black;
+      padding: 0.15rem 0.55rem;
+      border-radius: 2px;
+      font-weight: 500;
+    }
+  }
+}
+
+/* @keyframes aa {
+  0% {
+    width: 0;
+    height: 0;
+  }
+  100% {
+    width: 80vw;
+    height: 80vh;
+  }
+} */
+@keyframes aa {
+  0% {
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+  }
+  100% {
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+    width: 80vw;
+    height: 80vh;
+  }
+}
