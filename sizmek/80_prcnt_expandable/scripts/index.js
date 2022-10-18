@@ -77,11 +77,7 @@ function setSelected(value) {
   }
 }
 
-function setExpanded(value) {
-                
-  if(value) {
-      onExpandClick(true);
-  } else {
-      onExpandClick(false);
-  }
+function setExpanded(isExpanded) {
+  console.log('IS EXPANDED :', isExpanded);
+  onExpandClick(isExpanded);
 }
