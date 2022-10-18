@@ -4,7 +4,7 @@ function startScript() {
 }
 function loadAdConfig() {
   const adClickConfig = {
-    behavior: "deepLink"
+    behavior: "expand"
   };
   adClickConfig.packageName = "com.netflix.ninja";
   adClickConfig.appLaunchOnly = false;
@@ -35,8 +35,8 @@ function clickThroughAnimation() {
 
 }
 
-function onExpandClick() {
-  openBanner();
+function onExpandClick(isExpanded = true) {
+  changeBannerOpenState(isExpanded);
 }
 
 function changeVideoPlayState(state = 'play') {
@@ -46,12 +46,12 @@ function changeVideoPlayState(state = 'play') {
   }
 }
 
-function openBanner() {
+function changeBannerOpenState(isExpanded) {
   const expandedBannerEL = document.querySelector('.expandedBanner');
-  expandedBannerEL.style.display = 'flex';
+  expandedBannerEL.style.display = isExpanded ? 'flex' : 'none';
   setTimeout(() => {
-    expandedBannerEL.style.width = '80vw'; 
-    expandedBannerEL.style.height = '80vh';
+    expandedBannerEL.style.width = isExpanded ? '80vw' : 0; 
+    expandedBannerEL.style.height = isExpanded ? '80vh' : 0;
   }, 0) 
   changeVideoPlayState();
 
@@ -75,5 +75,14 @@ function setSelected(value) {
       element.classList.add('selected');
   } else {
       element.classList.remove('selected');
+  }
+}
+
+function setExpanded(value) {
+                
+  if(value) {
+      onExpandClick(true);
+  } else {
+      onExpandClick(false);
   }
 }
