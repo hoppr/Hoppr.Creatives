@@ -1,5 +1,16 @@
 function startScript() {
   uiChanges();
+  loadAdConfig();
+}
+function loadAdConfig() {
+  const adClickConfig = {
+    behavior: "deepLink"
+  };
+  adClickConfig.packageName = "com.netflix.ninja";
+  adClickConfig.appLaunchOnly = false;
+  adClickConfig.clickThroughLink = "INSERT_LINK_HERE";
+  window?.Android?.setInteractive(JSON.stringify(adClickConfig))
+  console.log("Done Done!")
 }
 
 function uiChanges() {
@@ -7,7 +18,7 @@ function uiChanges() {
 }
 
 function clickThroughAnimation() {
-  const textList = ['Master Drive Plus'/* , 'True Message. True Intelligence' */, 'Click to learn more'];
+  const textList = ['Master Drive Plus', 'True Message. True Intelligence', 'Click to learn more'];
   const container = document.querySelector('.animatedSubtext');
   container.addEventListener('click', onExpandClick);
   let counter = 0;
