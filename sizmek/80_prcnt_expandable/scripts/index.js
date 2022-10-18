@@ -47,3 +47,15 @@ window.addEventListener('load', (event) => {
   startScript();
 });
 
+
+//Client APK APIs definition
+
+function setSelected(value) {
+                
+  var element = document.querySelector('.banner');
+  if(value) {
+      element.classList.add('selected');
+  } else {
+      element.classList.remove('selected');
+  }
+}

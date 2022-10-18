@@ -9,6 +9,9 @@ body {
   background-color: black;
   position: relative;
 }
+.banner.selected {
+  border: 3px solid #02F080;
+}
 .banner .logo {
   position: absolute;
   right: 30%;
@@ -57,8 +60,8 @@ body {
   position: fixed;
   padding: 1rem;
   overflow: hidden;
-  -webkit-animation: aa 1s;
-          animation: aa 1s;
+  -webkit-animation: expandAnimation 1s;
+          animation: expandAnimation 1s;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   left: 50%;
@@ -165,17 +168,7 @@ body {
   font-weight: 500;
 }
 
-/* @keyframes aa {
-  0% {
-    width: 0;
-    height: 0;
-  }
-  100% {
-    width: 80vw;
-    height: 80vh;
-  }
-} */
-@-webkit-keyframes aa {
+@-webkit-keyframes expandAnimation {
   0% {
     -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
@@ -193,7 +186,8 @@ body {
     height: 80vh;
   }
 }
-@keyframes aa {
+
+@keyframes expandAnimation {
   0% {
     -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
