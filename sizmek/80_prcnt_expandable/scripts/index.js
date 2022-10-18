@@ -14,6 +14,7 @@ function loadAdConfig() {
 }
 
 function uiChanges() {
+  changeVideoPlayState('pause');
   clickThroughAnimation();
 }
 
@@ -38,6 +39,13 @@ function onExpandClick() {
   openBanner();
 }
 
+function changeVideoPlayState(state = 'play') {
+  const videoEl = document.querySelector('.videoContainer video');
+  if(videoEl?.play){
+    state === 'play' ? videoEl?.play() : videoEl?.pause();;
+  }
+}
+
 function openBanner() {
   const expandedBannerEL = document.querySelector('.expandedBanner');
   expandedBannerEL.style.display = 'flex';
@@ -45,8 +53,7 @@ function openBanner() {
     expandedBannerEL.style.width = '80vw'; 
     expandedBannerEL.style.height = '80vh';
   }, 0) 
-  const videoEl = document.querySelector('.videoContainer video');
-  videoEl?.play && videoEl?.play();
+  changeVideoPlayState();
 
 }
 
