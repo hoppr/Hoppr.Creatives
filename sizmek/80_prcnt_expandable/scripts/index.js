@@ -53,7 +53,7 @@ function changeBannerOpenState(isExpanded) {
     expandedBannerEL.style.width = isExpanded ? '80%' : 0; 
     expandedBannerEL.style.height = isExpanded ? '80%' : 0;
   }, 0) 
-  changeVideoPlayState(isExpanded);
+  changeVideoPlayState(isExpanded ? 'play' : 'pause');
 }
 
 
