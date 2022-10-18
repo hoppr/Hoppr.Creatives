@@ -50,11 +50,10 @@ function changeBannerOpenState(isExpanded) {
   const expandedBannerEL = document.querySelector('.expandedBanner');
   expandedBannerEL.style.display = isExpanded ? 'flex' : 'none';
   setTimeout(() => {
-    expandedBannerEL.style.width = isExpanded ? '80vw' : 0; 
-    expandedBannerEL.style.height = isExpanded ? '80vh' : 0;
+    expandedBannerEL.style.width = isExpanded ? '80%' : 0; 
+    expandedBannerEL.style.height = isExpanded ? '80%' : 0;
   }, 0) 
-  changeVideoPlayState();
-
+  changeVideoPlayState(isExpanded);
 }
 
 
