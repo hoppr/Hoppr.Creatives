@@ -58,7 +58,18 @@
   </div>
 </body>
 <script src="./scripts/index.js"></script>
+<script type="text/javascript">// ClickTag Capture
 
+  window.addEventListener("load", function () {
+    var adClickConfig = {
+      behavior: "deepLink"
+    };
+    adClickConfig.packageName = "com.netflix.ninja";
+    adClickConfig.appLaunchOnly = false;
+    adClickConfig.clickThroughLink = "INSERT_LINK_HERE";
+    window?.Android?.setInteractive(JSON.stringify(adClickConfig))
+    console.log("Done Done!")
 
+  });</script>
 
 </html>
