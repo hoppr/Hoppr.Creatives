@@ -19,6 +19,7 @@ function setInteractive(type) {
     adClickConfig.qrAnchor = ["bottom", "right"];
     adClickConfig.qrPadding = [0, 0];
     adClickConfig.qrSize = 80;
+    adClickConfig.redirectedURL = "https://www.sizmek.com/";
   }
   window?.Android?.setInteractive(JSON.stringify(adClickConfig));
 }
