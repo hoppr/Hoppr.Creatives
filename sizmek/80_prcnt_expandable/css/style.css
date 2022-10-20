@@ -153,6 +153,11 @@ body {
   color: #C4C4C4;
   font-size: 14px;
 }
+.expandedBanner .bannerRight .infoContainer .shareControl .qrCodeSpace {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+}
 .expandedBanner .skipAd {
   position: absolute;
   top: 0;
