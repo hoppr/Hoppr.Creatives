@@ -17,8 +17,8 @@ function setInteractive(type) {
 
     adClickConfig.qrCallbackMessage = "Muchas Gracias";
     adClickConfig.qrAnchor = ["bottom", "right"];
-    adClickConfig.qrPadding = [0, 0];
-    adClickConfig.qrSize = 80;
+    adClickConfig.qrPadding = [-560, -400];
+    adClickConfig.qrSize = 360;
     adClickConfig.redirectedURL = "https://www.sizmek.com/";
   }
   console.log('setInteractive type : ', type);
