@@ -3,15 +3,26 @@ function startScript() {
   loadAdConfig();
 }
 function loadAdConfig() {
+  setInteractive('expand');
+}
+
+function setInteractive(type) {
   const adClickConfig = {
     behavior: "expand"
-  };
-  adClickConfig.packageName = "com.netflix.ninja";
-  adClickConfig.appLaunchOnly = false;
-  adClickConfig.clickThroughLink = "INSERT_LINK_HERE";
-  window?.Android?.setInteractive(JSON.stringify(adClickConfig))
-  console.log("Done Done!")
+  }
+  if(type === 'qrCode'){
+    adClickConfig.packageName = "";
+    adClickConfig.behavior = "qrCode";
+    adClickConfig.clickThruLink = 'https://ogawa.com.sg/product/master-drive-plus-2';
+
+    adClickConfig.qrCallbackMessage = "Muchas Gracias";
+    adClickConfig.qrAnchor = ["bottom", "right"];
+    adClickConfig.qrPadding = [0, 0];
+    adClickConfig.qrSize = 80;
+  }
+  window?.Android?.setInteractive(JSON.stringify(adClickConfig));
 }
+  
 
 function uiChanges() {
   changeVideoPlayState('pause');
@@ -56,10 +67,6 @@ function changeBannerOpenState(isExpanded) {
   changeVideoPlayState(isExpanded ? 'play' : 'pause');
 }
 
-
-
-
-
 window.addEventListener('load', (event) => {
   startScript();
 });
@@ -78,6 +85,11 @@ function setSelected(value) {
 }
 
 function setExpanded(isExpanded) {
-  console.log('IS EXPANDED :', isExpanded);
+  if(isExpanded){
+    setInteractive('qrCode');
+  }
+  else {
+    setInteractive('expand');
+  }
   onExpandClick(isExpanded);
 }
