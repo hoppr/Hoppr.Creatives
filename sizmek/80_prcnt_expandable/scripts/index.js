@@ -21,6 +21,7 @@ function setInteractive(type) {
     adClickConfig.qrSize = 80;
     adClickConfig.redirectedURL = "https://www.sizmek.com/";
   }
+  console.log('setInteractive type : ', type);
   window?.Android?.setInteractive(JSON.stringify(adClickConfig));
 }
   
