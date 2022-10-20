@@ -13,7 +13,7 @@ function setInteractive(type) {
   if(type === 'qrCode'){
     adClickConfig.packageName = "";
     adClickConfig.behavior = "qrCode";
-    adClickConfig.clickThruLink = 'https://google.com';
+    adClickConfig.clickThruLink = 'https://google.com?adurl=https://google.com';
 
     adClickConfig.qrCallbackMessage = "Muchas Gracias";
     adClickConfig.qrAnchor = ["bottom", "right"];
