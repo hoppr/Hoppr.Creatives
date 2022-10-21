@@ -15,7 +15,7 @@ function setInteractive(type) {
     adClickConfig.behavior = "qrCode";
     adClickConfig.clickThruLink = 'https://google.com?adurl=https://google.com';
 
-    adClickConfig.qrCallbackMessage = "Muchas Gracias";
+    adClickConfig.qrCallbackMessage = "Thanks for scanning the QR code";
     adClickConfig.qrAnchor = ["bottom", "right"];
     adClickConfig.qrPadding = [-560, -400];
     adClickConfig.qrSize = 360;
