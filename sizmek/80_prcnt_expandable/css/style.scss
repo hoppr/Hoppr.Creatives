@@ -51,12 +51,11 @@ body {
   background-image: url('../assets/expandedBannerBackImg.png');
   background-size: cover;
   background-color: black;
-  display: none;
+  
   gap: 1rem;
   position: fixed;
-  padding: 1rem;
+  // animation: expandAnimation 1s;
   overflow: hidden;
-  animation: expandAnimation 1s;
   transform: translate(-50%,-50%);
   left: 50%;
   top: 50%;
@@ -155,5 +154,21 @@ body {
     top: 50%;
     width: 80vw;
     height: 80vh;
+  }
+}
+@keyframes closeAnimation {
+  0% {
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+    width: 80vw;
+    height: 80vh;
+  }
+  100% {
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
   }
 }

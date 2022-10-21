@@ -55,13 +55,9 @@ body {
   background-image: url("../assets/expandedBannerBackImg.png");
   background-size: cover;
   background-color: black;
-  display: none;
   gap: 1rem;
   position: fixed;
-  padding: 1rem;
   overflow: hidden;
-  -webkit-animation: expandAnimation 1s;
-          animation: expandAnimation 1s;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   left: 50%;
@@ -208,5 +204,41 @@ body {
     top: 50%;
     width: 80vw;
     height: 80vh;
+  }
+}
+@-webkit-keyframes closeAnimation {
+  0% {
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    width: 80vw;
+    height: 80vh;
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+  }
+}
+@keyframes closeAnimation {
+  0% {
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    width: 80vw;
+    height: 80vh;
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
   }
 }
