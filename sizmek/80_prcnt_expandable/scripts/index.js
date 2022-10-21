@@ -49,6 +49,7 @@ function clickThroughAnimation() {
 }
 
 function onExpandClick(isExpanded = true) {
+  changeMainBannerOpenState(isExpanded);
   changeBannerOpenState(isExpanded);
 }
 
@@ -61,12 +62,18 @@ function changeVideoPlayState(state = 'play') {
 
 function changeBannerOpenState(isExpanded) {
   const expandedBannerEL = document.querySelector('.expandedBanner');
-  expandedBannerEL.style.display = isExpanded ? 'flex' : 'none';
+  expandedBannerEL.style.animation = isExpanded ? 'expandAnimation 1s' : 'closeAnimation 1s';
   setTimeout(() => {
     expandedBannerEL.style.width = isExpanded ? '80%' : 0; 
     expandedBannerEL.style.height = isExpanded ? '80%' : 0;
+    expandedBannerEL.style.display = isExpanded && 'flex';
   }, 0) 
   changeVideoPlayState(isExpanded ? 'play' : 'pause');
+}
+
+function changeMainBannerOpenState(isExpanded) {
+  const bannerEL = document.querySelector('.banner');
+  bannerEL.style.display = isExpanded ? 'none' : 'block';
 }
 
 window.addEventListener('load', (event) => {
