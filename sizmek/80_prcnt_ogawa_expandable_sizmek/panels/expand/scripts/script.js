@@ -90,21 +90,23 @@ function setExpanded(isExpanded) {
   onCollapseClick(isExpanded);
 }
 
-function onCollapseClick(isExpanded = true) {
-  changeMainBannerOpenState(isExpanded);
-  adkit.collapse({
-    panelName: "expand",
-    animate: {
-        clip: "rect(0, 100%, 0, 100%)",
-        duration: 1000,
-        easing: adkit.Animation.Easing.EASE_IN,
-        opacity: 0,
-        init: {
-            clip: "rect(0, 100%, 100%, 0)",
-            opacity: 1
-        }
-    }
-  });
+function onCollapseClick(isExpanded) {
+  if(!isExpanded)
+  {
+    adkit.collapse({
+      panelName: "expand",
+      animate: {
+          clip: "rect(0, 100%, 0, 100%)",
+          duration: 1000,
+          easing: adkit.Animation.Easing.EASE_IN,
+          opacity: 0,
+          init: {
+              clip: "rect(0, 100%, 100%, 0)",
+              opacity: 1
+          }
+      }
+    });
+  }
 }
 
 window.addEventListener("load", checkIfAdKitReady);
