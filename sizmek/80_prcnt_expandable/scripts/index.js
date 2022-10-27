@@ -27,22 +27,22 @@ function setInteractive(type) {
   
 
 function uiChanges() {
-  changeVideoPlayState('pause');
   clickThroughAnimation();
 }
 
 function clickThroughAnimation() {
   const textList = ['Master Drive Plus', 'True Message. True Intelligence', 'Click to learn more'];
-  const container = document.querySelector('.animatedSubtext');
-  container.addEventListener('click', onExpandClick);
+  const textContainer = document.querySelector('.animatedSubtext');
+  const mainContainer = document.querySelector('.banner');
+  mainContainer.addEventListener('click', onExpandClick);
   let counter = 0;
   const timerId = setInterval(() => {
     if(counter == (textList.length - 1)){
       clearInterval(timerId);
-      container.innerHTML = `<span class = "clickthroughBtn">${textList[counter]}</span>`;
+      textContainer.innerHTML = `<span class = "clickthroughBtn">${textList[counter]}</span>`;
       return;
     }
-    container.innerHTML = textList[counter];
+    textContainer.innerHTML = textList[counter];
     counter++;
   }, 1000);
 
@@ -51,6 +51,7 @@ function clickThroughAnimation() {
 function onExpandClick(isExpanded = true) {
   changeMainBannerOpenState(isExpanded);
   changeBannerOpenState(isExpanded);
+  adkit.expand();
 }
 
 function changeVideoPlayState(state = 'play') {
