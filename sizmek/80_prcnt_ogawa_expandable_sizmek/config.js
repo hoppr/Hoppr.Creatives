@@ -16,9 +16,9 @@ define({
 		"height": 700,
 		"autoCollapse": "never",
 		"delayedExpansion": false,
-		"positionType": "bannerRelativePixels",
-		"x": 100,
-		"y": 50
+		"positionType": "pageRelativePixels",
+		"x": 20,
+		"y": 10
 	}],
 	"clickThrough": {
 		"url": "https://google.com",
