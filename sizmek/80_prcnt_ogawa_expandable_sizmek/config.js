@@ -18,7 +18,7 @@ define({
 		"delayedExpansion": false,
 		"positionType": "pageRelativePixels",
 		"x": 20,
-		"y": 10
+		"y": 20
 	}],
 	"clickThrough": {
 		"url": "https://google.com",

@@ -47,6 +47,30 @@
     </div>
     <div class="skipAd">Click ‘back’ to close <span>Ad</span></div>
   </div>
+  <script>
+    function handleMessage(evt) {
+      const eventData = evt.data;
+      const type = eventData?.type;
+      switch (type) {
+        case 'clientAPKSetSelected': {
+          return window?.setSelected?.(eventData?.data?.isSelected);
+        }
+
+        case 'clientAPKSetExpanded': {
+          return window?.setExpanded?.(eventData?.data?.isExpanded);
+        }
+        default: { }
+      }
+    }
+
+    if (window.addEventListener) {
+      // For standards-compliant web browsers
+      window.addEventListener("message", handleMessage, false);
+    }
+    else {
+      window.attachEvent("onmessage", handleMessage);
+    }
+  </script>
 </body>
 
 </html>

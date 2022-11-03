@@ -22,7 +22,6 @@ function setBannerInteractive(type) {
     adClickConfig.qrSize = 360;
     adClickConfig.redirectedURL = "https://www.sizmek.com/";
   }
-  console.log('setBannerInteractive type : ', type);
   window?.Android?.setInteractive(JSON.stringify(adClickConfig));
 }
   
@@ -83,7 +82,7 @@ window.addEventListener('load', (event) => {
 
 //Client APK APIs definition
 
-function setSelected(value) {
+window.setSelected = function (value) {
                 
   var element = document.querySelector('.banner');
   if(value) {
@@ -93,7 +92,7 @@ function setSelected(value) {
   }
 }
 
-function setExpanded(isExpanded) {
+window.setExpanded = function (isExpanded) {
   if(isExpanded){
     setBannerInteractive('qrCode');
   }
