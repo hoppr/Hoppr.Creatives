@@ -12,14 +12,24 @@ function setBannerInteractive(type) {
     behavior: "expand"
   }
   if(type === 'qrCode'){
+    
+    const placeholderElement = document.querySelector('.qrCodeSpace')
+    const height = placeholderElement?.offsetHeight;
+    const width = placeholderElement?.offsetWidth;
+    const top = placeholderElement?.offsetTop;
+    const left = placeholderElement?.offsetLeft;
+    
+    const size = Math.min(height, width);
+    
+    // Config
     adClickConfig.packageName = "";
     adClickConfig.behavior = "qrCode";
     adClickConfig.clickThruLink = 'https://google.com?adurl=https://google.com';
 
-    adClickConfig.qrCallbackMessage = "Muchas Gracias";
-    adClickConfig.qrAnchor = ["bottom", "right"];
-    adClickConfig.qrPadding = [-560, -400];
-    adClickConfig.qrSize = 360;
+    adClickConfig.qrCallbackMessage = "Thanks For Scanning the QR code";
+    adClickConfig.qrAnchor = ["top", "left"];
+    adClickConfig.qrPadding = [left, top];
+    adClickConfig.qrSize = size;
     adClickConfig.redirectedURL = "https://www.sizmek.com/";
   }
   window?.Android?.setInteractive(JSON.stringify(adClickConfig));
@@ -69,6 +79,7 @@ function onExpandClick(isExpanded = true) {
 
   function changeMainBannerOpenState(isExpanded) {
     const bannerEL = document.querySelector('.banner');
+    if(bannerEL?.style)
     bannerEL.style.display = isExpanded ? 'none' : 'block';
   }
 }
@@ -93,10 +104,8 @@ window.setSelected = function (value) {
 }
 
 window.setExpanded = function (isExpanded) {
-  if(isExpanded){
-    setBannerInteractive('qrCode');
-  }
-  else {
+  if(!isExpanded)
+  {
     setBannerInteractive('expand');
   }
   onExpandClick(isExpanded);

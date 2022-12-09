@@ -1,10 +1,10 @@
 function checkIfAdKitReady(event) {
-  adkit.onReady(startScript);
+  adkit.onReady(setTimeout(startScript, 100));
 }
 
 function startScript() {
   uiChanges();
-  loadAdConfig();
+  setTimeout(loadAdConfig, 2000);
   initializeCreative();
 }
 
@@ -66,25 +66,33 @@ function setInteractive(type) {
     behavior: "expand"
   }
   if(type === 'qrCode'){
+    
+    const placeholderElement = document.querySelector('.qrCodeSpace')
+    const height = placeholderElement?.offsetHeight;
+    const width = placeholderElement?.offsetWidth;
+    const top = parseInt(placeholderElement?.offsetTop/2) + 5;
+    const left = parseInt(placeholderElement?.offsetLeft/2) + 3;
+    
+    const size = Math.min(height, width);
+    
+    // Config
     adClickConfig.packageName = "";
     adClickConfig.behavior = "qrCode";
     adClickConfig.clickThruLink = 'https://google.com?adurl=https://google.com';
 
-    adClickConfig.qrCallbackMessage = "Muchas Gracias";
-    adClickConfig.qrAnchor = ["bottom", "right"];
-    adClickConfig.qrPadding = [-560, -400];
-    adClickConfig.qrSize = 360;
+    adClickConfig.qrCallbackMessage = "Thanks For Scanning the QR code";
+    adClickConfig.qrAnchor = ["top", "left"];
+    adClickConfig.qrPadding = [left, top];
+    adClickConfig.qrSize = size;
     adClickConfig.redirectedURL = "https://www.sizmek.com/";
   }
-  console.log('setInteractive type : ', type);
+  console.log('setInteractive ', adClickConfig);
   window?.Android?.setInteractive(JSON.stringify(adClickConfig));
 }
 
 function setExpanded(isExpanded) {
-  if(isExpanded){
-    setInteractive('qrCode');
-  }
-  else {
+  if(!isExpanded) 
+  {
     setInteractive('expand');
   }
   onCollapseClick(isExpanded);
