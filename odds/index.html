@@ -5,57 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basketball Odds</title>
     <style>
-    body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
+ body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
 
-        #odds-table {
-            width: 100%;
-            max-width: 500px;
-            border-collapse: collapse;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-            background-color: #fff;
-        }
+#odds-table {
+  width: 100%;
+  max-width: 500px;
+  border-collapse: collapse;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  background-color: #fff;
+}
 
-        #odds-table thead tr {
-            background-color: #007bff;
-            color: #fff;
-        }
+#odds-table thead tr {
+  position: sticky;
+  top: 0;
+  background-color: #007bff;
+  color: #fff;
+}
 
-        #odds-table th, #odds-table td {
-            padding: 12px 15px;
-            text-align: left;
-        }
+#odds-table th,
+#odds-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
 
-        #odds-table tbody tr {
-            border-bottom: 1px solid #dddddd;
-        }
+#odds-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
 
-        #odds-table tbody tr:nth-child(even) {
-            background-color: #f3f3f3;
-        }
+#odds-table tbody tr:nth-child(even) {
+  background-color: #f3f3f3;
+}
 
-        #odds-table tbody tr:last-child {
-            border-bottom: none;
-        }
+#odds-table tbody tr:last-child {
+  border-bottom: none;
+}
 
-        @media screen and (max-width: 768px) {
-            #odds-table {
-                font-size: 14px;
-            }
-        }
+@media screen and (max-width: 768px) {
+  #odds-table {
+    font-size: 14px;
+  }
+}
 
-        @media screen and (max-width: 480px) {
-            #odds-table {
-                font-size: 12px;
-            }
-        }
+@media screen and (max-width: 480px) {
+  #odds-table {
+    font-size: 12px;
+  }
+}
     </style>
 </head>
 <body>
