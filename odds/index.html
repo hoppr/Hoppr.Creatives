@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basketball Odds</title>
     <style>
- body {
+body {
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
@@ -48,15 +48,33 @@
   border-bottom: none;
 }
 
-@media screen and (max-width: 768px) {
-  #odds-table {
-    font-size: 14px;
+@media screen and (max-width: 767px) {
+  #odds-table thead {
+    display: none;
+  }
+
+  #odds-table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #odds-table td::before {
+    display: none;
   }
 }
 
 @media screen and (max-width: 480px) {
   #odds-table {
     font-size: 12px;
+  }
+
+  #odds-table th,
+  #odds-table td {
+    padding: 8px 10px;
   }
 }
     </style>
