@@ -3,60 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBA Odds</title>
+    <title>Basketball Odds</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+         body {
+         font-family: Arial, sans-serif;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         height: 100vh;
+         margin: 0;
+         background-color: #f0f0f0;
+         }
+         #odds-table {
+         width: 100%;
+         max-width: 500px;
+         border-collapse: collapse;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+         background-color: #fff;
+         }
+         #odds-table thead tr {
+         background-color: #007bff;
+         color: #fff;
+         }
+         #odds-table th, #odds-table td {
+         padding: 12px 15px;
+         text-align: left;
+         }
+         #odds-table tbody tr {
+         border-bottom: 1px solid #dddddd;
+         }
+         #odds-table tbody tr:nth-child(even) {
+         background-color: #f3f3f3;
+         }
+         #odds-table tbody tr:last-child {
+         border-bottom: none;
+         }
+      </style>
 </head>
 <body>
-    <table>
-        <thead>
-            <tr>
-                <th>Bookmaker</th>
-                <th>Atlanta Hawks</th>
-                <th>Boston Celtics</th>
-            </tr>
-        </thead>
-        <tbody id="oddsTableBody">
-        </tbody>
-    </table>
-    <script>
-        const apiURL = 'https://api.the-odds-api.com/v4/sports/basketball/odds/?apiKey=77fda99677bbf9552ccfc877d58f7d25&&regions=us&markets=h2h';
+<table id="odds-table">
+    <thead>
+    <tr>
+        <th>Home Team</th>
+        <th>Away Team</th>
+        <th>Home Odds</th>
+        <th>Away Odds</th>
+    </tr>
+    </thead>
+    <tbody id="odds-table-body">
+    </tbody>
+</table>
+<script>
+         const apiUrl = 'https://api.the-odds-api.com/v4/sports/basketball/odds/?apiKey=77fda99677bbf9552ccfc877d58f7d25&&regions=us&markets=h2h';
 
-        function displayOdds(jsonData) {
-            const oddsTableBody = document.getElementById('oddsTableBody');
-            jsonData[0].bookmakers.forEach(bookmaker => {
-                const row = document.createElement('tr');
+         fetch(apiUrl)
+           .then(response => response.json())
+           .then(data => {
+             displayOddsInTable(data);
+           })
+           .catch(error => {
+             console.error('Error fetching data:', error);
+           });
 
-                const titleCell = document.createElement('td');
-                titleCell.innerText = bookmaker.title;
-                row.appendChild(titleCell);
+         function displayOddsInTable(oddsData) {
+           const tableBody = document.getElementById('odds-table-body');
 
-                bookmaker.markets[0].outcomes.forEach(outcome => {
-                    const priceCell = document.createElement('td');
-                    priceCell.innerText = outcome.price;
-                    row.appendChild(priceCell);
-                });
+           oddsData.forEach(match => {
+             const row = document.createElement('tr');
 
-                oddsTableBody.appendChild(row);
-            });
-        }
+             const homeTeamCell = document.createElement('td');
+             homeTeamCell.textContent = match.home_team;
+             row.appendChild(homeTeamCell);
 
-        fetch(apiURL)
-            .then(response => response.json())
-            .then(data => displayOdds(data))
-            .catch(error => console.error('Error fetching data:', error));
-    </script>
+             const awayTeamCell = document.createElement('td');
+             awayTeamCell.textContent = match.away_team;
+             row.appendChild(awayTeamCell);
+
+             const homeOddsCell = document.createElement('td');
+             const awayOddsCell = document.createElement('td');
+
+             if (match.bookmakers.length > 0 && match.bookmakers[0].markets.length > 0) {
+               const outcomes = match.bookmakers[0].markets[0].outcomes;
+               const homeOdds = outcomes.find(outcome => outcome.name === match.home_team)?.price;
+               const awayOdds = outcomes.find(outcome => outcome.name === match.away_team)?.price;
+
+               homeOddsCell.textContent = homeOdds || 'N/A';
+               awayOddsCell.textContent = awayOdds || 'N/A';
+             } else {
+               homeOddsCell.textContent = 'N/A';
+               awayOddsCell.textContent = 'N/A';
+         }
+         row.appendChild(homeOddsCell);
+         row.appendChild(awayOddsCell);
+
+         tableBody.appendChild(row);
+         });
+         }
+      </script>
 </body>
 </html>
