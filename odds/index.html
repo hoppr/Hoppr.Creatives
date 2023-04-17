@@ -5,100 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basketball Odds</title>
     <style>
-         body {
-         font-family: Arial, sans-serif;
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         height: 100vh;
-         margin: 0;
-         background-color: #f0f0f0;
-         }
-         #odds-table {
-         width: 100%;
-         max-width: 500px;
-         border-collapse: collapse;
-         box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-         background-color: #fff;
-         }
-         #odds-table thead tr {
-         background-color: #007bff;
-         color: #fff;
-         }
-         #odds-table th, #odds-table td {
-         padding: 12px 15px;
-         text-align: left;
-         }
-         #odds-table tbody tr {
-         border-bottom: 1px solid #dddddd;
-         }
-         #odds-table tbody tr:nth-child(even) {
-         background-color: #f3f3f3;
-         }
-         #odds-table tbody tr:last-child {
-         border-bottom: none;
-         }
-      </style>
+    body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #odds-table {
+            width: 100%;
+            max-width: 500px;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+            background-color: #fff;
+        }
+
+        #odds-table thead tr {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        #odds-table th, #odds-table td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        #odds-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        #odds-table tbody tr:nth-child(even) {
+            background-color: #f3f3f3;
+        }
+
+        #odds-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        @media screen and (max-width: 768px) {
+            #odds-table {
+                font-size: 14px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            #odds-table {
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
-<table id="odds-table">
-    <thead>
-    <tr>
-        <th>Home Team</th>
-        <th>Away Team</th>
-        <th>Home Odds</th>
-        <th>Away Odds</th>
-    </tr>
-    </thead>
-    <tbody id="odds-table-body">
-    </tbody>
-</table>
-<script>
-         const apiUrl = 'https://api.the-odds-api.com/v4/sports/basketball/odds/?apiKey=77fda99677bbf9552ccfc877d58f7d25&&regions=us&markets=h2h';
+    <table id="odds-table">
+        <thead>
+            <tr>
+                <th>Home Team</th>
+                <th>Away Team</th>
+                <th>Home Odds</th>
+                <th>Away Odds</th>
+            </tr>
+        </thead>
+        <tbody id="odds-table-body">
+        </tbody>
+    </table>
+    <script>
+        const apiUrl = 'https://api.the-odds-api.com/v4/sports/basketball/odds/?apiKey=77fda99677bbf9552ccfc877d58f7d25&&regions=us&markets=h2h';
 
-         fetch(apiUrl)
-           .then(response => response.json())
-           .then(data => {
-             displayOddsInTable(data);
-           })
-           .catch(error => {
-             console.error('Error fetching data:', error);
-           });
+        fetch(apiUrl)
+          .then(response => response.json())
+          .then(data => {
+            displayOddsInTable(data);
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
 
-         function displayOddsInTable(oddsData) {
-           const tableBody = document.getElementById('odds-table-body');
+        function displayOddsInTable(oddsData) {
+          const tableBody = document.getElementById('odds-table-body');
 
-           oddsData.forEach(match => {
-             const row = document.createElement('tr');
+          oddsData.forEach(match => {
+            const row = document.createElement('tr');
 
-             const homeTeamCell = document.createElement('td');
-             homeTeamCell.textContent = match.home_team;
-             row.appendChild(homeTeamCell);
+            const homeTeamCell = document.createElement('td');
+            homeTeamCell.textContent = match.home_team;
+            row.appendChild(homeTeamCell);
 
-             const awayTeamCell = document.createElement('td');
-             awayTeamCell.textContent = match.away_team;
-             row.appendChild(awayTeamCell);
+            const awayTeamCell = document.createElement('td');
+            awayTeamCell.textContent = match.away_team;
+            row.appendChild(awayTeamCell);
 
-             const homeOddsCell = document.createElement('td');
-             const awayOddsCell = document.createElement('td');
+            const homeOddsCell = document.createElement('td');
+            const awayOddsCell = document.createElement('td');
 
-             if (match.bookmakers.length > 0 && match.bookmakers[0].markets.length > 0) {
-               const outcomes = match.bookmakers[0].markets[0].outcomes;
-               const homeOdds = outcomes.find(outcome => outcome.name === match.home_team)?.price;
-               const awayOdds = outcomes.find(outcome => outcome.name === match.away_team)?.price;
+            if (match.bookmakers.length > 0 && match.bookmakers[0].markets.length > 0) {
+              const outcomes = match.bookmakers[0].markets[0].outcomes;
+              const homeOdds = outcomes.find(outcome => outcome.name === match.home_team)?.price;
+              const awayOdds = outcomes.find(outcome => outcome.name === match.away_team)?.price;
 
-               homeOddsCell.textContent = homeOdds || 'N/A';
-               awayOddsCell.textContent = awayOdds || 'N/A';
-             } else {
-               homeOddsCell.textContent = 'N/A';
-               awayOddsCell.textContent = 'N/A';
-         }
-         row.appendChild(homeOddsCell);
-         row.appendChild(awayOddsCell);
+              homeOddsCell.textContent = homeOdds || 'N/A';
+              awayOddsCell.textContent = awayOdds || 'N/A';
+            } else {
+              homeOddsCell.textContent = 'N/A';
+              awayOddsCell.textContent = 'N/A';
+}
+        row.appendChild(homeOddsCell);
+        row.appendChild(awayOddsCell);
 
-         tableBody.appendChild(row);
-         });
-         }
-      </script>
+        tableBody.appendChild(row);
+      });
+    }
+</script>
 </body>
 </html>
+             
