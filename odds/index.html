@@ -6,8 +6,9 @@
     <title>API Data Display</title>
       <style>
         body {
-            background-color: #212121;
+            background-color: #111111;
             color: #f5f5f5;
+            font-family: Arial, sans-serif;
         }
         table {
             border-collapse: collapse;
@@ -15,21 +16,21 @@
             margin-bottom: 20px;
         }
         th, td {
-            border: 1px solid #616161;
+            border: 1px solid #303030;
             padding: 8px;
             text-align: left;
         }
         th {
-            background-color: #424242;
-            color: #39ff14;
+            background-color: #202020;
+            color: #00cf2d;
         }
         .bookmaker-title {
             font-weight: bold;
             margin-bottom: 10px;
         }
         .sport-title {
-            background-color: #424242;
-            color: #39ff14;
+            background-color: #202020;
+            color: #00cf2d;
             font-weight: bold;
             padding: 8px;
             position: sticky;
@@ -107,33 +108,31 @@ Object.keys(marketData).forEach(name => {
 
             if (marketData[name][marketKey]) {
                 const price = marketData[name][marketKey].price;
-                const point = marketData[name][marketKey].point;
-
-                marketCell.textContent = `Price: ${price}`;
-                if (point) {
-                    marketCell.textContent += `, Point: ${point}`;
-                }
-            } else {
-                marketCell.textContent = '-';
+const point = marketData[name][marketKey].point;
+          marketCell.textContent = `Price: ${price}`;
+            if (point) {
+                marketCell.textContent += `, Point: ${point}`;
             }
-
-            tr.appendChild(marketCell);
-        });
-
-        const totalsCell = document.createElement('td');
-        const overPrice = marketData['Over']['totals'].price;
-        const overPoint = marketData['Over']['totals'].point;
-        const underPrice = marketData['Under']['totals'].price;
-        const underPoint = marketData['Under']['totals'].point;
-        totalsCell.textContent = `Over (Price: ${overPrice}, Point: ${overPoint}), Under (Price: ${underPrice}, Point: ${underPoint})`;
-        tr.appendChild(totalsCell);
-    }
-});
-                });
-            });
+        } else {
+            marketCell.textContent = '-';
         }
 
-        fetchApiData();
-    </script>
+        tr.appendChild(marketCell);
+    });
+
+    const totalsCell = document.createElement('td');
+    const overPrice = marketData['Over']['totals'].price;
+    const overPoint = marketData['Over']['totals'].point;
+    const underPrice = marketData['Under']['totals'].price;
+    const underPoint = marketData['Under']['totals'].point;
+    totalsCell.textContent = `Over (Price: ${overPrice}, Point: ${overPoint}), Under (Price: ${underPrice}, Point: ${underPoint})`;
+    tr.appendChild(totalsCell);
+}
+});
+});
+});
+}
+    fetchApiData();
+</script>
 </body>
 </html>
