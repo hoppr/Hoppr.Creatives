@@ -42,7 +42,16 @@
       <div class="sport-title" id="sport-title">Basketball</div>
       <div id="bookmakers-container">
       </div>
+      <script src="webMessageChannel.js"></script>
       <script>
+     
+         function onMessageReceived(message, port) {
+             console.log("Received message from app:", message);
+             let response = "Response from WebView: " + message;
+             webMessageChannel.sendResponse(response, port);
+             fetchApiData(message);
+         }
+         
          function clearBookmakersContainer() {
             const container = document.getElementById('bookmakers-container');
             while (container.firstChild) {
@@ -60,7 +69,7 @@
          
          async function fetchApiData(sports) {
             clearBookmakersContainer();
-           updateSportTitle(sports)
+        	  updateSportTitle(sports)
             const url = `https://api.the-odds-api.com/v4/sports/${sports}/odds/?apiKey=3a4a96544f6463e3f72df335653064ac&regions=us&markets=h2h,spreads,totals`;
             const response = await fetch(url);
             const apiData = await response.json();
@@ -151,6 +160,8 @@
             });
          }
          
+        let webMessageChannel = new WebMessageChannel(onMessageReceived);
+
          fetchApiData("Basketball");
       </script>
    </body>
