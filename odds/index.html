@@ -148,10 +148,10 @@
          });
          
          const totalsCell = document.createElement('td');
-         const overPrice = marketData['Over']['totals'].price;
-         const overPoint = marketData['Over']['totals'].point;
-         const underPrice = marketData['Under']['totals'].price;
-         const underPoint = marketData['Under']['totals'].point;
+         const overPrice = marketData['Over']['totals'] ? marketData['Over']['totals'].price : '-';
+         const overPoint = marketData['Over']['totals'] ? marketData['Over']['totals'].point : '-';
+         const underPrice = marketData['Under']['totals'] ? marketData['Under']['totals'].price : '-';
+         const underPoint = marketData['Under']['totals'] ? marketData['Under']['totals'].point : '-';
          totalsCell.textContent = `Over (Price: ${overPrice}, Point: ${overPoint}), Under (Price: ${underPrice}, Point: ${underPoint})`;
          tr.appendChild(totalsCell);
          }
