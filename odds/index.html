@@ -5,29 +5,32 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>API Data Display</title>
       <style>
-         @import url('https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;700&display=swap');
-      </style>
+  @import url('https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;700&display=swap');
+</style>
       <style>
+
          body {
-         background-color: #121212;
-         color: #f5f5f5;
-         font-family: 'Saira Condensed', sans-serif;
+           background-color: #121212;
+           color: #f5f5f5;
+          font-family: 'Saira Condensed', sans-serif;
          }
          table {
          border-collapse: collapse;
          width: 100%;
          margin-bottom: 20px;
+
          }
          th, td {
-         background-color: #242424;
-         padding: 8px;
-         text-align: left;
-         border: 2px solid #121212;
+           background-color: #242424;
+           padding: 8px;
+           text-align: left;
+           border: 2px solid #121212;
          }
          th {
-         background-color:#121212;
-         color: #39ff14;
-         border-bottom: 2px solid #242424;
+
+           background-color:#121212;
+           color: #39ff14;
+           border-bottom: 2px solid #242424;
          }
          .bookmaker-title {
          font-weight: bold;
@@ -42,171 +45,193 @@
          top: 0;
          text-align: center;
          }
-         /* tr {
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         } */
-         .table-header-row {
-         display: flex;
-         flex-direction: row;
-         /* padding: 8px; */
-         color: #c5c5c5;
-         /* font-size: 11px; */
-         font-weight: 400;
-         /* text-align: center; */
-         text-transform: uppercase;
-         }
-         div.table-header-item-name {
-         /* flex-grow: 2; */
-         width: 40%;
-         text-align: left;
-         }
-         .table-header-item {
-         text-align: center;
-         border-bottom: 1PX solid #242424;
-         /* flex-grow: 1; */
-         width: 20%;
-         /* padding: 8px; */
-         }
-         table {
-         margin-top: 5px
-         }
-         .header-center {
-         text-align: center;
-         }
+
+        /* tr {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        } */
+
+        .table-header-row {
+          display: flex;
+          flex-direction: row;
+          /* padding: 8px; */
+          color: #c5c5c5;
+          /* font-size: 11px; */
+          font-weight: 400;
+          /* text-align: center; */
+          text-transform: uppercase;
+        }
+
+        div.table-header-item-name {
+          /* flex-grow: 2; */
+          width: 40%;
+          text-align: left;
+        }
+
+        .table-header-item {
+          text-align: center;
+          border-bottom: 1PX solid #242424;
+          /* flex-grow: 1; */
+          width: 20%;
+          /* padding: 8px; */
+        }
+
+        table {
+          margin-top: 5px
+        }
+
+
+        .header-center {
+          text-align: center;
+        }
          td.team-name-cell {
-         /* height: 100%; */
-         background-color:#121212;
-         color: white;
-         font-weight: bold;
+
+           /* height: 100%; */
+           background-color:#121212;
+           color: white;
+           font-weight: bold;
          }
+
          .team-cell {
-         display: flex;
-         flex-direction: row;
-         align-items: center;
+           display: flex;
+           flex-direction: row;
+           align-items: center;
          }
+
+
          td.data {
-         width: 20%;
-         padding: 8px;
-         text-align: center;
-         /* display: flex;
-         flex-direction: row; */
-         background-color:#242424;
+           width: 20%;
+           padding: 8px;
+           text-align: center;
+           /* display: flex;
+           flex-direction: row; */
+           background-color:#242424;
+
+
          }
+
          .flex-center {
-         display: flex;
-         flex-direction: row;
-         justify-content: center;
-         }
+           display: flex;
+           flex-direction: row;
+           justify-content: center;
+        }
+
          .white-text {
-         color: white;
-         font-size: 12px;
-         font-weight: 400;
-         padding: 0.25rem;
-         /* font-size: 12px; */
+           color: white;
+           font-size: 12px;
+           font-weight: 400;
+           padding: 0.25rem;
+           /* font-size: 12px; */
          }
+
+
          .green-text { color: #53d337;
-         font-size: 12px;
-         font-weight: 700;
-         padding: 0.25rem;
+           font-size: 12px;
+           font-weight: 700;
+           padding: 0.25rem;
          }
+
          .team-icon {
-         width: 2rem;
-         padding-right: 1.0rem;
-         aspect-ratio: 1 / 1;
+           width: 2rem;
+           padding-right: 1.0rem;
+           aspect-ratio: 1 / 1;
          }
          .logo {
-         background-image: url('https://d2tjpz01y5bfgl.cloudfront.net/sportsbook_transparent.png');
-         background-size: contain;
-         background-repeat: no-repeat;
-         width: 150px;
-         height: 80px;
-         position: fixed;
-         top: 0;
-         left: 0;
-         z-index: 9999;
+           background-image: url('https://d2tjpz01y5bfgl.cloudfront.net/sportsbook_transparent.png');
+           background-size: contain;
+           background-repeat: no-repeat;
+           width: 150px;
+           height: 80px;
+           position: fixed;
+           top: 0;
+           left: 0;
+           z-index: 9999;
          }
          .price {
-         color: #53d337;
-         font-size: 12px;
-         font-weight: 700;
-         padding: 0.25rem;
-         }
+           color: #53d337;
+             font-size: 12px;
+             font-weight: 700;
+             padding: 0.25rem;
+           }
+
       </style>
    </head>
    <body>
-      <div class="logo"></div>
+     <div class="logo"></div>
       <div class="sport-title" id="sport-title">Basketball</div>
       <div id="bookmakers-container">
       </div>
-      <!-- <script src="webMessageChannel.js"> -->
+      <script src="webMessageChannel.js">
+
       <script>
-         function createChildElement(name, className, text, root) {
-         
-           const element = document.createElement(name)
-           if(className) { element.setAttribute('class', className) }
-           if(text) { element.textContent = text }
-           root.appendChild(element)
-         
-           return element
-         }
-         
-         const teamsIcons = {
-                               // "ATL Hawks": "/logos/teams/nba/ATL.png",
-                               // "BKN Nets": "/logos/teams/nba/BKN.png",
-                               // "BOS Celtics": "/logos/teams/nba/BOS.png",
-                               // "CHA Hornets": "/logos/teams/nba/CHA.png",
-                               // "CHI Bulls": "/logos/teams/nba/CHI.png",
-                               // "CLE Cavaliers": "/logos/teams/nba/CLE.png",
-                               // "DAL Mavericks": "/logos/teams/nba/DAL.png",
-                               // "DEN Nuggets": "/logos/teams/nba/DEN.png",
-                               // "DET Pistons": "/logos/teams/nba/DET.png",
-                               // "GS Warriors": "/logos/teams/nba/GSW.png",
-                               // "HOU Rockets": "/logos/teams/nba/HOU.png",
-                               // "IND Pacers": "/logos/teams/nba/IND.png",
-                               // "LA Clippers": "/logos/teams/nba/LAC.png",
-                               // "LA Lakers": "/logos/teams/nba/LAL.png",
-                               // "MEM Grizzlies": "/logos/teams/nba/MEM.png",
-                               // "MIA Heat": "/logos/teams/nba/MIA.png",
-                               // "MIL Bucks": "/logos/teams/nba/MIL.png",
-                               // "MIN Timberwolves": "/logos/teams/nba/MIN.png",
-                               // "NO Pelicans": "/logos/teams/nba/NOP.png",
-                               // "NY Knicks": "/logos/teams/nba/NYK.png",
-                               // "OKC Thunder": "/logos/teams/nba/OKC.png",
-                               // "ORL Magic": "/logos/teams/nba/ORL.png",
-                               // "PHI 76ers": "/logos/teams/nba/PHI.png",
-                               // "PHO Suns": "/logos/teams/nba/PHX.png",
-                               // "POR Trail Blazers": "/logos/teams/nba/POR.png",
-                               // "SA Spurs": "/logos/teams/nba/SAS.png",
-                               // "SAC Kings": "/logos/teams/nba/SAC.png",
-                               // "TOR Raptors": "/logos/teams/nba/TOR.png",
-                               // "UTA Jazz": "/logos/teams/nba/UTA.png",
-                               // "WAS Wizards": "/logos/teams/nba/WAS.png"
-                           }
-         
-         function onMessageReceived(message, port) {
-         // Parse the incoming message as JSON
-         let parsedMessage = JSON.parse(message);
-         
-         let response = "Response from WebView: " + message;
-         // webMessageChannel.sendResponse(response, port);
-         
-         // Extract key and oddsFormat from the parsed message
-         let key = parsedMessage.key;
-         let oddsFormat = parsedMessage.oddsFormat;
-         
-         // Call the fetchApiData function with the sports and oddsFormat values
-         fetchApiData(key, oddsFormat);
-         }
-         
+
+
+            function createChildElement(name, className, text, root) {
+
+              const element = document.createElement(name)
+              if(className) { element.setAttribute('class', className) }
+              if(text) { element.textContent = text }
+              root.appendChild(element)
+
+              return element
+            }
+
+            const teamsIcons = {
+                                  // "ATL Hawks": "/logos/teams/nba/ATL.png",
+                                  // "BKN Nets": "/logos/teams/nba/BKN.png",
+                                  // "BOS Celtics": "/logos/teams/nba/BOS.png",
+                                  // "CHA Hornets": "/logos/teams/nba/CHA.png",
+                                  // "CHI Bulls": "/logos/teams/nba/CHI.png",
+                                  // "CLE Cavaliers": "/logos/teams/nba/CLE.png",
+                                  // "DAL Mavericks": "/logos/teams/nba/DAL.png",
+                                  // "DEN Nuggets": "/logos/teams/nba/DEN.png",
+                                  // "DET Pistons": "/logos/teams/nba/DET.png",
+                                  // "GS Warriors": "/logos/teams/nba/GSW.png",
+                                  // "HOU Rockets": "/logos/teams/nba/HOU.png",
+                                  // "IND Pacers": "/logos/teams/nba/IND.png",
+                                  // "LA Clippers": "/logos/teams/nba/LAC.png",
+                                  // "LA Lakers": "/logos/teams/nba/LAL.png",
+                                  // "MEM Grizzlies": "/logos/teams/nba/MEM.png",
+                                  // "MIA Heat": "/logos/teams/nba/MIA.png",
+                                  // "MIL Bucks": "/logos/teams/nba/MIL.png",
+                                  // "MIN Timberwolves": "/logos/teams/nba/MIN.png",
+                                  // "NO Pelicans": "/logos/teams/nba/NOP.png",
+                                  // "NY Knicks": "/logos/teams/nba/NYK.png",
+                                  // "OKC Thunder": "/logos/teams/nba/OKC.png",
+                                  // "ORL Magic": "/logos/teams/nba/ORL.png",
+                                  // "PHI 76ers": "/logos/teams/nba/PHI.png",
+                                  // "PHO Suns": "/logos/teams/nba/PHX.png",
+                                  // "POR Trail Blazers": "/logos/teams/nba/POR.png",
+                                  // "SA Spurs": "/logos/teams/nba/SAS.png",
+                                  // "SAC Kings": "/logos/teams/nba/SAC.png",
+                                  // "TOR Raptors": "/logos/teams/nba/TOR.png",
+                                  // "UTA Jazz": "/logos/teams/nba/UTA.png",
+                                  // "WAS Wizards": "/logos/teams/nba/WAS.png"
+                              }
+
+      function onMessageReceived(message, port) {
+          // Parse the incoming message as JSON
+          let parsedMessage = JSON.parse(message);
+
+          let response = "Response from WebView: " + message;
+          webMessageChannel.sendResponse(response, port);
+
+          // Extract key and oddsFormat from the parsed message
+          let key = parsedMessage.key;
+          let oddsFormat = parsedMessage.oddsFormat;
+
+          // Call the fetchApiData function with the sports and oddsFormat values
+          fetchApiData(key, oddsFormat);
+      }
+
          function clearBookmakersContainer() {
-         const container = document.getElementById('bookmakers-container');
-         while (container.firstChild) {
-             container.removeChild(container.firstChild);
+            const container = document.getElementById('bookmakers-container');
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
          }
-         }
-         
+
          function updateSportTitle(sportsTitle) {
          const sportTitle = document.getElementById('sport-title');
          let str = sportsTitle;
@@ -214,198 +239,198 @@
          let capitalizedStr = str.charAt(0).toUpperCase() + str.slice(1); // "Hello World"
          sportTitle.textContent = capitalizedStr;
          }
-         
+
          async function fetchApiData(sports,oddsFormat) {
-         clearBookmakersContainer();
-         updateSportTitle(sports)
-         
-         const url = `https://api.the-odds-api.com/v4/sports/${sports}/odds/?apiKey=3a4a96544f6463e3f72df335653064ac&regions=us&markets=h2h,spreads,totals&oddsFormat=${oddsFormat}`;
-         const response = await fetch(url);
-         const apiData = await response.json();
-         const dataPayloadFiltered = apiData.map(data => {
-         
-           const filteredBMdata = data.bookmakers.filter((bm) => {return bm.key === 'draftkings'})
-           return {...data, bookmakers: filteredBMdata}
-         })
-         
-         const container = document.getElementById('bookmakers-container');
-         
-         dataPayloadFiltered.forEach(data => {
-           let formattedDate;
-           const date = new Date(data.commence_time);
-         
-            // Check if the date is tomorrow (add 1 to the current date)
-            const currentDate = new Date();
-            const tomorrow = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
-         
-            if (date.getFullYear() === tomorrow.getFullYear() &&
-                date.getMonth() === tomorrow.getMonth() &&
-                date.getDate() === tomorrow.getDate()) {
-                formattedDate = `tomorrow ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
-            } else {
-                const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-                const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-                const day = days[date.getDay()];
-                const month = months[date.getMonth()];
-                const dateNum = date.getDate();
-                const ordinalSuffix = (dateNum === 1 || dateNum === 21 || dateNum === 31) ? 'ST' : (dateNum === 2 || dateNum === 22) ? 'ND' : (dateNum === 3 || dateNum === 23) ? 'RD' : 'TH';
-                formattedDate = `${day} ${month} ${dateNum}${ordinalSuffix}`;
-            }
-         
-             data.bookmakers.forEach(bookmaker => {
-                 const bookmakerTitle = document.createElement('div');
-                 bookmakerTitle.className = 'bookmaker-title';
-                 bookmakerTitle.textContent = bookmaker.title;
-                 container.appendChild(bookmakerTitle);
-         
-                 const tableHeaderDiv = createChildElement('div', 'table-header-row', null, container);
-         
-                 ['Name', 'H2H', 'Spreads', 'Totals'].forEach((item, i) => {
-                   // Replace the 'Name' header with the formatted date
-                   const headerText = item === 'Name' ? formattedDate : item;
-         
-                   const className = item === 'Name'
-                     ? 'table-header-item table-header-item-name'
-                     : 'table-header-item';
-                   createChildElement('div', className, headerText, tableHeaderDiv);
-                 });
-         
-                 const table = document.createElement('table');
-                 container.appendChild(table);
-         
-                 const tbody = document.createElement('tbody');
-                 table.appendChild(tbody);
-         
-                 const marketData = {};
-         
-                 bookmaker.markets.forEach(market => {
-                   market.outcomes.forEach(outcome => {
-                     if (!marketData[outcome.name]) {
-                       marketData[outcome.name] = {
-                         h2h: null,
-                         spreads: null,
-                         totals: null
-                       };
-                     }
-                     if (market.key === 'h2h') {
-                       marketData[outcome.name].h2h = {
-                         price: outcome.price,
-                         point: outcome.point
-                       };
-                     } else if (market.key === 'spreads') {
-                       marketData[outcome.name].spreads = {
-                         price: outcome.price,
-                         point: outcome.point
-                       };
-                     } else if (market.key === 'totals') {
-                       marketData[outcome.name].totals = {
-                         price: outcome.price,
-                         point: outcome.point
-                       };
-                     }
-                   });
-                 });
-         
-                 Object.keys(marketData).forEach(name => {
-                 if (name !== 'Over' && name !== 'Under') {
-                   const tr = document.createElement('tr');
-                   tbody.appendChild(tr);
-         
-                   // teamsIcons
-         
-         
-                   const teamNameCell = document.createElement('td');
-                   const nameDiv = createChildElement('div', 'team-cell', null, teamNameCell)
-         
-         
-                   // nameCell.textContent = name;
-                   teamNameCell.setAttribute('class','team-name-cell')
-         
-                   //  Find Image asd
-                   const imgUrl = getIconUrl(name)
-                   if(imgUrl) {
-                     const imgElement = createChildElement('img', 'team-icon', null, nameDiv)
-                     imgElement.setAttribute('src', imgUrl)
-                   }
-                   const textElement = createChildElement('div', null, name, nameDiv)
-         
-                   tr.appendChild(teamNameCell);
-         
-                   ['h2h', 'spreads'].forEach(marketKey => {
-                     const marketCell = document.createElement('td');
-                     marketCell.setAttribute('class', 'data')
-         
-                     const marketDivWrapper = createChildElement('div', 'flex-center', null, marketCell)
-         
-                     let whiteText = ''
-                     let greenText = ''
-         
-                     if (marketData[name][marketKey]) {
-                       const price = marketData[name][marketKey].price;
-                       const point = marketData[name][marketKey].point;
-         
-                       whiteText = `${price}`;
-                       if (point) {
-                         greenText += `${point}`;
-                       }
-                     } else {
-                       greenText = '-';
-                     }
-         
-                     if(whiteText) {
-                       createChildElement('div', 'white-text', whiteText, marketDivWrapper)
-                     }
-         
-                     if(greenText) {
-                       createChildElement('div', 'green-text', greenText, marketDivWrapper)
-                     }
-         
-                     tr.appendChild(marketCell);
-                   });
-         
-                   const totalsCell = document.createElement('td');
-                   totalsCell.classList.add('data');
-                   const overPrice = marketData['Over'] && marketData['Over']['totals'] ? marketData['Over']['totals'].price : '-';
-                   const overPoint = marketData['Over'] && marketData['Over']['totals'] ? marketData['Over']['totals'].point : '-';
-                   const underPrice = marketData['Under'] && marketData['Under']['totals'] ? marketData['Under']['totals'].price : '-';
-                   const underPoint = marketData['Under'] && marketData['Under']['totals'] ? marketData['Under']['totals'].point : '-';
-                   totalsCell.innerHTML = `
-                     <span class="price">${overPrice}</span> (${overPoint}),
-                     <span class="price">${underPrice}</span> (${underPoint})
-                   `;
-                   tr.appendChild(totalsCell);
-         
-                 }
-               });
-             });
-         });
+            clearBookmakersContainer();
+        	  updateSportTitle(sports)
+
+            const url = `https://api.the-odds-api.com/v4/sports/${sports}/odds/?apiKey=3a4a96544f6463e3f72df335653064ac&regions=us&markets=h2h,spreads,totals&oddsFormat=${oddsFormat}`;
+            const response = await fetch(url);
+            const apiData = await response.json();
+            const dataPayloadFiltered = apiData.map(data => {
+
+              const filteredBMdata = data.bookmakers.filter((bm) => {return bm.key === 'draftkings'})
+              return {...data, bookmakers: filteredBMdata}
+            })
+
+            const container = document.getElementById('bookmakers-container');
+
+            dataPayloadFiltered.forEach(data => {
+              let formattedDate;
+              const date = new Date(data.commence_time);
+
+               // Check if the date is tomorrow (add 1 to the current date)
+               const currentDate = new Date();
+               const tomorrow = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
+
+               if (date.getFullYear() === tomorrow.getFullYear() &&
+                   date.getMonth() === tomorrow.getMonth() &&
+                   date.getDate() === tomorrow.getDate()) {
+                   formattedDate = `tomorrow ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
+               } else {
+                   const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+                   const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+                   const day = days[date.getDay()];
+                   const month = months[date.getMonth()];
+                   const dateNum = date.getDate();
+                   const ordinalSuffix = (dateNum === 1 || dateNum === 21 || dateNum === 31) ? 'ST' : (dateNum === 2 || dateNum === 22) ? 'ND' : (dateNum === 3 || dateNum === 23) ? 'RD' : 'TH';
+                   formattedDate = `${day} ${month} ${dateNum}${ordinalSuffix}`;
+               }
+
+                data.bookmakers.forEach(bookmaker => {
+                    const bookmakerTitle = document.createElement('div');
+                    bookmakerTitle.className = 'bookmaker-title';
+                    bookmakerTitle.textContent = bookmaker.title;
+                    container.appendChild(bookmakerTitle);
+
+                    const tableHeaderDiv = createChildElement('div', 'table-header-row', null, container);
+
+                    ['Name', 'H2H', 'Spreads', 'Totals'].forEach((item, i) => {
+                      // Replace the 'Name' header with the formatted date
+                      const headerText = item === 'Name' ? formattedDate : item;
+
+                      const className = item === 'Name'
+                        ? 'table-header-item table-header-item-name'
+                        : 'table-header-item';
+                      createChildElement('div', className, headerText, tableHeaderDiv);
+                    });
+
+                    const table = document.createElement('table');
+                    container.appendChild(table);
+
+                    const tbody = document.createElement('tbody');
+                    table.appendChild(tbody);
+
+                    const marketData = {};
+
+                    bookmaker.markets.forEach(market => {
+                      market.outcomes.forEach(outcome => {
+                        if (!marketData[outcome.name]) {
+                          marketData[outcome.name] = {
+                            h2h: null,
+                            spreads: null,
+                            totals: null
+                          };
+                        }
+                        if (market.key === 'h2h') {
+                          marketData[outcome.name].h2h = {
+                            price: outcome.price,
+                            point: outcome.point
+                          };
+                        } else if (market.key === 'spreads') {
+                          marketData[outcome.name].spreads = {
+                            price: outcome.price,
+                            point: outcome.point
+                          };
+                        } else if (market.key === 'totals') {
+                          marketData[outcome.name].totals = {
+                            price: outcome.price,
+                            point: outcome.point
+                          };
+                        }
+                      });
+                    });
+
+                    Object.keys(marketData).forEach(name => {
+                    if (name !== 'Over' && name !== 'Under') {
+                      const tr = document.createElement('tr');
+                      tbody.appendChild(tr);
+
+                      // teamsIcons
+
+
+                      const teamNameCell = document.createElement('td');
+                      const nameDiv = createChildElement('div', 'team-cell', null, teamNameCell)
+
+
+                      // nameCell.textContent = name;
+                      teamNameCell.setAttribute('class','team-name-cell')
+
+                      //  Find Image asd
+                      const imgUrl = getIconUrl(name)
+                      if(imgUrl) {
+                        const imgElement = createChildElement('img', 'team-icon', null, nameDiv)
+                        imgElement.setAttribute('src', imgUrl)
+                      }
+                      const textElement = createChildElement('div', null, name, nameDiv)
+
+                      tr.appendChild(teamNameCell);
+
+                      ['h2h', 'spreads'].forEach(marketKey => {
+                        const marketCell = document.createElement('td');
+                        marketCell.setAttribute('class', 'data')
+
+                        const marketDivWrapper = createChildElement('div', 'flex-center', null, marketCell)
+
+                        let whiteText = ''
+                        let greenText = ''
+
+                        if (marketData[name][marketKey]) {
+                          const price = marketData[name][marketKey].price;
+                          const point = marketData[name][marketKey].point;
+
+                          whiteText = `${price}`;
+                          if (point) {
+                            greenText += `${point}`;
+                          }
+                        } else {
+                          greenText = '-';
+                        }
+
+                        if(whiteText) {
+                          createChildElement('div', 'white-text', whiteText, marketDivWrapper)
+                        }
+
+                        if(greenText) {
+                          createChildElement('div', 'green-text', greenText, marketDivWrapper)
+                        }
+
+                        tr.appendChild(marketCell);
+                      });
+
+                      const totalsCell = document.createElement('td');
+                      totalsCell.classList.add('data');
+                      const overPrice = marketData['Over'] && marketData['Over']['totals'] ? marketData['Over']['totals'].price : '-';
+                      const overPoint = marketData['Over'] && marketData['Over']['totals'] ? marketData['Over']['totals'].point : '-';
+                      const underPrice = marketData['Under'] && marketData['Under']['totals'] ? marketData['Under']['totals'].price : '-';
+                      const underPoint = marketData['Under'] && marketData['Under']['totals'] ? marketData['Under']['totals'].point : '-';
+                      totalsCell.innerHTML = `
+                        <span class="price">${overPrice}</span> (${overPoint}),
+                        <span class="price">${underPrice}</span> (${underPoint})
+                      `;
+                      tr.appendChild(totalsCell);
+
+                    }
+                  });
+                });
+            });
          }
-         
+
          function getIconUrl(name) {
-         
-         const baseUrl = 'https://sportsbook.draftkings.com/static/'
-         const nameTokens = name?.split(' ')
-         const x = nameTokens[nameTokens.length - 1].toLowerCase()
-         
-         const a = Object.entries(teamsIcons).map(x=> {
-         
-         
-            const key = x[0]
-            const value = x[1]
-         
-            const teamThing = key.split(' ')[1].toLowerCase()
-            return {key: teamThing, value}
-         })
-         
-         const result = a.filter(b => b.key === x)[0]
-         
-         return result?.value
-         ? baseUrl + result.value
-         : null
+
+          const baseUrl = 'https://sportsbook.draftkings.com/static/'
+           const nameTokens = name?.split(' ')
+           const x = nameTokens[nameTokens.length - 1].toLowerCase()
+
+           const a = Object.entries(teamsIcons).map(x=> {
+
+
+               const key = x[0]
+               const value = x[1]
+
+               const teamThing = key.split(' ')[1].toLowerCase()
+               return {key: teamThing, value}
+           })
+
+           const result = a.filter(b => b.key === x)[0]
+
+          return result?.value
+          ? baseUrl + result.value
+          : null
          }
-         
-         // let webMessageChannel = new WebMessageChannel(onMessageReceived);
-         
+
+        let webMessageChannel = new WebMessageChannel(onMessageReceived);
+
          // fetchApiData("Basketball","decimal");
       </script>
    </body>
