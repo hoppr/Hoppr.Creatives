@@ -176,55 +176,55 @@
       }
 
       const teamsIcons = {
-                            "ATL Hawks": "/logos/teams/nba/ATL.png",
-                            "BKN Nets": "/logos/teams/nba/BKN.png",
-                            "BOS Celtics": "/logos/teams/nba/BOS.png",
-                            "CHA Hornets": "/logos/teams/nba/CHA.png",
-                            "CHI Bulls": "/logos/teams/nba/CHI.png",
-                            "CLE Cavaliers": "/logos/teams/nba/CLE.png",
-                            "DAL Mavericks": "/logos/teams/nba/DAL.png",
-                            "DEN Nuggets": "/logos/teams/nba/DEN.png",
-                            "DET Pistons": "/logos/teams/nba/DET.png",
-                            "GS Warriors": "/logos/teams/nba/GSW.png",
-                            "HOU Rockets": "/logos/teams/nba/HOU.png",
-                            "IND Pacers": "/logos/teams/nba/IND.png",
-                            "LA Clippers": "/logos/teams/nba/LAC.png",
-                            "LA Lakers": "/logos/teams/nba/LAL.png",
-                            "MEM Grizzlies": "/logos/teams/nba/MEM.png",
-                            "MIA Heat": "/logos/teams/nba/MIA.png",
-                            "MIL Bucks": "/logos/teams/nba/MIL.png",
-                            "MIN Timberwolves": "/logos/teams/nba/MIN.png",
-                            "NO Pelicans": "/logos/teams/nba/NOP.png",
-                            "NY Knicks": "/logos/teams/nba/NYK.png",
-                            "OKC Thunder": "/logos/teams/nba/OKC.png",
-                            "ORL Magic": "/logos/teams/nba/ORL.png",
-                            "PHI 76ers": "/logos/teams/nba/PHI.png",
-                            "PHO Suns": "/logos/teams/nba/PHX.png",
-                            "POR Trail Blazers": "/logos/teams/nba/POR.png",
-                            "SA Spurs": "/logos/teams/nba/SAS.png",
-                            "SAC Kings": "/logos/teams/nba/SAC.png",
-                            "TOR Raptors": "/logos/teams/nba/TOR.png",
-                            "UTA Jazz": "/logos/teams/nba/UTA.png",
-                            "WAS Wizards": "/logos/teams/nba/WAS.png"
+                            // "ATL Hawks": "/logos/teams/nba/ATL.png",
+                            // "BKN Nets": "/logos/teams/nba/BKN.png",
+                            // "BOS Celtics": "/logos/teams/nba/BOS.png",
+                            // "CHA Hornets": "/logos/teams/nba/CHA.png",
+                            // "CHI Bulls": "/logos/teams/nba/CHI.png",
+                            // "CLE Cavaliers": "/logos/teams/nba/CLE.png",
+                            // "DAL Mavericks": "/logos/teams/nba/DAL.png",
+                            // "DEN Nuggets": "/logos/teams/nba/DEN.png",
+                            // "DET Pistons": "/logos/teams/nba/DET.png",
+                            // "GS Warriors": "/logos/teams/nba/GSW.png",
+                            // "HOU Rockets": "/logos/teams/nba/HOU.png",
+                            // "IND Pacers": "/logos/teams/nba/IND.png",
+                            // "LA Clippers": "/logos/teams/nba/LAC.png",
+                            // "LA Lakers": "/logos/teams/nba/LAL.png",
+                            // "MEM Grizzlies": "/logos/teams/nba/MEM.png",
+                            // "MIA Heat": "/logos/teams/nba/MIA.png",
+                            // "MIL Bucks": "/logos/teams/nba/MIL.png",
+                            // "MIN Timberwolves": "/logos/teams/nba/MIN.png",
+                            // "NO Pelicans": "/logos/teams/nba/NOP.png",
+                            // "NY Knicks": "/logos/teams/nba/NYK.png",
+                            // "OKC Thunder": "/logos/teams/nba/OKC.png",
+                            // "ORL Magic": "/logos/teams/nba/ORL.png",
+                            // "PHI 76ers": "/logos/teams/nba/PHI.png",
+                            // "PHO Suns": "/logos/teams/nba/PHX.png",
+                            // "POR Trail Blazers": "/logos/teams/nba/POR.png",
+                            // "SA Spurs": "/logos/teams/nba/SAS.png",
+                            // "SAC Kings": "/logos/teams/nba/SAC.png",
+                            // "TOR Raptors": "/logos/teams/nba/TOR.png",
+                            // "UTA Jazz": "/logos/teams/nba/UTA.png",
+                            // "WAS Wizards": "/logos/teams/nba/WAS.png"
                         }
       </script>
 
       <script>
 
-         function onMessageReceived(message, port) {
-           // Parse the incoming message as JSON
-            let parsedMessage = JSON.parse(message);
+      function onMessageReceived(message, port) {
+          // Parse the incoming message as JSON
+          let parsedMessage = JSON.parse(message);
 
-            // Get the values for sports and oddsFormat from the parsed message
-            let sports = parsedMessage.sports;
-            let oddsFormat = parsedMessage.oddsFormat;
+          let response = "Response from WebView: " + message;
+          webMessageChannel.sendResponse(response, port);
 
-            let response = "Response from WebView: " + message;
-            webMessageChannel.sendResponse(response, port);
+          // Extract key and oddsFormat from the parsed message
+          let key = parsedMessage.key;
+          let oddsFormat = parsedMessage.oddsFormat;
 
-            // // Call the fetchApiData function with the sports and oddsFormat values
-            // fetchApiData(sports, oddsFormat);
-         }
+          // Call the fetchApiData function with the sports and oddsFormat values
+          fetchApiData(key, oddsFormat);
+      }
 
          function clearBookmakersContainer() {
             const container = document.getElementById('bookmakers-container');
@@ -432,7 +432,7 @@
 
         let webMessageChannel = new WebMessageChannel(onMessageReceived);
 
-         fetchApiData("Basketball","decimal");
+         // fetchApiData("Basketball","decimal");
       </script>
    </body>
 </html>
