@@ -40,7 +40,6 @@
          } */
          .table-header-row {
          display: flex;
-         flex-direction: row;
          /* padding: 8px; */
          color: #c5c5c5;
          /* font-size: 11px; */
@@ -50,14 +49,14 @@
          }
          div.table-header-item-name {
          /* flex-grow: 2; */
-         width: 31%;
+         width: 40%;
          text-align: left;
          }
          .table-header-item {
          text-align: center;
          border-bottom: 1PX solid #242424;
          /* flex-grow: 1; */
-         width: 23%;
+         width: 20%;
          /* padding: 8px; */
          }
          table {
@@ -92,13 +91,13 @@
          }
          .white-text {
          color: white;
-         font-size: 12px;
+         font-size: 0.9rem;
          font-weight: 400;
          padding: 0.25rem;
-         /* font-size: 12px; */
+         /* font-size: 0.9rem; */
          }
          .green-text { color: #53d337;
-         font-size: 12px;
+         font-size: 0.9rem;
          font-weight: 700;
          padding: 0.25rem;
          }
@@ -154,20 +153,21 @@
          background-color: black;
          color: #39ff14;
          font-weight: bold;
-         font-size: 13px;
+         font-size: 0.9rem;
          top: 0;
          }
          .price {
          color: #53d337;
-         font-size: 12px;
-         font-weight: 700;
+         color: white;
+         font-size: 0.9rem;
+         font-weight: 400;
          padding: 0.25rem;
          }
          .point {
-         color: white;
-         font-size: 12px;
-         font-weight: 700;
-         padding: 0.25rem;
+           color: white;
+           font-size: 0.9rem;
+           font-weight: 400;
+           padding: 0.25rem;
          }
       </style>
    </head>
@@ -287,7 +287,7 @@
 
                        ['Name', 'H2H', 'Spreads', 'Totals'].forEach((item, i) => {
                          // Replace the 'Name' header with the formatted date
-                         const headerText = item === 'Name' ? formattedDate : item;
+                         const headerText = item === 'Name' ? formattedDate : (item === 'H2H' ? 'Moneyline' : item);
 
                          const className = item === 'Name'
                            ? 'table-header-item table-header-item-name'
@@ -394,13 +394,20 @@
                          const overPoint = marketData['Over'] && marketData['Over']['totals'] ? marketData['Over']['totals'].point : '-';
                          const underPrice = marketData['Under'] && marketData['Under']['totals'] ? marketData['Under']['totals'].price : '-';
                          const underPoint = marketData['Under'] && marketData['Under']['totals'] ? marketData['Under']['totals'].point : '-';
-                         totalsCell.innerHTML = `
-                           <span class="price">${overPrice}</span>,
-                           <span class="point">(${overPoint})</span>,
-                           <span class="price">${underPrice}</span>,
-                           <span class="point">(${underPoint})</span>`;
+                         if (name === 'Over') {
+                           totalsCell.innerHTML = `
+                             <span class="price">O ${overPrice}</span>,
+                             <span class="point">(${overPoint})</span>`;
+                         } else if (name === 'Under') {
+                           totalsCell.innerHTML = `
+                             <span class="price">U ${underPrice}</span>,
+                             <span class="point">(${underPoint})</span>`;
+                         } else {
+                           totalsCell.innerHTML = `
+                             <span class="price">${overPrice}</span>
+                             <span class="point">(${overPoint})</span>`;
+                         }
                          tr.appendChild(totalsCell);
-
                        }
                      });
                    });
