@@ -162,6 +162,12 @@
          font-weight: 700;
          padding: 0.25rem;
          }
+         .point {
+         color: white;
+         font-size: 12px;
+         font-weight: 700;
+         padding: 0.25rem;
+         }
       </style>
    </head>
    <body>
@@ -388,9 +394,10 @@
                          const underPrice = marketData['Under'] && marketData['Under']['totals'] ? marketData['Under']['totals'].price : '-';
                          const underPoint = marketData['Under'] && marketData['Under']['totals'] ? marketData['Under']['totals'].point : '-';
                          totalsCell.innerHTML = `
-                           <span class="price">${overPrice}</span> (${overPoint}),
-                           <span class="price">${underPrice}</span> (${underPoint})
-                         `;
+                           <span class="price">${overPrice}</span>,
+                           <span class="point">(${overPoint})</span>,
+                           <span class="price">${underPrice}</span>,
+                           <span class="point">(${underPoint})</span>`;
                          tr.appendChild(totalsCell);
 
                        }
