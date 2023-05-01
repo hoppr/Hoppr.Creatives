@@ -243,7 +243,7 @@
                clearBookmakersContainer();
            	  updateSportTitle(title)
 
-               const url = `https://api.the-odds-api.com/v4/sports/${sports}/odds/?apiKey=3a4a96544f6463e3f72df335653064ac&regions=us&markets=h2h,spreads,totals&oddsFormat=${oddsFormat}`;
+               const url = `https://api.the-odds-api.com/v4/sports/${sports}/odds/?apiKey=3a4a96544f6463e3f72df335653064ac&regions=us&markets=spreads,totals,h2h&oddsFormat=${oddsFormat}`;
                const response = await fetch(url);
                const apiData = await response.json();
                const dataPayloadFiltered = apiData.map(data => {
@@ -284,7 +284,7 @@
 
                        const tableHeaderDiv = createChildElement('div', 'table-header-row', null, container);
 
-                       ['Name', 'H2H', 'Spreads', 'Totals'].forEach((item, i) => {
+                       ['Name',  'Spreads','Totals','H2H'].forEach((item, i) => {
                          // Replace the 'Name' header with the formatted date
                          const headerText = item === 'Name' ? formattedDate : (item === 'H2H' ? 'Moneyline' : item);
 
@@ -306,22 +306,22 @@
                          market.outcomes.forEach(outcome => {
                            if (!marketData[outcome.name]) {
                              marketData[outcome.name] = {
-                               h2h: null,
                                spreads: null,
-                               totals: null
+                               totals: null,
+                               h2h: null
                              };
                            }
-                           if (market.key === 'h2h') {
-                             marketData[outcome.name].h2h = {
-                               price: outcome.price,
-                               point: outcome.point
-                             };
-                           } else if (market.key === 'spreads') {
+                        if (market.key === 'spreads') {
                              marketData[outcome.name].spreads = {
                                price: outcome.price,
                                point: outcome.point
                              };
-                           } else if (market.key === 'totals') {
+                           }  else  if (market.key === 'h2h') {
+                                marketData[outcome.name].h2h = {
+                                  price: outcome.price,
+                                  point: outcome.point
+                                };
+                              }  else if (market.key === 'totals') {
                              marketData[outcome.name].totals = {
                                price: outcome.price,
                                point: outcome.point
@@ -355,7 +355,8 @@
 
                          tr.appendChild(teamNameCell);
 
-                         ['h2h', 'spreads'].forEach(marketKey => {
+                         //SPREADS
+                         ['spreads'].forEach(marketKey => {
                            const marketCell = document.createElement('td');
                            marketCell.setAttribute('class', 'data')
 
@@ -387,6 +388,7 @@
                            tr.appendChild(marketCell);
                          });
 
+                        //TOTALS
                          const totalsCell = document.createElement('td');
                          totalsCell.classList.add('data');
                          const overPrice = marketData['Over'] && marketData['Over']['totals'] ? marketData['Over']['totals'].price : '-';
@@ -407,6 +409,40 @@
                              <span class="point">(${overPoint})</span>`;
                          }
                          tr.appendChild(totalsCell);
+
+
+                         //MONEYLINE
+                         ['h2h'].forEach(marketKey => {
+                           const marketCell = document.createElement('td');
+                           marketCell.setAttribute('class', 'data')
+
+                           const marketDivWrapper = createChildElement('div', 'flex-center', null, marketCell)
+
+                           let whiteText = ''
+                           let greenText = ''
+
+                           if (marketData[name][marketKey]) {
+                             const price = marketData[name][marketKey].price;
+                             const point = marketData[name][marketKey].point;
+
+                             whiteText = `${price}`;
+                             if (point) {
+                               greenText += `${point}`;
+                             }
+                           } else {
+                             greenText = '-';
+                           }
+
+                           if(whiteText) {
+                             createChildElement('div', 'white-text', whiteText, marketDivWrapper)
+                           }
+
+                           if(greenText) {
+                             createChildElement('div', 'green-text', greenText, marketDivWrapper)
+                           }
+
+                           tr.appendChild(marketCell);
+                         });
                        }
                      });
                    });
