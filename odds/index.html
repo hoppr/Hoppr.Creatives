@@ -16,7 +16,7 @@
          table {
          border-collapse: collapse;
          width: 100%;
-         margin-bottom: 20px;
+         margin-bottom: 10px;
          }
          th, td {
          background-color: #242424;
@@ -42,7 +42,7 @@
          display: flex;
          /* padding: 8px; */
          color: #c5c5c5;
-         /* font-size: 11px; */
+         font-size: 11px;
          font-weight: 400;
          /* text-align: center; */
          text-transform: uppercase;
@@ -69,6 +69,7 @@
          /* height: 100%; */
          background-color:#121212;
          color: white;
+         font-size: 12px;
          font-weight: bold;
          }
          .team-cell {
@@ -91,13 +92,13 @@
          }
          .white-text {
          color: white;
-         font-size: 0.9rem;
+         font-size: 10px;
          font-weight: 400;
          padding: 0.25rem;
-         /* font-size: 0.9rem; */
+         /* font-size: 10px; */
          }
          .green-text { color: #53d337;
-         font-size: 0.9rem;
+         font-size: 10px;
          font-weight: 700;
          padding: 0.25rem;
          }
@@ -124,7 +125,7 @@
          position: relative; /* Add this line to ensure the ::before element is positioned relative to the logo */
          background-image: url('https://d2tjpz01y5bfgl.cloudfront.net/sportsbook_transparent.png');
          background-size: contain;
-         width: 131px;
+         width: 128px;
          height: 35px;
          }
          .online-indicator {
@@ -153,18 +154,18 @@
          background-color: black;
          color: #39ff14;
          font-weight: bold;
-         font-size: 0.9rem;
+         font-size: 13px;
          top: 0;
          }
          .price {
         color: white;
-         font-size: 0.9rem;
+         font-size: 10px;
          font-weight: 400;
          padding: 0.25rem;
          }
          .point {
            color: #53d337;
-           font-size: 0.9rem;
+           font-size: 10px;
            font-weight: 700;
            padding: 0.25rem;
          }
@@ -178,7 +179,9 @@
             <span class="sport-title" id="sport-title">NBA</span>
          </div>
       </div>
-      <div id="bookmakers-container">
+      <div id="bookmakers-container" style="margin-top: 50px;">
+      </div>
+      <div id="spacer">
       </div>
       <script src="webMessageChannel.js"></script>
       <script>
@@ -474,6 +477,7 @@
 
            let webMessageChannel = new WebMessageChannel(onMessageReceived);
 
+            onMessageReceived2(`{"key":"basketball_nba","group":"Basketball","title":"NBA","description":"US Basketball","active":true,"has_outrights":false,"oddsFormat":"american"}`);
             // fetchApiData("Basketball","decimal");
       </script>
    </body>
