@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>API Data Display</title>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;700&display=swap');
+        </style>
+      <style>
+         body {
+         background-color: #121212;
+         color: #f5f5f5;
+         font-family: 'Saira Condensed', sans-serif;
+         }
+         table {
+         border-collapse: collapse;
+         width: 100%;
+         }
+
+         th, td {
+         background-color: #242424;
+         padding: 8px;
+         text-align: left;
+         border: 2px solid #121212;
+         }
+         th {
+         background-color:#121212;
+         color: #39ff14;
+         border-bottom: 2px solid #242424;
+         }
+         .bookmaker-title {
+         font-weight: bold;
+         margin-bottom: 10px;
+         }
+         tr {
+           line-height: 5px;
+         }
+         .table-header-row {
+         display: flex;
+         /* padding: 8px; */
+         color: #c5c5c5;
+         font-size: 3px;
+         font-weight: 400;
+         /* text-align: center; */
+         text-transform: uppercase;
+         }
+         div.table-header-item-name {
+         /* flex-grow: 2; */
+         width: 30%;
+         text-align: left;
+         }
+         .table-header-item {
+         text-align: center;
+         border-bottom: 1PX solid #242424;
+         /* flex-grow: 1; */
+         width: 24%;
+         /* padding: 8px; */
+         }
+         table {
+         margin-top: 5px
+         }
+         .header-center {
+         text-align: center;
+         }
+         td.team-name-cell {
+         /* height: 100%; */
+         background-color:#121212;
+         color: white;
+         font-size: 3px;
+         font-weight: bold;
+         }
+         .team-cell {
+         display: flex;
+         flex-direction: row;
+         align-items: center;
+         }
+         td.data {
+         width: 20%;
+         text-align: center;
+         white-space: nowrap;
+         display: inline-block;
+         /* display: flex;
+         flex-direction: row; */
+         background-color:#242424;
+         }
+         .flex-center {
+         display: flex;
+         flex-direction: row;
+         justify-content: center;
+         }
+         .white-text {
+         color: white;
+         font-size: 2px;
+         font-weight: 400;
+         padding: 0.1rem;
+         /* font-size: 3px; */
+         }
+         .green-text { color: #53d337;
+         font-size: 2px;
+         font-weight: 700;
+         padding: 0.1rem;
+         }
+         .team-icon {
+         width: 2rem;
+         padding-right: 1.0rem;
+         aspect-ratio: 1 / 1;
+         }
+         .item {
+         vertical-align: top;
+         align-items: center;
+         justify-content: space-between;
+         display: flex;
+         background-color: black;
+         position: fixed;
+         padding: 7px;
+         top: 0;
+         left: 0;
+         right: 0;  /* Add this line */
+         z-index: 9999;
+         width: 100%;  /* Add this line */
+         }
+         .logo {
+         position: relative; /* Add this line to ensure the ::before element is positioned relative to the logo */
+         background-image: url('https://d2tjpz01y5bfgl.cloudfront.net/sportsbook_transparent.png');
+         background-size: contain;
+         width: 90px;
+         height: 25px;
+         }
+         .online-indicator {
+         width: 10px; /* Set the width of the green dot */
+         height: 10px; /* Set the height of the green dot */
+         background-color: green; /* Set the background color of the dot to green */
+         border-radius: 50%; /* Add this line to make the shape a circle */
+         display: inline-block; /* Add this line to make the element inline */
+         }
+         .status-container {
+         margin-right: 20px;
+         display: inline-block; /* Add this line to make the container inline */
+         }
+         .online-indicator {
+         width: 10px;
+         height: 10px;
+         background-color: #39ff14;
+         border-radius: 50%;
+         display: inline-block;
+         vertical-align: middle; /* Add this line to align the dot vertically in the middle */
+         /* margin-right: 5px; /* Add this line to add some space between the dot and the text */
+         }
+         .sport-title {
+         display: inline-block;
+         vertical-align: left; /* Add this line to align the text vertically in the middle */
+         background-color: black;
+         color: #39ff14;
+         font-weight: bold;
+         font-size: 5px;
+         top: 0;
+         }
+         .price {
+        color: white;
+         font-size: 2px;
+         font-weight: 400;
+         padding: .1rem;
+         }
+         .point {
+           color: #53d337;
+           font-size: 2px;
+           font-weight: 700;
+           padding: .1rem;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="item">
+         <div class="logo"></div>
+         <div class="status-container">
+            <div class="online-indicator"></div>
+            <span class="sport-title" id="sport-title">NBA</span>
+         </div>
+      </div>
+      <div id="bookmakers-container" style="margin-top: 45px;">
+      </div>
+      <div id="spacer">
+      </div>
+      <script src="webMessageChannel.js"></script>
+      <script>
+         function createChildElement(name, className, text, root) {
+
+           const element = document.createElement(name)
+           if(className) { element.setAttribute('class', className) }
+           if(text) { element.textContent = text }
+           root.appendChild(element)
+
+           return element
+         }
+         const teamsIcons = {}
+
+         // rest of the script
+      </script>
+      <script>
+         function onMessageReceived(message, port) {
+             // Parse the incoming message as JSON
+             let parsedMessage = JSON.parse(message);
+
+             let response = "Response from WebView: " + message;
+             webMessageChannel.sendResponse(response, port);
+
+             // Extract key and oddsFormat from the parsed message
+             let key = parsedMessage.key;
+             let oddsFormat = parsedMessage.oddsFormat;
+             let title = parsedMessage.title;
+
+             // Call the fetchApiData function with the sports and oddsFormat values
+             fetchApiData(key, oddsFormat,title);
+         }
+         function onMessageReceived2(message) {
+             // Parse the incoming message as JSON
+             let parsedMessage = JSON.parse(message);
+             // Extract key and oddsFormat from the parsed message
+             let key = parsedMessage.key;
+             let oddsFormat = parsedMessage.oddsFormat;
+             let title = parsedMessage.title;
+
+             // Call the fetchApiData function with the sports and oddsFormat values
+             fetchApiData(key, oddsFormat,title);
+         }
+
+
+            function clearBookmakersContainer() {
+               const container = document.getElementById('bookmakers-container');
+               while (container.firstChild) {
+                   container.removeChild(container.firstChild);
+               }
+            }
+
+            function updateSportTitle(sportsTitle) {
+            const sportTitle = document.getElementById('sport-title');
+            let str = sportsTitle;
+            let lowercaseStr = str.toLowerCase(); // "hello world"
+            let capitalizedStr = str.charAt(0).toUpperCase() + str.slice(1); // "Hello World"
+            sportTitle.textContent = capitalizedStr;
+            }
+
+            async function fetchApiData(sports,oddsFormat,title) {
+               clearBookmakersContainer();
+           	  updateSportTitle(title)
+
+               const url = `https://api.the-odds-api.com/v4/sports/${sports}/odds/?apiKey=4a37c359b0496c540586175232e23f4c&regions=us&markets=spreads,totals,h2h&oddsFormat=${oddsFormat}`;
+               const response = await fetch(url);
+               const apiData = await response.json();
+               const dataPayloadFiltered = apiData.map(data => {
+
+                 const filteredBMdata = data.bookmakers.filter((bm) => {return bm.key === 'draftkings'})
+                 return {...data, bookmakers: filteredBMdata}
+               })
+
+               const container = document.getElementById('bookmakers-container');
+
+               dataPayloadFiltered.forEach(data => {
+                 let formattedDate;
+                 const date = new Date(data.commence_time);
+
+                  // Check if the date is tomorrow (add 1 to the current date)
+                  const currentDate = new Date();
+                  const tomorrow = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
+
+                  if (date.getFullYear() === tomorrow.getFullYear() &&
+                      date.getMonth() === tomorrow.getMonth() &&
+                      date.getDate() === tomorrow.getDate()) {
+                      formattedDate = `tomorrow ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
+                  } else {
+                      const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+                      const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+                      const day = days[date.getDay()];
+                      const month = months[date.getMonth()];
+                      const dateNum = date.getDate();
+                      const ordinalSuffix = (dateNum === 1 || dateNum === 21 || dateNum === 31) ? 'ST' : (dateNum === 2 || dateNum === 22) ? 'ND' : (dateNum === 3 || dateNum === 23) ? 'RD' : 'TH';
+                      formattedDate = `${day} ${month} ${dateNum}${ordinalSuffix}`;
+                  }
+
+                   data.bookmakers.forEach(bookmaker => {
+                       // const bookmakerTitle = document.createElement('div');
+                       // bookmakerTitle.className = 'bookmaker-title';
+                       // bookmakerTitle.textContent = bookmaker.title;
+                       // container.appendChild(bookmakerTitle);
+
+                       const tableHeaderDiv = createChildElement('div', 'table-header-row', null, container);
+
+                       ['Name',  'Spreads','Totals','H2H'].forEach((item, i) => {
+                         // Replace the 'Name' header with the formatted date
+                         const headerText = item === 'Name' ? formattedDate : (item === 'H2H' ? 'Moneyline' : item);
+
+                         const className = item === 'Name'
+                           ? 'table-header-item table-header-item-name'
+                           : 'table-header-item';
+                         createChildElement('div', className, headerText, tableHeaderDiv);
+                       });
+
+                       const table = document.createElement('table');
+                       container.appendChild(table);
+
+                       const tbody = document.createElement('tbody');
+                       table.appendChild(tbody);
+
+                       const marketData = {};
+
+                       bookmaker.markets.forEach(market => {
+                         market.outcomes.forEach(outcome => {
+                           if (!marketData[outcome.name]) {
+                             marketData[outcome.name] = {
+                               spreads: null,
+                               totals: null,
+                               h2h: null
+                             };
+                           }
+                        if (market.key === 'spreads') {
+                             marketData[outcome.name].spreads = {
+                               price: outcome.price,
+                               point: outcome.point
+                             };
+                           }  else  if (market.key === 'h2h') {
+                                marketData[outcome.name].h2h = {
+                                  price: outcome.price,
+                                  point: outcome.point
+                                };
+                              }  else if (market.key === 'totals') {
+                             marketData[outcome.name].totals = {
+                               price: outcome.price,
+                               point: outcome.point
+                             };
+                           }
+                         });
+                       });
+
+                       Object.keys(marketData).forEach(name => {
+                       if (name !== 'Over' && name !== 'Under') {
+                         const tr = document.createElement('tr');
+                         tbody.appendChild(tr);
+
+                         // teamsIcons
+
+
+                         const teamNameCell = document.createElement('td');
+                         const nameDiv = createChildElement('div', 'team-cell', null, teamNameCell)
+
+
+                         // nameCell.textContent = name;
+                         teamNameCell.setAttribute('class','team-name-cell')
+
+                         //  Find Image asd
+                         const imgUrl = getIconUrl(name)
+                         if(imgUrl) {
+                           const imgElement = createChildElement('img', 'team-icon', null, nameDiv)
+                           imgElement.setAttribute('src', imgUrl)
+                         }
+                         const textElement = createChildElement('div', null, name, nameDiv)
+
+                         tr.appendChild(teamNameCell);
+
+                         //SPREADS
+                         ['spreads'].forEach(marketKey => {
+                           const marketCell = document.createElement('td');
+                           marketCell.setAttribute('class', 'data')
+
+                           const marketDivWrapper = createChildElement('div', 'flex-center', null, marketCell)
+
+                           let whiteText = ''
+                           let greenText = ''
+
+                           if (marketData[name][marketKey]) {
+                             const price = marketData[name][marketKey].price;
+                             const point = marketData[name][marketKey].point;
+
+                             whiteText = `${price}`;
+                             if (point) {
+                               greenText += `${point}`;
+                             }
+                           } else {
+                             greenText = '-';
+                           }
+
+                           if(whiteText) {
+                             createChildElement('div', 'white-text', whiteText, marketDivWrapper)
+                           }
+
+                           if(greenText) {
+                             createChildElement('div', 'green-text', greenText, marketDivWrapper)
+                           }
+
+                           tr.appendChild(marketCell);
+                         });
+
+                        //TOTALS
+                         const totalsCell = document.createElement('td');
+                         totalsCell.classList.add('data');
+                         const overPrice = marketData['Over'] && marketData['Over']['totals'] ? marketData['Over']['totals'].price : '-';
+                         const overPoint = marketData['Over'] && marketData['Over']['totals'] ? marketData['Over']['totals'].point : '-';
+                         const underPrice = marketData['Under'] && marketData['Under']['totals'] ? marketData['Under']['totals'].price : '-';
+                         const underPoint = marketData['Under'] && marketData['Under']['totals'] ? marketData['Under']['totals'].point : '-';
+                         if (name === 'Over') {
+                           totalsCell.innerHTML = `
+                             <span class="price">O ${overPrice}</span>,
+                             <span class="point">(${overPoint})</span>`;
+                         } else if (name === 'Under') {
+                           totalsCell.innerHTML = `
+                             <span class="price">U ${underPrice}</span>,
+                             <span class="point">(${underPoint})</span>`;
+                         } else {
+                           totalsCell.innerHTML = `
+                             <span class="price">${overPrice}</span>
+                             <span class="point">(${overPoint})</span>`;
+                         }
+                         tr.appendChild(totalsCell);
+
+
+                         //MONEYLINE
+                         ['h2h'].forEach(marketKey => {
+                           const marketCell = document.createElement('td');
+                           marketCell.setAttribute('class', 'data')
+
+                           const marketDivWrapper = createChildElement('div', 'flex-center', null, marketCell)
+
+                           let whiteText = ''
+                           let greenText = ''
+
+                           if (marketData[name][marketKey]) {
+                             const price = marketData[name][marketKey].price;
+                             const point = marketData[name][marketKey].point;
+
+                             whiteText = `${price}`;
+                             if (point) {
+                               greenText += `${point}`;
+                             }
+                           } else {
+                             greenText = '-';
+                           }
+
+                           if(whiteText) {
+                             createChildElement('div', 'white-text', whiteText, marketDivWrapper)
+                           }
+
+                           if(greenText) {
+                             createChildElement('div', 'green-text', greenText, marketDivWrapper)
+                           }
+
+                           tr.appendChild(marketCell);
+                         });
+                       }
+                     });
+                   });
+               });
+            }
+
+            function getIconUrl(name) {
+
+             const baseUrl = 'https://sportsbook.draftkings.com/static/'
+              const nameTokens = name?.split(' ')
+              const x = nameTokens[nameTokens.length - 1].toLowerCase()
+
+              const a = Object.entries(teamsIcons).map(x=> {
+
+
+                  const key = x[0]
+                  const value = x[1]
+
+                  const teamThing = key.split(' ')[1].toLowerCase()
+                  return {key: teamThing, value}
+              })
+
+              const result = a.filter(b => b.key === x)[0]
+
+             return result?.value
+             ? baseUrl + result.value
+             : null
+            }
+
+           let webMessageChannel = new WebMessageChannel(onMessageReceived);
+
+            onMessageReceived2(`{"key":"basketball_nba","group":"Basketball","title":"NBA","description":"US Basketball","active":true,"has_outrights":false,"oddsFormat":"american"}`);
+            // fetchApiData("Basketball","decimal");
+      </script>
+   </body>
+</html>
