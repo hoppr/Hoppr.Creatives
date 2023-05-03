@@ -16,8 +16,8 @@
          table {
          border-collapse: collapse;
          width: 100%;
-         margin-bottom: 10px;
          }
+
          th, td {
          background-color: #242424;
          padding: 8px;
@@ -33,16 +33,14 @@
          font-weight: bold;
          margin-bottom: 10px;
          }
-         /* tr {
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         } */
+         tr {
+           line-height: 6px;
+         }
          .table-header-row {
          display: flex;
          /* padding: 8px; */
          color: #c5c5c5;
-         font-size: 11px;
+         font-size: 7px;
          font-weight: 400;
          /* text-align: center; */
          text-transform: uppercase;
@@ -69,7 +67,7 @@
          /* height: 100%; */
          background-color:#121212;
          color: white;
-         font-size: 12px;
+         font-size: 8px;
          font-weight: bold;
          }
          .team-cell {
@@ -79,7 +77,6 @@
          }
          td.data {
          width: 20%;
-         padding: 8px;
          text-align: center;
          /* display: flex;
          flex-direction: row; */
@@ -92,15 +89,15 @@
          }
          .white-text {
          color: white;
-         font-size: 10px;
+         font-size: 4px;
          font-weight: 400;
-         padding: 0.25rem;
-         /* font-size: 10px; */
+         padding: 0.1rem;
+         /* font-size: 4px; */
          }
          .green-text { color: #53d337;
-         font-size: 10px;
+         font-size: 4px;
          font-weight: 700;
-         padding: 0.25rem;
+         padding: 0.1rem;
          }
          .team-icon {
          width: 2rem;
@@ -154,20 +151,20 @@
          background-color: black;
          color: #39ff14;
          font-weight: bold;
-         font-size: 13px;
+         font-size: 6px;
          top: 0;
          }
          .price {
         color: white;
-         font-size: 10px;
+         font-size: 4px;
          font-weight: 400;
-         padding: 0.25rem;
+         padding: .1rem;
          }
          .point {
            color: #53d337;
-           font-size: 10px;
+           font-size: 4px;
            font-weight: 700;
-           padding: 0.25rem;
+           padding: .1rem;
          }
       </style>
    </head>
@@ -246,7 +243,7 @@
                clearBookmakersContainer();
            	  updateSportTitle(title)
 
-               const url = `https://api.the-odds-api.com/v4/sports/${sports}/odds/?apiKey=3a4a96544f6463e3f72df335653064ac&regions=us&markets=spreads,totals,h2h&oddsFormat=${oddsFormat}`;
+               const url = `https://api.the-odds-api.com/v4/sports/${sports}/odds/?apiKey=4a37c359b0496c540586175232e23f4c&regions=us&markets=spreads,totals,h2h&oddsFormat=${oddsFormat}`;
                const response = await fetch(url);
                const apiData = await response.json();
                const dataPayloadFiltered = apiData.map(data => {
