@@ -1,11 +1,11 @@
 async function fetchApiData(sports, oddsFormat, title) {
-  const url = `https://api.the-odds-api.com/v4/sports/${sports}/odds/?apiKey=4a37c359b0496c540586175232e23f4c&regions=us&markets=spreads,totals,h2h&oddsFormat=${oddsFormat}`;
-  return fetch(url, {
-          method : "GET",
-          mode: 'no-cors',
-      }).then(response => response.json())
+//   const url = `https://api.the-odds-api.com/v4/sports/${sports}/odds/?apiKey=4a37c359b0496c540586175232e23f4c&regions=us&markets=spreads,totals,h2h&oddsFormat=${oddsFormat}`;
+//   return fetch(url, {
+//           method : "GET",
+//           mode: 'no-cors',
+//       }).then(response => response.json())
 
-//   return responseData;
+  return responseData;
 
   // console.log(data);
 }
@@ -85,18 +85,18 @@ function extractMarketData(data) {
           }
           if (market.key === "spreads") {
             marketData[outcome.name].spreads = {
-              price: outcome.price,
-              point: outcome.point,
+              price: outcome?.price,
+              point: outcome?.point,
             };
           } else if (market.key === "h2h") {
             marketData[outcome.name].h2h = {
-              price: outcome.price,
-              point: outcome.point,
+              price: outcome?.price,
+              point: outcome?.point,
             };
           } else if (market.key === "totals") {
             marketData[outcome.name].totals = {
-              price: outcome.price,
-              point: outcome.point,
+              price: outcome?.price,
+              point: outcome?.point,
             };
           }
         });

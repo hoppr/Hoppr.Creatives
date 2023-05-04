@@ -100,6 +100,8 @@ function createGrid(parent, rows, time) {
 function fetchData(parent) {
 
   fetchApiData("Basketball", "decimal")
+
+
     .then((data) => {
       const filteredData = filterResponse(data);
       const marketData = extractMarketData(filteredData);
