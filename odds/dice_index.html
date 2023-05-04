@@ -283,9 +283,9 @@
                clearBookmakersContainer();
            	  updateSportTitle(title)
 
-               // const url = `https://api.the-odds-api.com/v4/sports/${sports}/odds/?apiKey=3a4a96544f6463e3f72df335653064ac&regions=us&markets=spreads,totals,h2h&oddsFormat=${oddsFormat}`;
-               // const response = await fetch(url);
-               // const apiData = await response.json();
+               const url = `https://api.the-odds-api.com/v4/sports/${sports}/odds/?apiKey=28ff83ca9ca112bd25206bd7301c3d52&regions=us&markets=spreads,totals,h2h&oddsFormat=${oddsFormat}`;
+               const response = await fetch(url);
+               const apiData = await response.json();
                const dataPayloadFiltered = responseData.map(data => {
 
                  const filteredBMdata = data.bookmakers.filter((bm) => {return bm.key === 'draftkings'})
