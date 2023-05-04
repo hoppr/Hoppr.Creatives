@@ -1,11 +1,11 @@
 async function fetchApiData(sports, oddsFormat, title) {
-  // const url = `https://api.the-odds-api.com/v4/sports/${sports}/odds/?apiKey=4a37c359b0496c540586175232e23f4c&regions=us&markets=spreads,totals,h2h&oddsFormat=${oddsFormat}`;
-  // return fetch(url, {
-  //         method : "GET",
-  //         mode: 'no-cors',
-  //     }).then(response => response.json())
+  const url = `https://api.the-odds-api.com/v4/sports/${sports}/odds/?apiKey=4a37c359b0496c540586175232e23f4c&regions=us&markets=spreads,totals,h2h&oddsFormat=${oddsFormat}`;
+  return fetch(url, {
+          method : "GET",
+          mode: 'no-cors',
+      }).then(response => response.json())
 
-  return responseData;
+//   return responseData;
 
   // console.log(data);
 }
