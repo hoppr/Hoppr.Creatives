@@ -19,7 +19,7 @@ body {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
 
-  grid-gap: 1.0rem;
+  grid-gap: 0.4rem;
 
   padding: 2rem 0;
   width: 100%;
@@ -52,6 +52,10 @@ body {
 .grid-name-cell {
   /* padding: 8px; */
   text-align: left;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .flex-row {
@@ -62,18 +66,19 @@ body {
 .flex-center {
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 
 .price {
   color: var(--white);
   /* font-weight: 400; */
-  /* padding: 1rem; */
+  padding: 0 0.5rem;
 }
 
 .point {
   color: var(--green);
   /* font-weight: 700; */
-  /* padding: 1rem; */
+  padding: 0 0.5rem;
 }
 
 .item {
@@ -104,7 +109,7 @@ body {
 
 }
 .online-indicator {
-  /* width: 1rem; */
+  width: 1rem;
   height: 1rem;
   background-color: var(--green);
   border-radius: 50%;

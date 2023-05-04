@@ -44,8 +44,12 @@ function createDataCell(parent, price, point) {
 }
 
 function createDataRow(parent, name, spreads, totals, moneyline) {
-  const nameCellElement = createChildElement("div", parent, {
+
+  const nameContainer = createChildElement("div", parent, {
     class: "grid-name-cell",
+  });
+
+  const nameCellElement = createChildElement("div", nameContainer, {
     text: name,
   });
 
