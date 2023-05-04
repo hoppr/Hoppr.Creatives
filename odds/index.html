@@ -13,16 +13,18 @@
 
   <body>
 
-    <div class="item">
-        <img class="draft-kings-logo" src="https://d2tjpz01y5bfgl.cloudfront.net/sportsbook_transparent.png"></img>
-        <div class="status-container">
-           <div class="online-indicator"></div>
-           <span class="sport-title" id="sport-title">NBA</span>
+    <div class="flex-container">
+
+        <div class="item">
+            <img class="draft-kings-logo" src="https://d2tjpz01y5bfgl.cloudfront.net/sportsbook_transparent.png"></img>
+            <div class="status-container">
+            <div class="online-indicator"></div>
+            <span class="sport-title" id="sport-title">NBA</span>
+            </div>
         </div>
-     </div>
 
-    <div id="root"></div>
-
+        <div id="root"></div>
+    </div>
 
     <script>
         fetchData(document.getElementById('root'))
