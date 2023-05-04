@@ -9,6 +9,7 @@ body {
   background-color: var(--dark);
   color: #f5f5f5;
   font-family: "Saira Condensed", sans-serif;
+  font-size: 1rem;
 
   padding: 0;
   margin: 0;
@@ -62,13 +63,13 @@ body {
 
 .price {
   color: var(--white);
-  font-weight: 400;
+  /* font-weight: 400; */
   padding: 1rem;
 }
 
 .point {
   color: var(--green);
-  font-weight: 700;
+  /* font-weight: 700; */
   padding: 1rem;
 }
 
@@ -100,7 +101,7 @@ body {
 
 }
 .online-indicator {
-  width: 1rem;
+  /* width: 1rem; */
   height: 1rem;
   background-color: var(--green);
   border-radius: 50%;
