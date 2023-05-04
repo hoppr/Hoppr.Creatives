@@ -56,7 +56,7 @@
          /* padding: 8px; */
          color: #c5c5c5;
          white-space: nowrap;
-         font-size: calc(.3rem + 0.2vw);
+         font-size: calc(.4rem + 0.3vw);
         font-weight: 400;
          /* text-align: center; */
          text-transform: uppercase;
@@ -83,7 +83,7 @@
          /* height: 100%; */
          background-color:#121212;
          color: white;
-         font-size: calc(.3rem + 0.2vw);
+         font-size: calc(.4rem + 0.3vw);
          white-space: nowrap;
          font-weight: bold;
          }
@@ -107,14 +107,16 @@
          }
          .white-text {
          color: white;
-         font-size: calc(.3rem + 0.2vw);
+         font-size: calc(.4rem + 0.3vw);
          white-space: nowrap;
+         padding: .2rem;
          font-weight: 400;
          /* font-size: 10px; */
          }
          .green-text { color: #53d337;
         white-space: nowrap;
-        font-size: calc(.3rem + 0.2vw);
+        padding: .2rem;
+        font-size: calc(.4rem + 0.3vw);
          font-weight: 700;
          }
 
@@ -171,18 +173,19 @@
          .price {
         color: white;
         white-space: nowrap;
-        font-size: calc(.3rem + 0.2vw);
+        font-size: calc(.4rem + 0.3vw);
          font-weight: 400;
          }
          .point {
            color: #53d337;
+           padding: .2rem;
            white-space: nowrap;
-           font-size: calc(.3rem + 0.2vw);
+           font-size: calc(.4rem + 0.3vw);
            font-weight: 700;
          }
          .combined-price-point{
            white-space: nowrap;
-           font-size: calc(.3rem + 0.2vw);
+           font-size: calc(.4rem + 0.3vw);
            font-weight: 400;
          }
          .bookmakers-container{
@@ -192,7 +195,8 @@
          }
          .point-color {
            white-space: nowrap;
-           font-size: calc(.3rem + 0.2vw);
+           padding: .2rem;
+           font-size: calc(.4rem + 0.3vw);
            color: #53d337;
            font-weight: 700;
 
@@ -401,7 +405,7 @@
 
                              whiteText = `${price}`;
                              if (point) {
-                               greenText += `${point}`;
+                               greenText += `(${point})`;
                              }
                            } else {
                              greenText = '-';
@@ -426,11 +430,11 @@
                          const underPrice = marketData['Under'] && marketData['Under']['totals'] ? marketData['Under']['totals'].price : '-';
                          const underPoint = marketData['Under'] && marketData['Under']['totals'] ? marketData['Under']['totals'].point : '-';
                          if (name === 'Over') {
-         totalsCell.innerHTML = `<div class="combined-price-point">O ${overPrice}, <span class="point-color">(${overPoint})</span></div>`;
+         totalsCell.innerHTML = `<div class="combined-price-point">O ${overPrice} <span class="point-color">(${overPoint})</span></div>`;
        } else if (name === 'Under') {
-         totalsCell.innerHTML = `<div class="combined-price-point">U ${underPrice}, <span class="point-color">(${underPoint})</span></div>`;
+         totalsCell.innerHTML = `<div class="combined-price-point">U ${underPrice} <span class="point-color">(${underPoint})</span></div>`;
        } else {
-         totalsCell.innerHTML = `<div class="combined-price-point">${overPrice}, <span class="point-color">(${overPoint})</span></div>`;
+         totalsCell.innerHTML = `<div class="combined-price-point">${overPrice} <span class="point-color">(${overPoint})</span></div>`;
        }
                          tr.appendChild(totalsCell);
 
