@@ -121,4 +121,15 @@ body {
     height: calc(100vh - 4rem);
     overflow-y: scroll;
     padding: 0.5rem;
+
+    flex: 1;
+    min-width: 0;
+
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: stretch;
 }
