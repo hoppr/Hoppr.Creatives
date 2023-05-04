@@ -19,9 +19,10 @@ body {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
 
-  grid-gap: 1.5rem;
+  grid-gap: 1.0rem;
 
-  padding: 2rem;
+  padding: 2rem 0;
+  width: 100%;
 }
 
 .row-rule {
@@ -31,10 +32,12 @@ body {
 
 .grid-header-name {
   text-align: left;
+  vertical-align: center;
 }
 
 .grid-header {
   text-align: center;
+  vertical-align: center;
 }
 
 .grid-header-div {
@@ -47,7 +50,7 @@ body {
 }
 
 .grid-name-cell {
-  padding: 8px;
+  /* padding: 8px; */
   text-align: left;
 }
 
@@ -64,13 +67,13 @@ body {
 .price {
   color: var(--white);
   /* font-weight: 400; */
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .point {
   color: var(--green);
   /* font-weight: 700; */
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .item {
@@ -82,7 +85,7 @@ body {
   vertical-align: top;
   align-items: center;
   background-color: black;
-  padding: 7px;
+  /* padding: 7px; */
   top: 0;
   left: 0;
   right: 0;
@@ -112,4 +115,5 @@ body {
 #root {
     height: calc(100vh - 4rem);
     overflow-y: scroll;
+    padding: 0.5rem;
 }
