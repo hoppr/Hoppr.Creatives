@@ -1,0 +1,498 @@
+package com.hoppr.androidtv.api
+
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
+import android.os.*
+import android.util.Log
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
+
+const val LOG_TAG = "HopprAPI"
+
+class Hoppr private constructor(context: Context) {
+    companion object : SingletonHolder<Hoppr, Context>(::Hoppr) {
+        const val HOPPR_SERVICE_NAME = "com.hoppr.android.services.HeadService"
+        const val HOPPR_ACCESS_SERVICE_NAME = "com.hoppr.android.services.HopprAppInfoService"
+    }
+
+    /** Messenger for communicating with the service.  */
+    private var mService: Messenger? = null
+
+    /** Flag indicating whether we have called bind on the service.  */
+    @Volatile private var bound: Boolean = false
+
+    private var context = context
+
+    private lateinit var mMessenger: Messenger
+
+    private var callbacks: MutableMap<Int,(ApiReturnMessage)-> Unit>  = mutableMapOf()
+
+
+    private var bs:BoundService? = null
+
+    private val lock = Any()
+
+    internal inner class IncomingHandler(
+        context: Context,
+        private val applicationContext: Context = context.applicationContext
+    ) : Handler() {
+        override fun handleMessage(msg: Message) {
+            val mt: ApiMessageType = ApiMessageType.getByValue(msg.what) ?: return super.handleMessage(msg)
+            when (mt) {
+                ApiMessageType.Callback -> {
+                    try {
+                        msg.data.classLoader = ApiReturnMessage::class.java.getClassLoader()
+                       val rm : ApiReturnMessage? = msg.data?.getParcelable(ApiMessageType.MSG_RETURN_INFO)
+                        if (rm!=null) {
+                            val callback = this@Hoppr.callbacks[rm.caller]
+                            if (callback!=null) {
+                                callback(rm!!)
+                            }
+                        } else {
+                            Log.e(LOG_TAG,"ApiReturnMessage is null")
+                        }
+                    } catch (ex:Exception) {
+                        Log.e(LOG_TAG,"Could not handle Message",ex)
+                    }
+                }
+                else -> super.handleMessage(msg)
+            }
+        }
+    }
+
+    init {
+    }
+
+    private fun sendMessage(m: Message) {
+        try {
+            mService?.send(m)
+        } catch (e: RemoteException) {
+            Log.e(LOG_TAG,"sendMessage()",e)
+        }
+    }
+
+    // helper class which holds data
+    internal class BoundService(
+        private val context: Context,
+        val name: ComponentName?,
+        val service: IBinder?,
+        val conn: ServiceConnection) {
+        fun unbind() {
+            try {
+                context.unbindService(conn)
+            } catch (ex:Exception) {
+                Log.e(LOG_TAG,"Exception when unbinding",ex)
+            }
+        }
+    }
+
+
+    private suspend fun bindServiceAndWait(context: Context, intent: Intent, flags: Int) = suspendCancellableCoroutine<BoundService>
+    { continuation ->
+
+        val conn = object : ServiceConnection {
+
+            override fun onServiceConnected(name: ComponentName, service: IBinder) {
+                mService = Messenger(service)
+                if (continuation.isActive) {
+                    continuation.resume(BoundService(context, name, service, this))
+                }
+            }
+
+            override fun onServiceDisconnected(className: ComponentName) {
+                mService = null
+                bound = false
+            }
+        }
+        context.bindService(intent, conn, flags)
+    }
+
+    private fun isBound():Boolean {
+        return bound
+    }
+
+    private fun delayTimeMs(): Long {
+        if  (isBound()) {
+            return 0
+        } else {
+            // Service is connecting
+            return 1000
+        }
+    }
+
+    private fun sendCallBackMsg(callback: (m:ApiReturnMessage)-> Unit, msg:Message) {
+        this.callbacks.put(msg.what,callback)
+        msg.replyTo = mMessenger
+        sendMessage(msg)
+    }
+
+    private fun setSendParams(data:ApiSendMessage, msg: Message) {
+        val b = Bundle()
+        b.putParcelable(ApiMessageType.MSG_SEND_INFO, data)
+        msg.data = b
+    }
+
+
+    /**
+     *  Returns the name of the head service
+     */
+    fun getHeadServiceName(): String {
+        return HOPPR_SERVICE_NAME
+    }
+
+    /**
+     *  Returns the name of accessibility service
+     */
+    fun getAccessibilityServiceName(): String {
+        return HOPPR_ACCESS_SERVICE_NAME
+    }
+
+
+
+
+
+    /**
+     *  Connect to the Hoppr Service
+     *  The default behaviour is to pause the hoppr accesibility service from processing window message
+     *  This can be overwritten using [pawsAccessibilityService]
+     */
+    suspend fun connect(packageName:String) {
+
+        if (isBound()) {
+            disconnect()
+        }
+
+        val it = Intent().setClassName(packageName,HOPPR_SERVICE_NAME)
+
+        val bind_flags  = (Context.BIND_AUTO_CREATE)
+
+        bs = bindServiceAndWait(context.applicationContext,it,bind_flags) // BIND_AUTO_CREATE
+        mMessenger = Messenger(IncomingHandler(context))
+        bound = true
+
+//        pawsAccessibilityService(true)
+        //sayHello(ApiSendMessage("hopprTV:Connected"))
+    }
+
+
+    /**
+     *  Disable or Enable processing of window messages passing [paws]
+     */
+    fun pawsAccessibilityService(paws:Boolean) {
+        Log.i(LOG_TAG,"pawsAccessibilityService $paws")
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            var mt=ApiMessageType.PauseAccesibilityService.value
+            val msg: Message = Message.obtain(null, mt, 0, 0)
+            val b = Bundle()
+            b.putBoolean(ApiMessageType.MSG_PAUSE_SERVICE, paws)
+            msg.data = b
+            sendMessage(msg)
+        },delayTimeMs())
+    }
+
+    /**
+     *  Disable or Enable Accessibility Service [paws]
+     */
+
+    fun setKillSwitchEnabled(paws:Boolean) {
+        Log.i(LOG_TAG,"setAccessibilityServiceEnabled $paws")
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            var mt=ApiMessageType.EnableDisableKillSwitchAccessibilityService.value
+            val msg: Message = Message.obtain(null, mt, 0, 0)
+            val b = Bundle()
+            b.putBoolean(ApiMessageType.MSG_DESTROY_ACCESSIBILITY_SERVICE, paws)
+            msg.data = b
+            sendMessage(msg)
+        },delayTimeMs())
+    }
+
+
+
+    /**
+     *  Disconnect from the Hoppr Service
+     */
+    fun disconnect() {
+        // Unbind from the service
+        if (!isBound()) {
+            return
+        }
+        //pawsAccessibilityService(false)
+        //sayHello(ApiSendMessage("hopprTV:Disconnected"))
+        Handler().postDelayed({
+            if (isBound()) {
+                bs?.unbind()
+                bound = false
+            }
+        },500);
+    }
+
+
+    /**
+     *  Notify hoppr service of the current window [name]
+     *  optionally passing metadata
+     */
+    fun setCurrentWindow(data:ApiSendMessage) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.StartAdgroup.value, 0, 0)
+            val b = Bundle()
+            b.putParcelable(ApiMessageType.MSG_SEND_INFO, data)
+            msg.data = b
+            sendMessage(msg)
+        },delayTimeMs())
+    }
+
+
+    /**
+     *  Display Advertising Group named [name]
+     *  Pass MetaData is passed using the [metadata] bundle
+     */
+    fun startAdvertisingGroup(data:ApiSendMessage) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.StartAdgroup.value, 0, 0)
+            val b = Bundle()
+            b.putParcelable(ApiMessageType.MSG_SEND_INFO, data)
+            msg.data = b
+            sendMessage(msg)
+        },delayTimeMs())
+    }
+
+
+    /**
+     *  Stop any current overlay advertisement from being displayed
+     */
+    fun stopAllAds() {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.StopAllAds.value, 0, 0)
+            val b = Bundle()
+            msg.replyTo = mMessenger
+            sendMessage(msg)
+        },delayTimeMs())
+    }
+
+
+    /**
+     *  Stop an advertisement group
+     */
+    fun stopAdvertisingGroup(data:ApiSendMessage) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.StopAdGroup.value, 0, 0)
+            val b = Bundle()
+            b.putParcelable(ApiMessageType.MSG_SEND_INFO, data)
+            msg.data = b
+            msg.replyTo = mMessenger
+            sendMessage(msg)
+        },delayTimeMs())
+    }
+
+
+    /**
+     *  Return the current state data in the service
+     *  the [callback] will be called when the call completes
+     *  [ApiReturnMessage.infoPairs] contain the current state data
+     */
+    fun getCurrentServiceState(callback: (m:ApiReturnMessage) -> Unit) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.GetCurrentServiceState.value, 0, 0)
+            sendCallBackMsg(callback,msg)
+        },delayTimeMs())
+    }
+
+    /**
+     * Return a Return a [callback] CSV list [ApiReturnMessage.infoMsg] of the available advertising groups
+     */
+    fun getAdvertisingGroupCSV(callback: (m:ApiReturnMessage) -> Unit) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.AdGroupInfo.value, 0, 0)
+            sendCallBackMsg(callback,msg)
+        }, delayTimeMs())
+    }
+
+    /**
+     * Return a [callback] CSV list [ApiReturnMessage.infoMsg] of the permission information
+     */
+    fun getPermissionInfoCSV(callback: (m:ApiReturnMessage) -> Unit) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.PermissionInfo.value, 0, 0)
+            sendCallBackMsg(callback,msg)
+        }, delayTimeMs())
+    }
+
+    /**
+     * Return a [callback] CSV list [ApiReturnMessage.infoMsg] of the datalayer information
+     */
+    fun getDataLayerLayerInfoCSV(callback: (m:ApiReturnMessage) -> Unit) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.DataLayerInfo.value, 0, 0)
+            sendCallBackMsg(callback,msg)
+        }, delayTimeMs())
+    }
+
+    /**
+     * Return a [callback] CSV list [ApiReturnMessage.infoMsg] of the adb setprop information
+     */
+    fun getDebugInfoCSV(callback: (m:ApiReturnMessage) -> Unit) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.GetCurrentDebugInfo.value, 0, 0)
+            sendCallBackMsg(callback,msg)
+        }, delayTimeMs())
+    }
+
+    /**
+     * Lists available deployments .
+     */
+
+    fun getDeployments(callback: (m:ApiReturnMessage) -> Unit) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.ListDeployments.value, 0, 0)
+            sendCallBackMsg(callback,msg)
+        }, delayTimeMs())
+    }
+
+
+    /**
+    * Lists available snapshots for the current deployment environment.
+    */
+
+    fun getPublishVersions(callback: (m:ApiReturnMessage) -> Unit) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.ListSnapshots.value, 0, 0)
+            sendCallBackMsg(callback,msg)
+        }, delayTimeMs())
+    }
+
+    /**
+     * Sets the current environment for the snapshot.
+     */
+
+    fun setEnvironment(env: String, snapshot:String, callback: (m:ApiReturnMessage) -> Unit) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.SetEnvironment.value, 0, 0)
+
+            val b = Bundle()
+            b.putParcelable(ApiMessageType.MSG_SEND_INFO, ApiSendMessage(env,snapshot))
+            msg.data = b
+
+            sendCallBackMsg(callback, msg)
+        }, delayTimeMs())
+    }
+
+    /**
+     * Sets an override on the published version so that it can be set to a specific snapshot.
+     */
+
+    fun setPublishVersionOverride(value: String, callback: (m:ApiReturnMessage) -> Unit) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.SetPublishVersion.value, 0, 0)
+
+            val b = Bundle()
+            b.putParcelable(ApiMessageType.MSG_SEND_INFO, ApiSendMessage(value))
+            msg.data = b
+
+            sendCallBackMsg(callback, msg)
+        }, delayTimeMs())
+    }
+
+    /**
+     * Force datalayer to check for Updates
+     */
+    fun checkUpdatesDataLayer(callback: (m:ApiReturnMessage) -> Unit) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.DataLayerCheckUpdate.value, 0, 0)
+            sendCallBackMsg(callback,msg)
+        }, delayTimeMs())
+    }
+
+    /**
+     * Check if datalayer has parsing errors and returns [ApiReturnMessage.infoStatus]
+     */
+    fun hasDataLayerParsingErrors(callback: (m:ApiReturnMessage) -> Unit) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.DataLayerParsingIssues.value, 0, 0)
+            sendCallBackMsg(callback,msg)
+        }, delayTimeMs())
+    }
+
+
+    /**
+     *  Display a video advertisement group in [ApiSendMessage.param1]
+     *  the [callback] will be called when the advertisement group finishes
+     */
+    fun showVideo(data:ApiSendMessage, callback: (m:ApiReturnMessage) -> Unit) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.ShowVideo.value, 0, 0)
+            setSendParams(data,msg)
+            sendCallBackMsg(callback,msg)
+        },delayTimeMs())
+    }
+
+
+    /**
+     *  Load a video advertisement group in [ApiSendMessage.param1]
+     *  the [callback] will be called when the advertisement group finishes
+     */
+    fun loadVideo(data:ApiSendMessage, callback: (m:ApiReturnMessage) -> Unit) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.LoadVideo.value, 0, 0)
+            setSendParams(data,msg)
+            sendCallBackMsg(callback,msg)
+        },delayTimeMs())
+    }
+
+    /**
+     *  Get an image URL from AdvertGroup [ApiSendMessage.param1]
+     *  the [callback] will be called with [ApiReturnMessage.infoMsg] containing a valid Image URL
+     */
+    fun getAdvertImage(data:ApiSendMessage, callback: (m:ApiReturnMessage) -> Unit) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.GetImageUrl.value, 0, 0)
+            setSendParams(data,msg)
+            sendCallBackMsg(callback,msg)
+        },delayTimeMs())
+    }
+
+
+    /**
+     *  Returns true is the hoppr service has connected
+     */
+    fun isAvailable() : Boolean {
+        return isBound()
+    }
+
+
+    /**
+     *  sayHello - Test API to display a toast message  [ApiSendMessage.param1]
+     */
+    fun sayHello(data:ApiSendMessage) {
+        Handler().postDelayed({
+            if (!isBound()) return@postDelayed
+            val msg: Message = Message.obtain(null, ApiMessageType.SayHello.value, 0, 0)
+            setSendParams(data,msg)
+            sendMessage(msg)
+        },delayTimeMs())
+    }
+
+
+
+}
