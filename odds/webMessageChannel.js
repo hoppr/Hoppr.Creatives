@@ -8,23 +8,22 @@ class WebMessageChannel {
     handleMessage(event) {
 //        this.verifyDomain(event);
 
-        if (event.data === 'init') {
+        if (event.data === 'init' && !this.port) {  // Check if the port is not already set
             this.port = event.ports[0];
             this.port.onmessage = this.handlePortMessage.bind(this);
             this.port.start();
         } else {
-            this.onMessageCallback(event.data, this.port);
+            this.onMessageCallback(event.data);
         }
     }
 
     handlePortMessage(event) {
-
-        this.onMessageCallback(event.data, this.port);
+        this.onMessageCallback(event.data);
     }
 
-    sendResponse(message, port) {
-        if (port) {
-            port.postMessage(message);
+    sendResponse(message) {
+        if (this.port) {
+            this.port.postMessage(message);
         }
     }
 
