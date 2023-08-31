@@ -235,12 +235,12 @@
          // rest of the script
       </script>
       <script>
-         function onMessageReceived(message, port) {
+         function onMessageReceived(message) {
              // Parse the incoming message as JSON
              let parsedMessage = JSON.parse(message);
 
              let response = "Response from WebView: " + message;
-             webMessageChannel.sendResponse(response, port);
+             webMessageChannel.sendResponse(response);
 
              // Extract key and oddsFormat from the parsed message
              let key = parsedMessage.key;
