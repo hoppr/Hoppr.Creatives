@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style>
+
+
+.viewer {
+	img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		opacity: 0;
+	}
+	
+	img:first-child { position: relative; }
+	
+	img.active { opacity: 1; }
+
+	
+	
+	&::before { padding-bottom: 56.25%; float: left;} 
+	&::before,&::after { content:''; display: table; clear: both;  } 
+}
+
+
+
+
+
+
+
+
+
+
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,500,700");
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Roboto';
+	background-color: #ECEFF1;
+	padding: 1rem;
+	cursor: grab;
+}
+article { 
+	display: inline-block;
+	margin: 0 auto; 
+	width: 100%; 
+	max-width: 100vmin;
+	background-color: white;
+	padding: 1rem;
+	border-radius: .5rem;
+	box-shadow: 2px 2px 4px rgba(#78909C, 0.3);
+	h2 { 
+		font-size: 5vmin; font-weight: 500; line-height: 0; matgin: 0; color: orangered; 
+		span { font-weight: 400; font-size: 12vmin; bottom: -3.2vmin; margin-right: -4vmin;  }
+	}
+	p {
+		margin: 0;
+		font-size: 0.75rem;
+		color: #78909C;
+	}	
+	figure { 
+		margin: 0; 
+		padding: 0;
+		z-index: -1;	
+	}
+	figcaption { 
+		font-size: 5.5vmin;
+		bottom: calc(8vmin);
+		transform-origin: 0 0;
+		transform: rotate(-90deg);
+		color: #78909C;
+		position: absolute;
+		bottom: -1rem;
+		span { font-weight: 700; }
+	}
+
+	svg { 
+		display: bloc;
+		position: absolute;
+		bottom: -3vmin;
+		right: 0;
+		width: 16vmin;
+		height: 16vmin;	
+		fill: #78909C;
+		opacity: 0.2;
+		transform: scaleX(-1);
+	}
+
+
+	footer p {
+		position: absolute;		
+		right: 0;		
+		bottom: -2.2rem;	
+		a { color: orangered; text-decoration: none; font-weight: 700; }		
+	}
+}
+
+
+
+
+
+html { box-sizing: border-box; height: 100%; } *,*:before,*:after { box-sizing: inherit; position: relative; z-index: 0; background-repeat: no-repeat; } 
+body { min-height: 100%; -webkit-font-smoothing: antialiased; }
+  </style>
+</head>
+<body>
+
+  <article>
+    <h2><span>360˚</span> Image Viewer</h2>
+    <figure>
+      <div class="viewer"></div>
+      <figcaption>
+        <span>VIA57™</span> by KiBiSi
+      </figcaption>
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+        <path d="M16 9C8.019 9 2 11.794 2 15.5c0 3.388 5.038 6.006 12 6.432V25l5-4-5-4v2.926C8.162 19.522 4 17.412 4 15.5 4 13.376 9.132 11 16 11s12 2.376 12 4.5c0 1.301-1.93 2.694-5 3.58v2.1c4.245-1.091 7-3.176 7-5.68C30 11.794 23.981 9 16 9z"/>
+      </svg>	
+    </figure>
+    <footer>
+      <p>Grab'N'Drag – Build on <a href="http://chrisbateman.github.io/impetus/" target="_blank">impetus.js</a></p>
+    </footer>
+  </article>
+  
+  <link rel="preload" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68939/360-001.jpg" as="image" /> 
+  
+  
+  <script>
+    //	build scene
+let loaded=0;
+const viewer = document.querySelector('.viewer');
+const loader = document.querySelector('h2 span');
+const images = [];
+for(let i=1;i<=120;++i){
+	const img = new Image();
+	img.src= `//s3-us-west-2.amazonaws.com/s.cdpn.io/68939/360-${('00'+i).slice(-3)}.jpg`;
+	img.onload = () => loader.innerText = `${Math.round(++loaded/120*360)}˚`;
+	images.push(img);
+	viewer.appendChild(img);
+}
+
+//	rotation handler
+//	http://chrisbateman.github.io/impetus/
+//	https://github.com/chrisbateman/impetus
+const threshold = 5;
+const total = images.length - 1;
+let frame = 0;
+const impetus = new Impetus({
+	source: document,
+	update(x) {
+		// console.log(x)
+		images[frame].classList.remove('active')
+		frame = Math.floor(-x / threshold) % total;
+		frame = frame <= 0 ? total + frame : frame;
+		images[frame].classList.add('active');
+	}
+});
+images[frame].classList.add('active');
+
+//	cursor
+addEventListener('mousedown', e => document.body.style.cursor='grabbing');
+addEventListener('mouseup', e => document.body.style.cursor='grab');
+
+  </script>
+</body>
+</html>

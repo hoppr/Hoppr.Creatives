@@ -1,0 +1,231 @@
+<html lang = "en">
+	<head>
+		<!--Link to the CSS file-->
+		<link rel = "stylesheet" href = "style.css">
+		<!--Specifies the character set we are using, UTF-8 is standard (on keyboard)-->
+		<meta charset = "UTF-8">
+		<title>
+			Survey Form
+		</title>
+
+        <style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+:root {
+    --lightGray: #edf0f1;
+    --darkGray: #585858;
+    --charcoal: #24252a;
+    --beige: #cbcbba;
+}
+
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background-color: var(--charcoal);
+  color: var(--beige);
+  display: block;
+  flex-direction: column;
+  margin: 0;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 1000x;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+.container {
+  width: 100%;
+  margin: 50px auto 0 auto;
+}
+
+.header,
+#survey-form {
+  background-color: var(--darkGray);
+  padding: 40px;
+  margin: 15px 10px 0px 10px;
+  border-radius: 10px;
+}
+
+.form-group {
+  padding-bottom: 10px;
+}
+
+.description {
+  font-style: italic;
+  font-weight: 200;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.form-group {
+  margin: 0 10px 0 10px;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 25px;
+  border-radius: 5px;
+  padding: 5px 5px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: var(--lightGray);
+  outline: 0;
+  box-shadow: 0 0 0 0.1rem rgba(237, 240, 241, 0.25);
+}
+
+.form-control, 
+select, 
+textarea {
+  background-color: var(--charcoal);
+  color: var(--beige);
+  width: 100%;
+}
+
+.input-radio,
+.input-checkbox {
+  display: inline-block;
+}
+
+.input-textarea {
+  min-height: 100px;
+  width: 100%;
+  resize: vertical;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--beige);
+  cursor: pointer;
+}
+
+        </style>
+		<!--Width of the website is the device the user is using-->
+		<meta name = "viewport" content = "width = device-width, initial-scale = 1">
+	</head>
+	<body>
+    <div class = "container">
+      <!-- <header class = "header">
+        <h1 id = "title" class = "text-center">Arthur's Survey Form</h1>
+        <p id = "description" class = "description text-center">Thank you for taking your time to do my survey!</p>
+      </header> -->
+      <form id = "survey-form">
+        <div class = "form-group">
+          <label for = "name" id = "name-label">Name:</label>
+          <input 
+                 type = "text" 
+                 id = "name" 
+                 name = "name"
+                 class = "form-control"
+                 placeholder = "Enter your name" 
+                 required/>
+        </div>
+        
+        <div class = "form-group">
+          <label for = "email" id = "email-label">Email:</label>
+          <input 
+                 type = "email" 
+                 id = "email" 
+                 name = "email" 
+                 class = "form-control"
+                 placeholder = "Enter your email" 
+                 required/>
+        </div>
+        
+        <div class = "form-group">
+          <label for = "number" id = "number-label">Number:</label>
+          <input 
+                 type = "number" 
+                 min = "1" 
+                 max = "613999999" 
+                 id = "number"
+                 class = "form-control"
+                 placeholder = "Enter your number" 
+                 name = "number"/>
+        </div>
+
+        <div class = "form-group">
+          <p>Dropdown Menu:</p>
+          <select id = "dropdown">
+            <option disabled selected value>Select your option</option>
+            <option value = "option-1">Option 1</option>
+            <option value = "option-2">Option 2</option>
+          </select>
+        </div>
+
+        <div class = "form-group">
+          <p>Radio Buttons:</p>
+          <label>
+            <input 
+                   type = "radio" 
+                   id = "radioOne" 
+                   name = "radioButtons"
+                   class = "input-radio"
+                   value = "option-1" 
+                   checked
+            />Option 1</label>
+
+          <label>
+            <input
+                   type = "radio" 
+                   id = "radioTne" 
+                   name = "radioButtons"
+                   class = "input-radio"
+                   value = "option-2"
+            />Option 2</label>
+        </div>
+        
+        <div class = "form-group">
+          <p>Checkboxes:</p>
+          <label>
+            <input 
+                   type = "checkbox" 
+                   id = "checkOne" 
+                   name = "checkBoxes"
+                   class = "input-checkbox"
+                   value = "option-1"
+            />Option 1</label>
+
+          <label>
+            <input 
+                   type = "checkbox" 
+                   id = "checkTwo" 
+                   name = "checkBoxes"
+                   class = "input-checkbox"
+                   value = "option-2"
+            />Option 2</label>
+        </div>
+
+        <div class = "form-group">
+          <p>Textbox</p>
+          <textarea 
+                    id = "textbox" 
+                    name = "textbox"
+                    class = "input-textarea"
+                    placeholder = "Enter your comment here..."></textarea>
+        </div>
+
+        <div class = "form-group">
+          <button type = "submit" id = "submit" class = "submit-button">Submit</button>
+        </div>
+      </form>
+    </div>
+	</body>
+</html>
