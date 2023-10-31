@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/507618/three.min.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/507618/photo-sphere-viewer.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+</head>
+<body>
+    <script>
+        var div = document.getElementById('your-pano');
+    
+    var PSV = new PhotoSphereViewer({
+        // Panorama, given in base 64
+        panorama: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/507618/lower-res.jpg',
+        // Container
+        container: div,
+        // Deactivate the animation
+        time_anim: 3000,
+        // Display the navigation bar
+        navbar: true,
+        navbar_style: {
+            backgroundColor: 'rgba(58, 67, 77, 0.7)'
+        },
+    
+        // Resize the panorama
+        size: {
+            //	width: '100%',
+            height: '400px'
+        },
+        // No XMP data
+        //	usexmpdata: true
+        //	min_fov: 50,
+        zoom_level: 30,
+        loading_img: '',
+    });
+    
+    function initPano() {
+        var panoOptions = {
+            pano: 'custom',
+            visible: true,
+            panoProvider: getCustomPanorama
+        };
+    
+        var panorama = new google.maps.StreetViewPanorama(
+            document.getElementById('pano-canvas'), panoOptions);
+    }
+    
+    function getCustomPanoramaTileUrl(pano, zoom, tileX, tileY) {
+        return 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/507618/lower-res.jpg';
+    }
+    
+    function getCustomPanorama(pano, zoom, tileX, tileY) {
+        if (pano == 'custom') {
+            return {
+                location: {
+                    pano: 'custom',
+                    description: 'Custom Street View'
+                },
+                tiles: {
+                    tileSize: new google.maps.Size(12288, 6144),
+                    worldSize: new google.maps.Size(12288, 6144),
+                    getTileUrl: getCustomPanoramaTileUrl
+                }
+            };
+        }
+    }
+    </script>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">&nbsp;</div>
+            <div id="your-pano" class="col-md-12"></div>
+            
+            <div class="col-md-12">&nbsp;</div>
+            <div class="col-md-12">
+                <!-- <div id="pano-canvas" style="height: 500px"></div></div> -->
+            
+            <div class="col-md-12">&nbsp;</div>
+            <div class="col-md-12"><blockquote data-width="100%" data-height="375" class="ricoh-theta-spherical-image" >Just a test of 360 imagery - <a href="https://theta360.com/s/2ZacQSPin6cKJRm01tD3Zgxeq" target="_blank">Spherical Image - RICOH THETA</a></blockquote>
+        <script async src="https://theta360.com/widgets.js" charset="utf-8"></script></div>
+            
+        </div>
+        </div>
+        
+        <script
+                src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initPano"
+                async defer>
+            </script>
+</body>
+
+
+</html>
