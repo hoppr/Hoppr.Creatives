@@ -1,0 +1,5 @@
+{
+    "version": 2,
+    "apkUrl": "https://example.com/downloads/app-release-v2.apk",
+    "releaseNotes": "What's new in version 2:\n- New feature added\n- Bug fixes and performance improvements"
+}
