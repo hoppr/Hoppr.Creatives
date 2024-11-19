@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buttons with Arrows</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: white;
+            font-size: 16px;
+            cursor: pointer;
+            gap: 5px;
+        }
+        button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <!-- Sad Button with Left Arrow -->
+        <button id="sad-button">
+            ◀ 😞
+        </button>
+
+        <!-- Skip Button -->
+        <button id="skip-button">
+            Skip
+        </button>
+
+        <!-- Happy Button with Right Arrow -->
+        <button id="happy-button">
+            😊 ▶
+        </button>
+    </div>
+
+    <script>
+        // Function to call Hoppr's method
+        function performSkipAction(skipType) {
+            if (typeof Hoppr !== "undefined" && Hoppr.performSkip) {
+                Hoppr.performSkip(skipType);
+            } else {
+                console.log(`Hoppr?.performSkip(${skipType}) called, but Hoppr is not available.`);
+            }
+        }
+
+        // Attach click events
+        document.getElementById("sad-button").addEventListener("click", () => performSkipAction(0)); // Example type for Sad
+        document.getElementById("skip-button").addEventListener("click", () => performSkipAction(1)); // Example type for Skip
+        document.getElementById("happy-button").addEventListener("click", () => performSkipAction(2)); // Example type for Happy
+    </script>
+</body>
+</html>
