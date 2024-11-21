@@ -54,7 +54,7 @@
     </div>
 
     <script>
-        // Function to call Hoppr's method
+        // Function to call Hoppr's method for performSkip
         function performSkipAction(skipType) {
             if (typeof Hoppr !== "undefined" && Hoppr.performSkip) {
                 Hoppr.performSkip(skipType);
@@ -63,10 +63,41 @@
             }
         }
 
-        // Attach click events
-        document.getElementById("sad-button").addEventListener("click", () => performSkipAction(0)); // Example type for Sad
-        document.getElementById("skip-button").addEventListener("click", () => performSkipAction(1)); // Example type for Skip
-        document.getElementById("happy-button").addEventListener("click", () => performSkipAction(2)); // Example type for Happy
+        // Function to call Hoppr's method for setAttributes
+        function setAttributes(xPosition, yPosition, width, height, gravity) {
+            if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
+                Hoppr.sendMessage(
+                    JSON.stringify({
+                        type: "setAttributes",
+                        xPosition: xPosition,
+                        yPosition: yPosition,
+                        width: width,
+                        height: height,
+                        gravity: gravity
+                    })
+                );
+            } else {
+                console.log("Hoppr?.sendMessage is not available.");
+            }
+        }
+
+        // Call setAttributes immediately when the page loads
+        window.onload = () => {
+            setAttributes(0, 0, -1, 200, 85); // Example initial attributes on page load
+        };
+
+        // Attach click events for buttons
+        document.getElementById("sad-button").addEventListener("click", () => {
+            performSkipAction(0); // Example type for Sad
+        });
+
+        document.getElementById("skip-button").addEventListener("click", () => {
+            performSkipAction(1); // Example type for Skip
+        });
+
+        document.getElementById("happy-button").addEventListener("click", () => {
+            performSkipAction(2); // Example type for Happy
+        });
     </script>
 </body>
 </html>
