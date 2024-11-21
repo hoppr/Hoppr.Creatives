@@ -56,10 +56,15 @@
     <script>
         // Function to call Hoppr's method for performSkip
         function performSkipAction(skipType) {
-            if (typeof Hoppr !== "undefined" && Hoppr.performSkip) {
-                Hoppr.performSkip(skipType);
+            if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
+                Hoppr.sendMessage(
+                    JSON.stringify({
+                        type: "performSkip",
+                        skipValue: skipType
+                    })
+                );
             } else {
-                console.log(`Hoppr?.performSkip(${skipType}) called, but Hoppr is not available.`);
+                console.log("Hoppr?.sendMessage is not available.");
             }
         }
 
