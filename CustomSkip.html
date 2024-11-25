@@ -12,23 +12,29 @@
             height: 100vh;
             font-family: Arial, sans-serif;
             margin: 0;
-            background-color: #f9f9f9;
+            background-color: transparent;
         }
         .button-container {
             display: flex;
             gap: 10px;
+            width: 100%; /* Adjust to the desired container width */
+            max-width: 400px; /* Optional: limit maximum width */
+            padding: 10px; /* Optional: add padding inside the container */
         }
         button {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px 20px;
+            flex-grow: 1; /* Make buttons grow to fit the container */
+            padding: 10px; /* Optional: adjust button padding */
             border: 1px solid black;
             border-radius: 5px;
             background-color: white;
             font-size: 16px;
             cursor: pointer;
             gap: 5px;
+            width: auto; /* Let width auto-adjust */
+            height: auto; /* Let height auto-adjust */
         }
         button:hover {
             background-color: #f0f0f0;
