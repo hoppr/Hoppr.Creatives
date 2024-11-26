@@ -14,28 +14,31 @@
             margin: 0;
             background-color: transparent;
         }
+
         .button-container {
             display: flex;
             gap: 10px;
-            width: 100%; /* Adjust to the desired container width */
-            max-width: 500px; /* Optional: limit maximum width */
-            padding: 10px; /* Optional: add padding inside the container */
+            width: 100%;
+            max-width: 500px;
+            padding: 10px;
         }
+
         button {
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-grow: 1; /* Make buttons grow to fit the container */
-            padding: 10px; /* Optional: adjust button padding */
+            flex-grow: 1;
+            padding: 10px;
             border: 1px solid black;
             border-radius: 5px;
             background-color: white;
             font-size: 16px;
             cursor: pointer;
             gap: 5px;
-            width: auto; /* Let width auto-adjust */
-            height: auto; /* Let height auto-adjust */
+            width: auto;
+            height: auto;
         }
+
         button:hover {
             background-color: #f0f0f0;
         }
@@ -43,21 +46,9 @@
 </head>
 <body>
     <div class="button-container">
-        <!-- Sad Button with Left Arrow -->
-        <button id="sad-button" tabindex="0">
-            ◀ 😞
-        </button>
-
-        <!-- Skip Button -->
-        <button id="skip-button" tabindex="0">
-            Skip
-        </button>
-
-        <!-- Happy Button with Right Arrow -->
-        <button id="happy-button" tabindex="0">
-            😊 ▶
-        </button>
-        
+        <button id="sad-button" tabindex="0">◀ 😞</button>
+        <button id="skip-button" tabindex="0">Skip</button>
+        <button id="happy-button" tabindex="0">😊 ▶</button>
     </div>
 
     <script>
@@ -95,43 +86,32 @@
 
         // Call setAttributes immediately when the page loads
         window.onload = () => {
-            setAttributes(0, 0, 500, 150, 85); // Example initial attributes on page load
-            document.getElementById("skip-button").focus(); // Set focus on the Skip button
+            setAttributes(0, 0, 500, 150, 85); // Initial attributes on page load
+            setTimeout(() => {
+                const skipButton = document.getElementById("skip-button");
+                skipButton.focus(); // Focus the Skip button
+                console.log('Focused element:', document.activeElement); // Log the focused element
+            }, 100);
         };
 
-        // Attach click events for buttons
-       // document.getElementById("sad-button").addEventListener("click", () => {
-        //    performSkipAction(0); // Example type for Sad
-       // });
-
-       // document.getElementById("skip-button").addEventListener("click", () => {
-       //     performSkipAction(1); // Example type for Skip
-       // });
-
-      //  document.getElementById("happy-button").addEventListener("click", () => {
-      //      performSkipAction(2); // Example type for Happy
-      //  });
-
-
         // Attach key events for buttons
-document.getElementById("sad-button").addEventListener("keyup", (event) => {
-    if (event.key === "Enter") { // OK button on Android TV remote triggers 'Enter'
-        performSkipAction(4); // Example type for Sad
-    }
-});
+        document.getElementById("sad-button").addEventListener("keyup", (event) => {
+            if (event.key === "Enter") {
+                performSkipAction(4); // Trigger action for Sad button
+            }
+        });
 
-document.getElementById("skip-button").addEventListener("keyup", (event) => {
-    if (event.key === "Enter") {
-        performSkipAction(5); // Example type for Skip
-    }
-});
+        document.getElementById("skip-button").addEventListener("keyup", (event) => {
+            if (event.key === "Enter") {
+                performSkipAction(5); // Trigger action for Skip button
+            }
+        });
 
-document.getElementById("happy-button").addEventListener("keyup", (event) => {
-    if (event.key === "Enter") {
-        performSkipAction(6); // Example type for Happy
-    }
-});
-        
+        document.getElementById("happy-button").addEventListener("keyup", (event) => {
+            if (event.key === "Enter") {
+                performSkipAction(6); // Trigger action for Happy button
+            }
+        });
     </script>
 </body>
 </html>
