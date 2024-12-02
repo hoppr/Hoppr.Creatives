@@ -196,12 +196,12 @@
             // Add 'selected' class based on the arrow key released
             if (event.key === "ArrowLeft") {
                 sadButton.classList.add("selected");
-                performSkipAction("left");
+                performSkipAction(1);
             } else if (event.key === "ArrowRight") {
                 happyButton.classList.add("selected");
-                performSkipAction("right");
+                performSkipAction(5);
             } else if (event.key === "Enter") {
-                skipButton.classList.add("selected");
+                performSkipAction(3);
             }
         });
     </script>
