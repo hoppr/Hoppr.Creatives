@@ -10,44 +10,72 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
-            background-color: transparent;
+            background-color: #f4f4f9;
         }
 
         .button-container {
             display: flex;
-            gap: 10px;
-            width: 100%;
-            max-width: 500px;
-            padding: 10px;
+            gap: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%; /* The container takes up 80% of the viewport width */
+            max-width: 600px; /* Set a maximum width for the container */
         }
 
         button {
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-grow: 1;
-            padding: 10px;
-            border: 1px solid black;
-            border-radius: 5px;
-            background-color: white;
-            font-size: 16px;
+            padding: 15px 25px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
-            gap: 5px;
-            width: auto;
-            height: auto;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            width: 100%; /* Buttons will take up 100% of the container's width */
+            max-width: 160px; /* Buttons have a max width to keep them from becoming too large */
+            height: 60px;
         }
 
         button:hover {
             background-color: #f0f0f0;
+            border-color: #bbb;
+        }
+
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 5px 2px rgba(0, 123, 255, 0.6);
+        }
+
+        /* Selected button style */
+        .selected {
+            background-color: #4fa3f7;
+            border-color: #4fa3f7;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .selected:hover {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .selected:focus {
+            box-shadow: 0 0 5px 2px rgba(0, 123, 255, 0.8);
         }
     </style>
 </head>
 <body>
     <div class="button-container">
         <button id="sad-button" tabindex="0">◀ 😞</button>
-        <button id="skip-button" tabindex="0">Skip</button>
+        <button id="skip-button" tabindex="0" class="selected">Skip</button>
         <button id="happy-button" tabindex="0">😊 ▶</button>
     </div>
 
@@ -87,29 +115,32 @@
         // Call setAttributes immediately when the page loads
         window.onload = () => {
             setAttributes(0, 0, 500, 150, 85); // Initial attributes on page load
-            setTimeout(() => {
-                const skipButton = document.getElementById("skip-button");
-                skipButton.focus(); // Focus the Skip button
-                console.log('Focused element:', document.activeElement); // Log the focused element
-            }, 100);
         };
 
-        // Attach key events for buttons
-        document.getElementById("sad-button").addEventListener("keyup", (event) => {
-            if (event.key === "Enter") {
-                performSkipAction(8); // Trigger action for Sad button
-            }
-        });
+        // Listen for arrow key presses
+        window.addEventListener("keydown", (event) => {
+            const skipButton = document.getElementById("skip-button");
+            const sadButton = document.getElementById("sad-button");
+            const happyButton = document.getElementById("happy-button");
 
-        document.getElementById("skip-button").addEventListener("keyup", (event) => {
-            if (event.key === "Enter") {
-                performSkipAction(9); // Trigger action for Skip button
-            }
-        });
+            // Remove 'selected' class from all buttons
+            sadButton.classList.remove("selected");
+            skipButton.classList.remove("selected");
+            happyButton.classList.remove("selected");
 
-        document.getElementById("happy-button").addEventListener("keyup", (event) => {
-            if (event.key === "Enter") {
-                performSkipAction(10); // Trigger action for Happy button
+            // Add 'selected' class based on the arrow key pressed
+            if (event.key === "ArrowLeft") {
+                sadButton.classList.add("selected");
+                console.log('Sad button selected');
+                performSkipAction(1); // Trigger action for Sad button immediately
+            } else if (event.key === "ArrowRight") {
+                happyButton.classList.add("selected");
+                console.log('Happy button selected');
+                performSkipAction(5); // Trigger action for Happy button immediately
+            } else if (event.key === "Enter") {
+                skipButton.classList.add("selected");
+                console.log('Skip button selected');
+                performSkipAction(3); // Trigger action for Skip button immediately
             }
         });
     </script>
