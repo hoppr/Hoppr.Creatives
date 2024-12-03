@@ -88,6 +88,24 @@
             happy: document.getElementById("happy-button"),
         };
 
+        // Function to call Hoppr's method for setAttributes
+        function setAttributes(xPosition, yPosition, width, height, gravity) {
+            if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
+                Hoppr.sendMessage(
+                    JSON.stringify({
+                        type: "setAttributes",
+                        xPosition: xPosition,
+                        yPosition: yPosition,
+                        width: width,
+                        height: height,
+                        gravity: gravity
+                    })
+                );
+            } else {
+                console.log("Hoppr?.sendMessage is not available.");
+            }
+        }
+
         // Perform skip action with an optional delay
         function performSkipAction(skipType, delay = 0) {
             setTimeout(() => {
@@ -103,6 +121,11 @@
                 }
             }, delay); // Use provided delay or default to 150ms
         }
+
+        // Call setAttributes immediately when the page loads
+        window.onload = () => {
+            setAttributes(0, 0, 500, 150, 85); // Initial attributes on page load
+        };
 
         // Keyboard navigation for button selection
         window.addEventListener("keydown", (event) => {
