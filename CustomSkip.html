@@ -178,7 +178,7 @@
                 sadButton.classList.add("selected");
             } else if (event.key === "ArrowRight") {
                 happyButton.classList.add("selected");
-            }else if (event.key === "Enter") {
+            }else if (event.key === "Enter" || event.key == "ArrowUp" || event.key == "ArrowDown") {
                 skipButton.classList.add("selected");
             }
         });
