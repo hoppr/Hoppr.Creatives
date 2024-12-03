@@ -130,17 +130,20 @@
         // Keyboard navigation for button selection
         window.addEventListener("keydown", (event) => {
             if (["ArrowLeft", "ArrowRight", "Enter"].includes(event.key)) {
-                // Clear selected class only for relevant keys
-                Object.values(buttons).forEach(button => button.classList.remove("selected"));
-
                 switch (event.key) {
                     case "ArrowLeft":
+                        buttons.skip.classList.remove("selected");
+                        buttons.happy.classList.remove("selected");
                         buttons.sad.classList.add("selected");
                         break;
                     case "ArrowRight":
+                        buttons.skip.classList.remove("selected");
+                        buttons.sad.classList.remove("selected");
                         buttons.happy.classList.add("selected");
                         break;
                     case "Enter":
+                        buttons.happy.classList.remove("selected");
+                        buttons.sad.classList.remove("selected");
                         buttons.skip.classList.add("selected");
                         break;
                 }
