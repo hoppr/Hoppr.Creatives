@@ -126,19 +126,23 @@
     </div>
 
     <script>
+
         // Function to call Hoppr's method for performSkip
+        //Added delay to allow selection to happen first
         function performSkipAction(skipType) {
-            if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
-                Hoppr.sendMessage(
-                    JSON.stringify({
-                        type: "performSkip",
-                        skipValue: skipType
-                    })
-                );
-            } else {
-                console.log("Hoppr?.sendMessage is not available.");
-            }
+    setTimeout(() => {
+        if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
+            Hoppr.sendMessage(
+                JSON.stringify({
+                    type: "performSkip",
+                    skipValue: skipType
+                })
+            );
+        } else {
+            console.log("Hoppr?.sendMessage is not available.");
         }
+    }, 200);
+}
 
         // Function to call Hoppr's method for setAttributes
         function setAttributes(xPosition, yPosition, width, height, gravity) {
