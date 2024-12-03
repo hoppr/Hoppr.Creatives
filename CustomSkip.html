@@ -163,25 +163,27 @@
             setAttributes(0, 0, 500, 150, 85); // Initial attributes on page load
         };
 
-        window.addEventListener("keydown", (event) => {
-            const skipButton = document.getElementById("skip-button");
-            const sadButton = document.getElementById("sad-button");
-            const happyButton = document.getElementById("happy-button");
+  window.addEventListener("keydown", (event) => {
+    const skipButton = document.getElementById("skip-button");
+    const sadButton = document.getElementById("sad-button");
+    const happyButton = document.getElementById("happy-button");
 
-            // Remove the 'selected' class when key is released
-            sadButton.classList.remove("selected");
-            skipButton.classList.remove("selected");
-            happyButton.classList.remove("selected");
+    // Add the selected class based on the key pressed
+    if (event.key === "ArrowLeft") {
+        sadButton.classList.add("selected");
+        happyButton.classList.remove("selected");
+        skipButton.classList.remove("selected");
+    } else if (event.key === "ArrowRight") {
+        happyButton.classList.add("selected");
+        sadButton.classList.remove("selected");
+        skipButton.classList.remove("selected");
+    } else if (event.key === "Enter" || event.key === "ArrowUp" || event.key === "ArrowDown") {
+        skipButton.classList.add("selected");
+        sadButton.classList.remove("selected");
+        happyButton.classList.remove("selected");
+    }
+});
 
-            // Add the selected class based on the key pressed
-            if (event.key === "ArrowLeft") {
-                sadButton.classList.add("selected");
-            } else if (event.key === "ArrowRight") {
-                happyButton.classList.add("selected");
-            }else if (event.key === "Enter" || event.key == "ArrowUp" || event.key == "ArrowDown") {
-                skipButton.classList.add("selected");
-            }
-        });
 
         window.addEventListener("keyup", (event) => {
             const skipButton = document.getElementById("skip-button");
