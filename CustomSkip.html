@@ -179,7 +179,7 @@ window.addEventListener("keydown", (event) => {
         happyButton.classList.add("selected");
         sadButton.classList.remove("selected");
         skipButton.classList.remove("selected");
-    } else if (event.code === "Enter" || event.key === "ArrowUp" || event.key === "ArrowDown") {
+    } else if (event.key === "Enter" || event.key === "ArrowUp" || event.key === "ArrowDown") {
         // Highlight the "skip" button when Enter, Up arrow, or Down arrow keys are pressed
         // Note: `event.code` is preferred for device-specific handling
         skipButton.classList.add("selected");
@@ -200,7 +200,7 @@ window.addEventListener("keyup", (event) => {
     } else if (event.key === "ArrowRight") {
         // Perform an action when the right arrow key is released
         performSkipAction(5);
-    } else if (event.code === "Enter") {
+    } else if (event.key === "Enter") {
         // Perform an action when the Enter key is released
         // Note: `event.code` is used to account for device-specific variations
         performSkipAction(3);
