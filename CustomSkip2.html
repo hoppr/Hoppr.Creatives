@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+        canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ensure the QR code scales properly */
+        }
+    </style>
+    <script>
+        function generateQrCode(shortenedUrl) {
+            if (!shortenedUrl) {
+                console.error("URL is empty or invalid");
+                return;
+            }
+
+            const qrCodeContainer = document.body; // Use the entire body
+            qrCodeContainer.innerHTML = ""; // Clear previous QR code
+
+            QRCode.toCanvas(shortenedUrl, { errorCorrectionLevel: "H" }, function (error, canvas) {
+                if (error) {
+                    console.error("Error generating QR code:", error);
+                } else {
+                    canvas.style.width = "100%";
+                    canvas.style.height = "100%";
+                    qrCodeContainer.appendChild(canvas);
+                    console.log("QR code generated for URL:", shortenedUrl);
+                }
+            });
+        }
+
+        // Example: Generate QR code on load
+        window.onload = () => {
+            generateQrCode("https://www.example.com");
+        };
+    </script>
+</head>
+<body>
+</body>
+</html>
