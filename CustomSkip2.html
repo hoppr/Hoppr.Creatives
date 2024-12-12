@@ -1,56 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Generator</title>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden; /* Prevent scrollbars */
-        }
-        canvas {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Ensure the QR code scales properly */
-        }
-    </style>
-    <script>
-        function generateQrCode(shortenedUrl) {
-            if (!shortenedUrl) {
-                console.error("URL is empty or invalid");
-                return;
-            }
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>QR Code Demo</title>
+      <style>
+         body {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         height: 100vh;
+         margin: 0;
+         background: transparent;
+         }
+         #qrcode {
+         display: none;
+         max-width: 100%;
+         max-height: 100%;
+         height: auto;
+         }
+         }
+      </style>
+      <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+   </head>
+   <body>
+      <canvas id="qrcode"></canvas>
+      <script>
+                 const qrCodeCanvas = document.getElementById("qrcode");
+                 // Function to call Hoppr's method for setAttributes
+                 function setAttributes(xPosition, yPosition, width, height, gravity) {
+                     if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
+                         Hoppr.sendMessage(
+                             JSON.stringify({
+                                 type: "setAttributes",
+                                 xPosition: xPosition,
+                                 yPosition: yPosition,
+                                 width: width,
+                                 height: height,
+                                 gravity: gravity
+                             })
+                         );
+                     } else {
+                         console.log("Hoppr?.sendMessage is not available.");
+                     }
+                 }
+         
+         
+                 // Function to generate a QR code in html and replace the UI
+                 function generateQrCodeToWebView(urlToShorten) {
+                         if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
+                             Hoppr.sendMessage(
+                                 JSON.stringify({
+                                     type: "generateQrCode",
+                                     urlToShorten: urlToShorten,
+                                 })
+                             );
+                         } else {
+                             console.log("Hoppr?.sendMessage is not available.");
+                         }
+                 }
+         
+         
+                 // Function to generate a QR code in html and replace the UI
+                   function generateQrCode(shortenedUrl) {
+         
+                       if (!shortenedUrl) {
+                           console.error("URL is empty or invalid");
+                           return;
+                       }
+    
+                       // Hide the button UI and show the QR code
+                       qrCodeCanvas.style.display = "block";
+         
+                       // Generate the QR code
+                       QRCode.toCanvas(qrCodeCanvas, shortenedUrl, { width: window.innerWidth * 0.8, height: window.innerHeight * 0.8  }, function (error) {
+                           if (error) {
+                               console.error("Error generating QR code:", error);
+                               } else {
+                                       console.log("QR code generated for URL:", shortenedUrl);
+                                   }
+                           });
+         
+               }
 
-            const qrCodeContainer = document.body; // Use the entire body
-            qrCodeContainer.innerHTML = ""; // Clear previous QR code
-
-            QRCode.toCanvas(shortenedUrl, { errorCorrectionLevel: "H" }, function (error, canvas) {
-                if (error) {
-                    console.error("Error generating QR code:", error);
-                } else {
-                    canvas.style.width = "100%";
-                    canvas.style.height = "100%";
-                    qrCodeContainer.appendChild(canvas);
-                    console.log("QR code generated for URL:", shortenedUrl);
-                }
-            });
-        }
-
-        // Example: Generate QR code on load
-        window.onload = () => {
-            generateQrCode("https://www.example.com");
-        };
-    </script>
-</head>
-<body>
-</body>
+                 // Call setAttributes immediately when the page loads
+                 window.onload = () => {
+                   //Set QrCode size and position here
+                   setAttributes(-30, -30, 280, 280, 85);
+                             };
+         
+         
+      </script>
+   </body>
 </html>
