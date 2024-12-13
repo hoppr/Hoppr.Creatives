@@ -1,97 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>QR Code Demo</title>
-      <style>
-         body {
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         height: 100vh;
-         margin: 0;
-         background: transparent;
-         }
-         #qrcode {
-         display: none;
-         max-width: 100%;
-         max-height: 100%;
-         height: auto;
-         }
-         }
-      </style>
-      <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-   </head>
-   <body>
-      <canvas id="qrcode"></canvas>
-      <script>
-         // Function to call Hoppr's method for setAttributes
-         function setAttributes(xPosition, yPosition, width, height, gravity) {
-             if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
-                 Hoppr.sendMessage(
-                     JSON.stringify({
-                         type: "setAttributes",
-                         xPosition: xPosition,
-                         yPosition: yPosition,
-                         width: width,
-                         height: height,
-                         gravity: gravity
-                     })
-                 );
-             } else {
-                 console.log("Hoppr?.sendMessage is not available.");
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buttons with Arrows</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background: transparent;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        button {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: #f9f9f9;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        button:hover {
+            background: #f0f0f0;
+            border-color: #bbb;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        .selected {
+            background: #4fa3f7;
+            border-color: #4fa3f7;
+            color: white;
+        }
+
+        #qrcode {
+                 display: none;
+                 max-width: 100%;
+                 max-height: 100%;
+                 height: auto;
              }
-         }
-         
-         
-         // Function to generate a QR code in html and replace the UI
-         function generateSkipQrCode(urlToShorten) {
-                 if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
-                     Hoppr.sendMessage(
-                         JSON.stringify({
-                             type: "generateQrCode",
-                             urlToShorten: urlToShorten,
-                         })
-                     );
-                 } else {
-                     console.log("Hoppr?.sendMessage is not available.");
-                 }
-         }
-         
-         
-         // Function to generate a QR code in html and replace the UI
-           function generateQrCode(shortenedUrl) {
-         
-               if (!shortenedUrl) {
-                   console.error("URL is empty or invalid");
-                   return;
-               }
-         
-               //Show the QR code
-               const qrCodeCanvas = document.getElementById("qrcode");
-               qrCodeCanvas.style.display = "block";
-         
-               // Generate the QR code
-               QRCode.toCanvas(qrCodeCanvas, shortenedUrl, { width: window.innerWidth * 0.8, height: window.innerHeight * 0.8  }, function (error) {
-                   if (error) {
-                       console.error("Error generating QR code:", error);
-                       } else {
-                               console.log("QR code generated for URL:", shortenedUrl);
-                           }
-                   });
-         
-         }
-         
-         // Call setAttributes immediately when the page loads
-         window.onload = () => {
-           //Set QrCode size and position here
-           setAttributes(-30, -30, 280, 280, 85);
-           //Start generating shortenedUrl and register for scan to skip
-           generateSkipQrCode("https://www.techspot.com/")
-                     };
-         
-         
-      </script>
-   </body>
+
+        @media (max-width: 800px) {
+            .button-container {
+                gap: 10px;
+            }
+
+            button {
+                font-size: 16px;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .button-container {
+                gap: 5px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="button-container" id="button-container">
+        <button id="sad-button" tabindex="0">◀ 😞</button>
+        <button id="skip-button" tabindex="0" class="selected">Skip</button>
+        <button id="happy-button" tabindex="0">😊 ▶</button>
+    </div>
+    <canvas id="qrcode"></canvas>
+
+    <script>
+
+    const buttonContainer = document.getElementById("button-container");
+    const qrCodeCanvas = document.getElementById("qrcode");
+
+    // Cache button elements
+    const buttons = {
+        sad: document.getElementById("sad-button"),
+        skip: document.getElementById("skip-button"),
+        happy: document.getElementById("happy-button"),
+    };
+
+
+            // Function to call Hoppr's method for setAttributes
+            function setAttributes(xPosition, yPosition, width, height, gravity) {
+                if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
+                    Hoppr.sendMessage(
+                        JSON.stringify({
+                            type: "setAttributes",
+                            xPosition: xPosition,
+                            yPosition: yPosition,
+                            width: width,
+                            height: height,
+                            gravity: gravity
+                        })
+                    );
+                } else {
+                    console.log("Hoppr?.sendMessage is not available.");
+                }
+            }
+
+
+            // Perform skip action with an optional delay
+            function performSkipAction(skipType, delay = 0) {
+              if (buttonContainer.style.display !== 'none') {
+                setTimeout(() => {
+                    if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
+                        Hoppr.sendMessage(
+                            JSON.stringify({
+                                type: "performSkip",
+                                skipValue: skipType,
+                            })
+                        );
+                    } else {
+                        console.log("Hoppr?.sendMessage is not available.");
+                    }
+                }, delay); // Use provided delay or default to 150ms
+                  // Perform action if display is not 'none' (visible)
+                  console.log("Button container is visible");
+              } else {
+                  // Perform action if display is 'none' (hidden)
+                  console.log("Button container is hidden");
+              }
+            }
+
+            // Function to generate a QR code in html and replace the UI
+            function generateQrCodeToWebView(urlToShorten) {
+                    if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
+                        Hoppr.sendMessage(
+                            JSON.stringify({
+                                type: "generateQrCode",
+                                urlToShorten: urlToShorten,
+                            })
+                        );
+                    } else {
+                        console.log("Hoppr?.sendMessage is not available.");
+                    }
+            }
+
+            // Call setAttributes immediately when the page loads
+            window.onload = () => {
+                setAttributes(0, 0, 500, 150, 85); // Initial attributes on page load
+            };
+
+
+            // Keyboard navigation for button selection
+            window.addEventListener("keydown", (event) => {
+                if (["ArrowLeft", "ArrowRight", "Enter"].includes(event.key)) {
+                    switch (event.key) {
+                        case "ArrowLeft":
+                            buttons.skip.classList.remove("selected");
+                            buttons.happy.classList.remove("selected");
+                            buttons.sad.classList.add("selected");
+                            break;
+                        case "ArrowRight":
+                            buttons.skip.classList.remove("selected");
+                            buttons.sad.classList.remove("selected");
+                            buttons.happy.classList.add("selected");
+                            break;
+                        case "Enter":
+                            buttons.happy.classList.remove("selected");
+                            buttons.sad.classList.remove("selected");
+                            buttons.skip.classList.add("selected");
+                            break;
+                    }
+                }
+            });
+
+            window.addEventListener("keyup", (event) => {
+                switch (event.key) {
+                    case "ArrowLeft":
+                        performSkipAction(1,200);
+                        break;
+                    case "ArrowRight":
+                        performSkipAction(5,200);
+                        break;
+                    case "Enter":
+                        performSkipAction(3);
+                        break;
+                    // case "ArrowUp":
+                    //     generateQrCodeToWebView("https://www.techspot.com/");
+                    //     break;
+                      break;
+                }
+            });
+
+
+
+            // Function to generate a QR code in html and replace the UI
+              function generateQrCode(shortenedUrl) {
+
+                  //Set QrCode size and position here
+                  setAttributes(-30, -30, 280, 280, 85);
+
+                  if (!shortenedUrl) {
+                      console.error("URL is empty or invalid");
+                      return;
+                  }
+
+              // Hide the button UI and show the QR code
+              buttonContainer.style.display = "none";
+              qrCodeCanvas.style.display = "block";
+
+              setTimeout(() => {
+
+              // Generate the QR code
+              QRCode.toCanvas(qrCodeCanvas, shortenedUrl, { width: window.innerWidth * 0.8, height: window.innerHeight * 0.8  }, function (error) {
+                  if (error) {
+                      console.error("Error generating QR code:", error);
+                  } else {
+                      console.log("QR code generated for URL:", shortenedUrl);
+                  }
+              });
+            }, 200); // Use provided delay or default to 150ms
+
+          }
+
+
+    </script>
+</body>
 </html>
