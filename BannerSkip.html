@@ -43,7 +43,8 @@
       }
     }
 
-    // Render the actual QR code in the canvas
+    // Render the actual QR code in the HTML in a form of canvas
+    //generateQrCode (PLEASE DON'T RENAME)
     function generateQrCode(shortenedUrl) {
       if (!shortenedUrl) return console.error("URL is empty or invalid");
       const canvas = document.getElementById("qrcode");
