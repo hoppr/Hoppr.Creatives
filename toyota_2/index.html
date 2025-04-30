@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Super-Fast Car Animation</title>
+  <style>
+    body {
+      background: #111;
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    canvas {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="carCanvas"></canvas>
+  <script>
+    (async () => {
+      // CONFIG
+      const FRAME_COUNT = 360;
+      const IMG_W = 1920, IMG_H = 1080;
+      const DESIRED_FPS = 60;
+
+      // SETUP
+      const canvas = document.getElementById('carCanvas');
+      const ctx = canvas.getContext('2d');
+      let bitmaps = new Array(FRAME_COUNT);
+      let currentFrame = 0;
+      let drawW, drawH, offsetX, offsetY;
+      let lastTime = 0;
+
+      // Helpers
+      const framePath = i => `frames/toyota_${String(i).padStart(4, '0')}.webp`;
+      function resizeCanvas() {
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+        const ar = IMG_W / IMG_H;
+        drawW = canvas.width;
+        drawH = drawW / ar;
+        if (drawH > canvas.height) {
+          drawH = canvas.height;
+          drawW = drawH * ar;
+        }
+        offsetX = (canvas.width - drawW) / 2;
+        offsetY = (canvas.height - drawH) / 2;
+      }
+
+      // Preload all frames in parallel
+      async function preloadFrames() {
+        await Promise.all(
+          Array.from({ length: FRAME_COUNT }, (_, i) => (async () => {
+            const img = new Image();
+            img.src = framePath(i);
+            await img.decode();
+            bitmaps[i] = await createImageBitmap(img);
+          })())
+        );
+      }
+
+      // Draw one frame
+      function drawFrame() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(bitmaps[currentFrame], offsetX, offsetY, drawW, drawH);
+      }
+
+      // Animation loop at fixed FPS
+      function animate(time) {
+        if (time - lastTime >= 1000 / DESIRED_FPS) {
+          currentFrame = (currentFrame + 1) % FRAME_COUNT;
+          drawFrame();
+          lastTime = time;
+        }
+        requestAnimationFrame(animate);
+      }
+
+      // INITIALIZE
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+      await preloadFrames();
+      drawFrame();
+      requestAnimationFrame(animate);
+    })();
+  </script>
+</body>
+</html>
