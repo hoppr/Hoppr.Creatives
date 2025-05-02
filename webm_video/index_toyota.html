@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fullscreen Video</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover; /* or contain if you want to preserve full frame */
+      z-index: -1;       /* push it behind any other content */
+    }
+  </style>
+</head>
+<body>
+  <video autoplay loop muted playsinline>
+    <source src="webm_toyota.webm" type="video/webm">
+    Sorry, your browser doesn’t support this video.
+  </video>
+</body>
+</html>
