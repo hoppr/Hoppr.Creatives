@@ -39,7 +39,7 @@
 
   function preloadFrames(callback) {
     let loaded = 0;
-    for (let i = 0; i < frameCount; i++) {
+    for (let i = 0; i < frameCount; i = i + 10) {
       const img = new Image();
       img.src = framePath(i);
       img.onload = () => {
