@@ -39,12 +39,12 @@
 
   function preloadFrames(callback) {
     let loaded = 0;
-    for (let i = 0; i < frameCount; i = i + 10) {
+    for (let i = 0; i < frameCount; i++) {
       const img = new Image();
       img.src = framePath(i);
       img.onload = () => {
         loaded++;
-        if (loaded === frameCount) callback();
+        if (loaded === frameCount ) callback();
       };
       frames.push(img);
     }
@@ -80,7 +80,7 @@
   }
 
   function animate() {
-    currentFrame = (currentFrame + 1) % frameCount;
+    currentFrame = (currentFrame + 5) % frameCount;
     draw();
     requestAnimationFrame(animate);
   }
