@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Device & Campaign Info</title>
+</head>
+<body>
+  <h1>Visitor Info</h1>
+  <button onclick="collect(false)">Refresh</button>
+  <button onclick="collect(true)">Request Geolocation</button>
+  <pre id="out">Collecting…</pre>
+
+<script>
+const out = document.getElementById('out');
+
+function qp() {
+  const p = new URLSearchParams(location.search);
+  const get = k => p.get(k);
+  const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid','msclkid','ttclid'];
+  const o = {};
+  keys.forEach(k => { const v = get(k); if (v) o[k]=v; });
+  return o;
+}
+
+function adblockCheck() {
+  // Heuristic: attempt to load a common ad-path that blockers usually kill.
+  return new Promise(resolve => {
+    const s = document.createElement('script');
+    s.src = '/ads.js'; // change if you actually serve this
+    s.async = true;
+    s.onerror = () => resolve(true);
+    s.onload = () => resolve(false);
+    // Give up after 2s
+    const t = setTimeout(() => resolve(true), 2000);
+    s.onload = () => { clearTimeout(t); resolve(false); };
+    document.head.appendChild(s);
+  });
+}
+
+async function getUAData() {
+  try {
+    if (navigator.userAgentData?.getHighEntropyValues) {
+      const d = await navigator.userAgentData.getHighEntropyValues(
+        ["platform","platformVersion","architecture","model","uaFullVersion"]
+      );
+      return {
+        mobile: navigator.userAgentData.mobile ?? null,
+        brands: navigator.userAgentData.brands ?? null,
+        ...d
+      };
+    }
+  } catch {}
+  return null;
+}
+
+function getWebGLInfo() {
+  try {
+    const c = document.createElement('canvas');
+    const gl = c.getContext('webgl') || c.getContext('experimental-webgl');
+    if (!gl) return null;
+    const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+    return dbg ? {
+      vendor: gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL),
+      renderer: gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)
+    } : null;
+  } catch { return null; }
+}
+
+async function getBattery() {
+  try {
+    if (navigator.getBattery) {
+      const b = await navigator.getBattery();
+      return { charging: b.charging, level: b.level, chargingTime: b.chargingTime, dischargingTime: b.dischargingTime };
+    }
+  } catch {}
+  return null;
+}
+
+function timeout(promise, ms) {
+  return new Promise((resolve) => {
+    const t = setTimeout(() => resolve(null), ms);
+    promise.then(v => { clearTimeout(t); resolve(v); }).catch(() => { clearTimeout(t); resolve(null); });
+  });
+}
+
+async function getPublicIP() {
+  // Try ipify, fallback to ipapi for geo
+  const ipify = timeout(fetch('https://api64.ipify.org?format=json', {cache:'no-store'}).then(r=>r.json()), 2500);
+  const ipapi = timeout(fetch('https://ipapi.co/json/', {cache:'no-store'}).then(r=>r.json()), 3000);
+  const [a, b] = await Promise.all([ipify, ipapi]);
+  const ip = a?.ip || b?.ip || null;
+  const geo = b ? {
+    country: b.country_name,
+    country_code: b.country,
+    region: b.region,
+    city: b.city,
+    postal: b.postal,
+    latitude: b.latitude,
+    longitude: b.longitude,
+    org: b.org,
+    timezone: b.timezone
+  } : null;
+  return { ip, ip_geo: geo };
+}
+
+async function testAutoplay() {
+  // Quick media capability probe (muted autoplay is common for ad slots)
+  try {
+    const v = document.createElement('video');
+    v.muted = true; v.playsInline = true;
+    v.src = 'data:video/mp4;base64,';
+    await v.play().then(()=>true,()=>false);
+    return true;
+  } catch { return false; }
+}
+
+async function collect(includeGeo=false) {
+  const nav = navigator, scr = screen;
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const langs = Array.isArray(nav.languages) && nav.languages.length ? nav.languages : [nav.language].filter(Boolean);
+  const conn = nav.connection || nav.mozConnection || nav.webkitConnection || null;
+
+  let geo = null;
+  if (includeGeo && 'geolocation' in navigator) {
+    geo = await new Promise(resolve => {
+      navigator.geolocation.getCurrentPosition(
+        p => resolve({ lat:p.coords.latitude, lon:p.coords.longitude, acc:p.coords.accuracy, ts:new Date(p.timestamp).toISOString() }),
+        e => resolve({ error: e.code+':'+e.message }),
+        { timeout: 8000, enableHighAccuracy: false }
+      );
+    });
+  }
+
+  const [uaData, battery, ipBlock, adblocked, autoplay] = await Promise.all([
+    getUAData(),
+    getBattery(),
+    getPublicIP(),
+    adblockCheck(),
+    testAutoplay()
+  ]);
+
+  const info = {
+    timestamp: new Date().toISOString(),
+    // Campaign / click IDs (very important for ads attribution)
+    campaign: qp(),
+
+    // Network (public IP + coarse IP geo)
+    network: {
+      public_ip: ipBlock?.ip || null,
+      ip_geo: ipBlock?.ip_geo || null,
+      conn: conn ? {
+        downlink: conn.downlink ?? null,
+        effectiveType: conn.effectiveType ?? null,
+        rtt: conn.rtt ?? null,
+        saveData: conn.saveData ?? null
+      } : null
+    },
+
+    // Browser + device
+    browser: {
+      userAgent: nav.userAgent,
+      uaData: uaData,                 // modern Client Hints
+      doNotTrack: (nav.doNotTrack === '1' || window.doNotTrack === '1') || false,
+      cookieEnabled: nav.cookieEnabled ?? null,
+      localStorage: (()=>{ try{ localStorage.setItem('__t','1'); localStorage.removeItem('__t'); return true;}catch{return false;} })(),
+      languages: langs,
+      platform: nav.platform ?? null
+    },
+
+    // Device capabilities useful to decide ad creatives
+    device: {
+      deviceMemory: nav.deviceMemory ?? null,          // GB (approx)
+      hardwareConcurrency: nav.hardwareConcurrency ?? null,  // logical cores
+      touch: ('ontouchstart' in window) || (nav.maxTouchPoints > 0) || false,
+      pixelRatio: window.devicePixelRatio ?? null,
+      screen: { width: scr.width, height: scr.height, colorDepth: scr.colorDepth },
+      webgl: getWebGLInfo(),
+      battery
+    },
+
+    // Page context
+    page: {
+      url: location.href,
+      referrer: document.referrer || null,
+      title: document.title || null,
+      timezone: tz,
+      viewport: { w: window.innerWidth, h: window.innerHeight },
+      historyLength: history.length
+    },
+
+    // Optional precise geo (only when user consents)
+    geo,
+
+    // Environment signals
+    signals: {
+      adblockLikely: adblocked,
+      autoplayMutedLikely: autoplay,
+      prefersReducedMotion: window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? null,
+      colorSchemeDark: window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? null
+    }
+  };
+
+  out.textContent = JSON.stringify(info, null, 2);
+}
+
+collect(false);
+</script>
+</body>
+</html>
