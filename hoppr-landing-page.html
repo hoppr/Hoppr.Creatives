@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoppr TV - Transform Your TV Advertising</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #00d4ff 0%, #7b2ff7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 36px;
+            }
+        }
+
+        .description {
+            white-space: pre-line;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">HOPPR</div>
+
+        <p class="description"></p>
+    </div>
+
+    <script>
+        const description = document.querySelector('.description');
+
+        document.addEventListener('keydown', (event) => {
+            const keyName = event.key;
+            const keyCode = event.code;
+            description.innerText += `Key pressed: ${keyName} (${keyCode})\n`;
+        });
+    </script>
+</body>
+
+</html>
