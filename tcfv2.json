@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.0",
+  "domain": "hopprtv.com",
+  "storages": [
+    {
+      "type": "sharedPreferences",
+      "identifier": "HopprID",
+      "purposes": [
+        "adDelivery",
+        "frequencyCapping",
+        "fraudPrevention",
+        "security"
+      ],
+      "access": {
+        "read": true,
+        "write": true
+      },
+      "duration": {
+        "type": "persistent",
+        "seconds": 31536000
+      }
+    },
+    {
+      "type": "sharedPreferences",
+      "identifier": "HopprSDKState",
+      "purposes": [
+        "adDelivery",
+        "measurement"
+      ],
+      "access": {
+        "read": true,
+        "write": true
+      },
+      "duration": {
+        "type": "persistent",
+        "seconds": 31536000
+      }
+    },
+    {
+      "type": "sharedPreferences",
+      "identifier": "HopprTCFConsent",
+      "purposes": [
+        "storage"
+      ],
+      "access": {
+        "read": true,
+        "write": true
+      },
+      "duration": {
+        "type": "persistent",
+        "seconds": 31536000
+      }
+    }
+  ]
+}
