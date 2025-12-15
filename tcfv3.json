@@ -1,6 +1,5 @@
 {
-  "vendorVersion": 1,
-  "lastUpdated": "2025-12-12",
+
   "domains": [
     {
       "domain": "hopprtv.com",
@@ -30,6 +29,6 @@
       "domain": "*",
       "description": "Functional data stored client-side (e.g., LocalStorage) to remember user interface preferences (like dark mode, language) and measure service performance (Purpose 7)."
     }
-  ],
-  "usesNonCookieAccess": true
+  ]
+
 }
