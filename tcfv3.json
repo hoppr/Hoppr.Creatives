@@ -1,0 +1,35 @@
+{
+  "vendorVersion": 1,
+  "lastUpdated": "2025-12-12",
+  "domains": [
+    {
+      "domain": "hopprtv.com",
+      "use": "Primary domain for Hoppr TV service and data collection."
+    }
+  ],
+  "disclosures": [
+    {
+      "identifier": "hoppr_storage_id",
+      "type": "web",
+      "maxAgeSeconds": null,
+      "purposes": [
+        1,
+        10
+      ],
+      "domain": "*",
+      "description": "Unique identifier stored in client-side storage (e.g., LocalStorage or IndexedDB) for session management and user recognition. Used to ensure security and maintain user preferences."
+    },
+    {
+      "identifier": "hoppr_app_settings",
+      "type": "web",
+      "maxAgeSeconds": null,
+      "purposes": [
+        1,
+        7
+      ],
+      "domain": "*",
+      "description": "Functional data stored client-side (e.g., LocalStorage) to remember user interface preferences (like dark mode, language) and measure service performance (Purpose 7)."
+    }
+  ],
+  "usesNonCookieAccess": true
+}
