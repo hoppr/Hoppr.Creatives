@@ -155,8 +155,8 @@
                 const scanUrl = `${BASE_URL}/scan/${sessionId}`;
                 console.log("VideoQR scanUrl", scanUrl);
 
-                // generateQrCode(scanUrl);
-                generateQrCodeToWebView(scanUrl);
+                generateQrCode(scanUrl);
+                // generateQrCodeToWebView(scanUrl);
             } catch (error) {
                 console.error('VideoQR onload error:', error);
             }
