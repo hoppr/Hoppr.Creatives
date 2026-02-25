@@ -29,21 +29,20 @@
 <body>
     <canvas id="qrcode"></canvas>
     <script>
-        const BASE_URL = 'https://dev.hoppr.au/qr/v2/ping';
-
+        const BASE_URL = 'https://dev.hoppr.au/qr/v2/';
         const qrCodeCanvas = document.getElementById("qrcode");
         const params = new URLSearchParams(window.location.search);
         const clientId = params.get("clientId");
-        const clickThrough = params.get("clickThrough");
+        const clickThru = params.get("clickThrough");
         const timeoutSec = params.get("timeoutSec");
 
-        console.log("VideoQR params", { clientId, clickThrough, timeoutSec });
+        console.log("VideoQR params", JSON.stringify(clientId, clickThru, timeoutSec));
 
         let sessionId;
 
         // Function to call Hoppr's method for setAttributes
         function setAttributes(xPosition, yPosition, width, height, gravity) {
-            console.log("VideoQR setAttributes", { xPosition, yPosition, width, height, gravity });
+            console.log("VideoQR setAttributes", JSON.stringify({ xPosition, yPosition, width, height, gravity }));
             Hoppr.sendMessage(
                 JSON.stringify({
                     type: "setAttributes",
@@ -69,11 +68,11 @@
 
         // Create a new QR session on the server and return the sessionId
         async function createSession() {
-            console.log("VideoQR createSession", { clientId, clickThrough });
+            console.log("VideoQR createSession", JSON.stringify(clientId, clickThru, timeoutSec));
             const response = await fetch(BASE_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ clientId, clickThrough })
+                body: JSON.stringify({ clientId, clickThru })
             });
             if (!response.ok) {
                 throw new Error('Failed to create QR session: ' + response.status);
@@ -85,7 +84,7 @@
 
         // Long-poll the status endpoint and perform skip action when scanned.
         function waitForScan() {
-            console.log("VideoQR waitForScan", { sessionId });
+            console.log("VideoQR waitForScan", JSON.stringify(sessionId));
             if (sessionId == null) {
                 console.warn("VideoQR waitForScan called before sessionId was set, aborting");
                 return;
@@ -99,7 +98,7 @@
             fetch(statusUrl)
                 .then(function (response) { return response.json(); })
                 .then(function (data) {
-                    console.log("VideoQR waitForScan response", { data, documentHidden: document.hidden });
+                    console.log("VideoQR waitForScan response", JSON.stringify(data, document.hidden));
                     if (data.status === 'scanned' && !document.hidden) {
                         performSkipAction();
                     }
