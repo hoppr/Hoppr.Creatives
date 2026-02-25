@@ -78,7 +78,7 @@
                 throw new Error('Failed to create QR session: ' + response.status);
             }
             const data = await response.json();
-            console.log("VideoQR createSession response", data);
+            console.log("VideoQR createSession response", JSON.stringify(data));
             return data.sessionId;
         }
 
