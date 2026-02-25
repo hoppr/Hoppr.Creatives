@@ -36,7 +36,7 @@
         const clickThru = params.get("clickThrough");
         const timeoutSec = params.get("timeoutSec");
 
-        console.log("VideoQR params1", JSON.stringify({ clientId, clickThru, timeoutSec }));
+        console.log("VideoQR params", JSON.stringify({ clientId, clickThru, timeoutSec }));
 
         let sessionId;
 
@@ -72,7 +72,7 @@
             const response = await fetch(BASE_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: { clientId: clientId, clickThru: clickThru }
+                body: JSON.stringify({ clientId, clickThru })
             });
             if (!response.ok) {
                 throw new Error('Failed to create QR session: ' + response.status);
