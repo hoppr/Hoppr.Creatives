@@ -29,14 +29,14 @@
 <body>
     <canvas id="qrcode"></canvas>
     <script>
-        const BASE_URL = 'https://dev.hoppr.au/qr/v2/';
+        const BASE_URL = 'https://dev.hoppr.au/qr/v2';
         const qrCodeCanvas = document.getElementById("qrcode");
         const params = new URLSearchParams(window.location.search);
         const clientId = params.get("clientId");
         const clickThru = params.get("clickThrough");
         const timeoutSec = params.get("timeoutSec");
 
-        console.log("VideoQR params", JSON.stringify(clientId, clickThru, timeoutSec));
+        console.log("VideoQR params", JSON.stringify({ clientId, clickThru, timeoutSec }));
 
         let sessionId;
 
@@ -68,7 +68,7 @@
 
         // Create a new QR session on the server and return the sessionId
         async function createSession() {
-            console.log("VideoQR createSession", JSON.stringify(clientId, clickThru, timeoutSec));
+            console.log("VideoQR createSession");
             const response = await fetch(BASE_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -82,9 +82,22 @@
             return data.sessionId;
         }
 
+        function generateQrCodeToWebView(urlToShorten) {
+            if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
+                Hoppr.sendMessage(
+                    JSON.stringify({
+                        type: "generateQrCode",
+                        urlToShorten: urlToShorten,
+                    })
+                );
+            } else {
+                console.log("Hoppr?.sendMessage is not available.");
+            }
+        }
+
         // Long-poll the status endpoint and perform skip action when scanned.
         function waitForScan() {
-            console.log("VideoQR waitForScan", JSON.stringify(sessionId));
+            console.log("VideoQR waitForScan", JSON.stringify({ sessionId }));
             if (sessionId == null) {
                 console.warn("VideoQR waitForScan called before sessionId was set, aborting");
                 return;
@@ -98,7 +111,7 @@
             fetch(statusUrl)
                 .then(function (response) { return response.json(); })
                 .then(function (data) {
-                    console.log("VideoQR waitForScan response", JSON.stringify(data, document.hidden));
+                    console.log("VideoQR waitForScan response", JSON.stringify(data));
                     if (data.status === 'scanned' && !document.hidden) {
                         performSkipAction();
                     }
@@ -142,7 +155,8 @@
                 const scanUrl = `${BASE_URL}/scan/${sessionId}`;
                 console.log("VideoQR scanUrl", scanUrl);
 
-                generateQrCode(scanUrl);
+                // generateQrCode(scanUrl);
+                generateQrCodeToWebView(scanUrl);
             } catch (error) {
                 console.error('VideoQR onload error:', error);
             }
