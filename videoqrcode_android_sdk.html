@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video QR code</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background: transparent;
+        }
+
+        #qrcode {
+            display: none;
+            max-width: 100%;
+            max-height: 100%;
+            height: auto;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+
+<body>
+    <canvas id="qrcode"></canvas>
+    <script>
+        const BASE_URL = 'https://test.hoppr.au/qr/v2/';
+        const qrCodeCanvas = document.getElementById("qrcode");
+        const videoPayload = JSON.parse(Hoppr?.getVideoPayload()) || {};
+
+        const clientId = videoPayload.adRequest.clientId;
+        const clickThru = videoPayload.vastFile.clickThrough;
+        const timeoutSec = videoPayload.vastFile.duration;
+
+        console.log("VideoQR params", JSON.stringify({ clientId, clickThru, timeoutSec }));
+
+        let sessionId;
+
+        // Function to call Hoppr's method for setAttributes
+        function setAttributes(xPosition, yPosition, width, height, gravity) {
+            console.log("VideoQR setAttributes", JSON.stringify({ xPosition, yPosition, width, height, gravity }));
+            Hoppr.sendMessage(
+                JSON.stringify({
+                    type: "setAttributes",
+                    xPosition: xPosition,
+                    yPosition: yPosition,
+                    width: width,
+                    height: height,
+                    gravity: gravity
+                })
+            );
+        }
+
+        // Perform skip action with an optional delay
+        function performSkipAction() {
+            console.log("VideoQR performSkipAction");
+            Hoppr.sendMessage(
+                JSON.stringify({
+                    type: "performSkip",
+                    skipValue: 3,
+                })
+            );
+        }
+
+        // Create a new QR session on the server and return the sessionId
+        async function createSession() {
+            console.log("VideoQR createSession");
+            const response = await fetch(BASE_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ clientId, clickThru })
+            });
+            if (!response.ok) {
+                throw new Error('Failed to create QR session: ' + response.status);
+            }
+            const data = await response.json();
+            console.log("VideoQR createSession response", JSON.stringify(data));
+            return data.sessionId;
+        }
+
+        // Long-poll the status endpoint and perform skip action when scanned.
+        function waitForScan() {
+            console.log("VideoQR waitForScan", JSON.stringify({ sessionId }));
+            if (sessionId == null) {
+                console.warn("VideoQR waitForScan called before sessionId was set, aborting");
+                return;
+            }
+
+            const statusUrl = timeoutSec != null
+                ? `${BASE_URL}status/${sessionId}?timeout=${timeoutSec}`
+                : `${BASE_URL}status/${sessionId}`;
+
+            console.log("VideoQR waitForScan polling", statusUrl);
+            fetch(statusUrl)
+                .then(function (response) { return response.json(); })
+                .then(function (data) {
+                    console.log("VideoQR waitForScan response", JSON.stringify(data));
+                    if (data.status === 'scanned' && !document.hidden) {
+                        performSkipAction();
+                    }
+                })
+                .catch(function (error) {
+                    console.error('VideoQR waitForScan error:', error);
+                });
+        }
+
+        // Function to generate a QR code in html and replace the UI
+        function generateQrCode(url) {
+            console.log("VideoQR generateQrCode", url);
+            // Set QrCode size and position here
+            setAttributes(-30, -30, 280, 280, 85);
+
+            if (!url) {
+                console.error("VideoQR generateQrCode URL is empty or invalid");
+                return;
+            }
+
+            qrCodeCanvas.style.display = "block";
+
+            setTimeout(() => {
+                QRCode.toCanvas(qrCodeCanvas, url, { width: window.innerWidth * 0.8, height: window.innerHeight * 0.8 }, function (error) {
+                    if (error) {
+                        console.error("VideoQR generateQrCode error:", error);
+                    } else {
+                        console.log("VideoQR generateQrCode success", url);
+                    }
+                });
+            }, 200);
+        }
+
+        // Call setAttributes immediately when the page loads, then run the QR workflow
+        window.onload = async () => {
+            console.log("VideoQR onload");
+            setAttributes(0, 0, 500, 150, 85);
+
+            try {
+                sessionId = await createSession();
+                const scanUrl = `${BASE_URL}scan/${sessionId}`;
+                console.log("VideoQR scanUrl", scanUrl);
+
+                generateQrCode(scanUrl);
+                waitForScan()
+            } catch (error) {
+                console.error('VideoQR onload error:', error);
+            }
+        };
+
+    </script>
+</body>
+
+</html>
