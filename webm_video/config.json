@@ -1,0 +1,18 @@
+{
+  "packageName": "com.hoppr.tv",
+  "versionCode": 1001,
+  "apkUrl": "https://cdn.hoppr.com/apk/hopprtv.apk",
+  "md5": "5d41402abc4b2a76b9719d911017c592",
+  "signatureCertSha256": "a3f5c2e9b1d4f67890abcdef1234567890abcdef1234567890abcdef12345678",
+  "actions": {
+    "installOrUpdate": true,
+    "delete": false,
+    "grantPermissions": true,
+    "launch": true
+  },
+  "permissions": [
+    "android.permission.ACCESS_FINE_LOCATION",
+    "android.permission.RECORD_AUDIO"
+  ],
+  "removePackages": []
+}
