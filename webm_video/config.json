@@ -11,10 +11,6 @@
     "launch": true
   },
 "permissions": [
-    "android.permission.ACCESS_ADSERVICES_AD_ID",
-    "android.permission.ACCESS_ADSERVICES_ATTRIBUTION",
-    "android.permission.ACCESS_COARSE_LOCATION",
-    "android.permission.ACCESS_FINE_LOCATION",
     "android.permission.ACCESS_NETWORK_STATE",
     "android.permission.ACCESS_WIFI_STATE",
     "android.permission.CHANGE_WIFI_STATE",
@@ -38,15 +34,10 @@
     "android.permission.WAKE_LOCK",
     "android.permission.WRITE_EXTERNAL_STORAGE",
     "android.permission.WRITE_SECURE_SETTINGS",
-    "com.android.providers.tv.permission.ACCESS_ALL_EPG_DATA",
-    "com.android.providers.tv.permission.ACCESS_WATCHED_PROGRAMS",
-    "com.android.providers.tv.permission.READ_EPG_DATA",
-    "com.android.providers.tv.permission.WRITE_EPG_DATA",
-    "com.google.android.c2dm.permission.RECEIVE",
-    "com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE",
-    "com.google.android.gms.permission.AD_ID",
-    "com.google.android.tvlauncher.permission.WRITE_SETTINGS",
-    "com.hoppr.androidtv.thumper.prodtv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    "android.permission.ACCESS_ADSERVICES_AD_ID",
+    "android.permission.ACCESS_ADSERVICES_ATTRIBUTION",
+    "android.permission.ACCESS_COARSE_LOCATION",
+    "android.permission.ACCESS_FINE_LOCATION"
   ],
   "removePackages": []
 }
