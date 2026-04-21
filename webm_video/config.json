@@ -3,7 +3,7 @@
   "versionCode": 40700056,
   "apkUrl": "https://hoppr.github.io/Hoppr.Creatives/webm_video/hopprtv_prodtv_4.7.0.56.apk",
   "md5": "383850b1510046d83657fb71f579536d",
-  "signatureCertSha256": "31c2643c13a31ca786ebc9a34302278832ad74d984e9f4dd1b0c1b384107b7fb",
+  "signatureCertSha256": "d33b043e35401fac575182e87e18c6545db39c35215397da008da1f77c5a14e2",
   "actions": {
     "installOrUpdate": true,
     "delete": false,
