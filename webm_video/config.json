@@ -11,6 +11,8 @@
     "launch": true
   },
 "permissions": [
+    "android.permission.WRITE_SECURE_SETTINGS",
+    "android.permission.SYSTEM_ALERT_WINDOW",
     "android.permission.ACCESS_NETWORK_STATE",
     "android.permission.ACCESS_WIFI_STATE",
     "android.permission.CHANGE_WIFI_STATE",
