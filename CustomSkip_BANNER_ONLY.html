@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .message-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .message {
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+            padding: 18px 32px;
+            border-radius: 10px;
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="message-container">
+    <div class="message">
+        You will be returned to the Home screen soon
+    </div>
+</div>
+
+<script>
+    function setAttributes(xPosition, yPosition, width, height, gravity) {
+        if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
+            Hoppr.sendMessage(
+                JSON.stringify({
+                    type: "setAttributes",
+                    xPosition: xPosition,
+                    yPosition: yPosition,
+                    width: width,
+                    height: height,
+                    gravity: gravity
+                })
+            );
+        } else {
+            console.log("Hoppr.sendMessage is not available.");
+        }
+    }
+
+    window.onload = () => {
+        // Bottom-centre overlay
+        setAttributes(0, -40, 650, 100, 81);
+    };
+</script>
+
+</body>
+</html>
