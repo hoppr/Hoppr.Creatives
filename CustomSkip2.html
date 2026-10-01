@@ -201,6 +201,11 @@
         happy: document.getElementById("happy-button"),
     };
 
+    // TalkBack activates buttons with click events, not keyboard keyup events.
+    buttons.sad.addEventListener("click", () => performSkipAction(1, 200));
+    buttons.skip.addEventListener("click", () => performSkipAction(3));
+    buttons.happy.addEventListener("click", () => performSkipAction(5, 200));
+
 
             // Function to call Hoppr's method for setAttributes
             function setAttributes(xPosition, yPosition, width, height, gravity) {
@@ -267,6 +272,9 @@
             // Keyboard navigation for button selection
             window.addEventListener("keydown", (event) => {
                 if (["ArrowLeft", "ArrowRight", "Enter"].includes(event.key)) {
+                    // The keyup handler already performs the remote-key action.
+                    // Prevent Enter from also producing a default button click.
+                    event.preventDefault();
                     switch (event.key) {
                         case "ArrowLeft":
                             buttons.skip.classList.remove("selected");
