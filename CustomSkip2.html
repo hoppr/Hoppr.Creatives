@@ -1,351 +1,262 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>QR Code Demo</title>
-      <style>
-         body {
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         height: 100vh;
-         margin: 0;
-         background: transparent;
-         }
-         #qrcode {
-         display: none;
-         max-width: 100%;
-         max-height: 100%;
-         height: auto;
-         }
-         }
-      </style>
-      <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-   </head>
-   <body>
-      <canvas id="qrcode"></canvas>
-      <script>
-         // Function to call Hoppr's method for setAttributes
-         function setAttributes(xPosition, yPosition, width, height, gravity) {
-             if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
-                 Hoppr.sendMessage(
-                     JSON.stringify({
-                         type: "setAttributes",
-                         xPosition: xPosition,
-                         yPosition: yPosition,
-                         width: width,
-                         height: height,
-                         gravity: gravity
-                     })
-                 );
-             } else {
-                 console.log("Hoppr?.sendMessage is not available.");
-             }
-         }
-         
-         
-         // Function to generate a QR code in html and replace the UI
-         function generateSkipQrCode(urlToShorten) {
-                 if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
-                     Hoppr.sendMessage(
-                         JSON.stringify({
-                             type: "generateQrCode",
-                             urlToShorten: urlToShorten,
-                         })
-                     );
-                 } else {
-                     console.log("Hoppr?.sendMessage is not available.");
-                 }
-         }
-         
-         
-         // Function to generate a QR code in html and replace the UI
-           function generateQrCode(shortenedUrl) {
-         
-               if (!shortenedUrl) {
-                   console.error("URL is empty or invalid");
-                   return;
-               }
-         
-               //Show the QR code
-               const qrCodeCanvas = document.getElementById("qrcode");
-               qrCodeCanvas.style.display = "block";
-         
-               // Generate the QR code
-               QRCode.toCanvas(qrCodeCanvas, shortenedUrl, { width: window.innerWidth * 0.8, height: window.innerHeight * 0.8  }, function (error) {
-                   if (error) {
-                       console.error("Error generating QR code:", error);
-                       } else {
-                               console.log("QR code generated for URL:", shortenedUrl);
-                           }
-                   });
-         
-         }
-         
-         // Call setAttributes immediately when the page loads
-         window.onload = () => {
-           //Set QrCode size and position here
-           setAttributes(-30, -30, 280, 280, 85);
-           //Start generating shortenedUrl and register for scan to skip
-           generateSkipQrCode("https://www.techspot.com/")
-                     };
-         
-         
-      </script>
-   </body>
-</html>
- -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buttons with Arrows</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            background: transparent;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Responsive Ad Controls</title>
+  <style>
+    /* Scale the entire control as one component within the WebView viewport. */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+    body {
+      display: grid;
+      place-items: center;
+      background: transparent;
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        .button-container {
-            display: flex;
-            gap: 15px;
-            padding: 20px;
-            width: 80%;
-            max-width: 600px;
-        }
+    /* A compact floating TV control. Always contained by both dimensions. */
+    .button-container {
+      width: min(100vw, calc(100vh * 3.45), 620px);
+      aspect-ratio: 3.45 / 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(3px, min(1.6vw, 4vh), 10px);
+      padding: clamp(3px, min(2vw, 5vh), 11px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: clamp(8px, min(3vw, 7vh), 23px);
+      background: rgba(15, 24, 42, 0.76);
+      box-shadow: 0 5px 24px rgba(0, 0, 0, 0.28),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
 
-        button {
-            flex: 1;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            background: #f9f9f9;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s, border-color 0.2s;
-        }
+    .button-container button {
+      -webkit-appearance: none;
+      appearance: none;
+      min-width: 0;
+      min-height: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0 3px;
+      display: flex;
+      flex-direction: row; /* Arrows and emojis ALWAYS share one row. */
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(2px, min(1.2vw, 2vh), 9px);
+      border: 1px solid #e3e8f0;
+      border-radius: clamp(5px, min(2.5vw, 6vh), 16px);
+      color: #243247;
+      background: linear-gradient(180deg, #fff 0%, #e8edf5 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.9),
+                  0 3px 10px rgba(0,0,0,.18);
+      font-family: inherit;
+      font-weight: 700;
+      line-height: 1;
+      white-space: nowrap;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background-color 140ms ease, filter 140ms ease, box-shadow 140ms ease;
+    }
 
-        button:hover {
-            background: #f0f0f0;
-            border-color: #bbb;
-        }
+    .button-container button:hover { filter: brightness(.97); }
+    .button-container button:active { filter: brightness(.91); }
+    .button-container button:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: -5px;
+    }
+    .button-container button.selected,
+    .button-container button.selected:hover {
+      color: #fff;
+      border-color: #a4d6ff;
+      background: linear-gradient(180deg, #65b4ff 0%, #2b87ed 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.35),
+                  0 3px 12px rgba(20, 113, 230, .42);
+      filter: none;
+    }
 
-        button:focus {
-            outline: none;
-        }
+    .arrow,
+    .emoji,
+    .skip-label { display: inline-block; flex: 0 0 auto; line-height: 1; }
+    .arrow {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(9px, min(4.8vw, 17vh), 23px);
+      font-weight: 900;
+      opacity: .93;
+    }
+    .emoji { font-size: clamp(11px, min(6.4vw, 24vh), 33px); }
+    .skip-label {
+      font-size: clamp(11px, min(5.8vw, 22vh), 29px);
+      letter-spacing: -.02em;
+    }
 
-        .selected {
-            background: #4fa3f7;
-            border-color: #4fa3f7;
-            color: white;
-        }
+    /* Tiny ad windows: keep icons and labels visible without wrapping. */
+    @media (max-width: 220px), (max-height: 66px) {
+      .button-container { gap: 2px; padding: 3px; border-radius: 7px; }
+      .button-container button { gap: 1px; border-radius: 5px; padding: 0; }
+      .arrow { font-size: clamp(7px, min(4vw, 18vh), 13px); }
+      .emoji { font-size: clamp(8px, min(5vw, 22vh), 15px); }
+      .skip-label { font-size: clamp(8px, min(5vw, 22vh), 15px); }
+    }
 
-        #qrcode {
-                 display: none;
-                 max-width: 100%;
-                 max-height: 100%;
-                 height: auto;
-             }
+    @media (prefers-reduced-motion: reduce) {
+      .button-container button { transition: none; }
+    }
 
-        @media (max-width: 800px) {
-            .button-container {
-                gap: 10px;
-            }
-
-            button {
-                font-size: 16px;
-                padding: 12px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .button-container {
-                gap: 5px;
-            }
-
-            button {
-                font-size: 14px;
-                padding: 10px;
-            }
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    #qrcode {
+      display: none;
+      width: auto;
+      height: auto;
+      max-width: 90vw;
+      max-height: 90vh;
+      aspect-ratio: 1 / 1;
+      background: #fff;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 </head>
 <body>
-    <div class="button-container" id="button-container">
-        <button id="sad-button" tabindex="0">◀ 😞</button>
-        <button id="skip-button" tabindex="0" class="selected">Skip</button>
-        <button id="happy-button" tabindex="0">😊 ▶</button>
-    </div>
-    <canvas id="qrcode"></canvas>
+  <div class="button-container" id="button-container" role="group" aria-label="Ad feedback and skip controls">
+    <button type="button" id="sad-button" aria-label="Not interested">
+      <span class="arrow" aria-hidden="true">◀</span>
+      <span class="emoji" aria-hidden="true">😞</span>
+    </button>
+    <button type="button" id="skip-button" class="selected" aria-label="Skip advertisement">
+      <span class="skip-label">Skip</span>
+    </button>
+    <button type="button" id="happy-button" aria-label="Interested">
+      <span class="emoji" aria-hidden="true">😊</span>
+      <span class="arrow" aria-hidden="true">▶</span>
+    </button>
+  </div>
+  <canvas id="qrcode" aria-label="QR code"></canvas>
 
-    <script>
-
-    const buttonContainer = document.getElementById("button-container");
-    const qrCodeCanvas = document.getElementById("qrcode");
-
-    // Cache button elements
+  <script>
+    const buttonContainer = document.getElementById('button-container');
+    const qrCodeCanvas = document.getElementById('qrcode');
     const buttons = {
-        sad: document.getElementById("sad-button"),
-        skip: document.getElementById("skip-button"),
-        happy: document.getElementById("happy-button"),
+      sad: document.getElementById('sad-button'),
+      skip: document.getElementById('skip-button'),
+      happy: document.getElementById('happy-button'),
     };
 
-    // TalkBack activates buttons with click events, not keyboard keyup events.
-    buttons.sad.addEventListener("click", () => performSkipAction(1, 200));
-    buttons.skip.addEventListener("click", () => performSkipAction(3));
-    buttons.happy.addEventListener("click", () => performSkipAction(5, 200));
+    // LEAVE FALSE when Android / the parent already supplies the WebView bounds.
+    // Use true only if this HTML must request its own 500x150 bottom-right window.
+    const REQUEST_DEFAULT_NATIVE_WINDOW = false;
 
+    function sendToHoppr(message) {
+      if (typeof Hoppr !== 'undefined' && typeof Hoppr.sendMessage === 'function') {
+        Hoppr.sendMessage(JSON.stringify(message));
+      } else {
+        console.log('Hoppr unavailable:', message);
+      }
+    }
 
-            // Function to call Hoppr's method for setAttributes
-            function setAttributes(xPosition, yPosition, width, height, gravity) {
-                if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
-                    Hoppr.sendMessage(
-                        JSON.stringify({
-                            type: "setAttributes",
-                            xPosition: xPosition,
-                            yPosition: yPosition,
-                            width: width,
-                            height: height,
-                            gravity: gravity
-                        })
-                    );
-                } else {
-                    console.log("Hoppr?.sendMessage is not available.");
-                }
-            }
+    function setAttributes(xPosition, yPosition, width, height, gravity) {
+      sendToHoppr({ type: 'setAttributes', xPosition, yPosition, width, height, gravity });
+    }
 
+    window.addEventListener('load', () => {
+      if (REQUEST_DEFAULT_NATIVE_WINDOW) {
+        setAttributes(0, 0, 500, 150, 85); // Bottom-right, original starting size.
+      }
+      // Otherwise, the buttons automatically fit whatever size the WebView has.
+    });
 
-            // Perform skip action with an optional delay
-            function performSkipAction(skipType, delay = 0) {
-              if (buttonContainer.style.display !== 'none') {
-                setTimeout(() => {
-                    if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
-                        Hoppr.sendMessage(
-                            JSON.stringify({
-                                type: "performSkip",
-                                skipValue: skipType,
-                            })
-                        );
-                    } else {
-                        console.log("Hoppr?.sendMessage is not available.");
-                    }
-                }, delay); // Use provided delay or default to 150ms
-                  // Perform action if display is not 'none' (visible)
-                  console.log("Button container is visible");
-              } else {
-                  // Perform action if display is 'none' (hidden)
-                  console.log("Button container is hidden");
-              }
-            }
+    function selectButton(key) {
+      for (const [name, button] of Object.entries(buttons)) {
+        button.classList.toggle('selected', name === key);
+      }
+    }
 
-            // Function to generate a QR code in html and replace the UI
-            function generateQrCodeToWebView(urlToShorten) {
-                    if (typeof Hoppr !== "undefined" && Hoppr.sendMessage) {
-                        Hoppr.sendMessage(
-                            JSON.stringify({
-                                type: "generateQrCode",
-                                urlToShorten: urlToShorten,
-                            })
-                        );
-                    } else {
-                        console.log("Hoppr?.sendMessage is not available.");
-                    }
-            }
+    function performSkipAction(skipType, delay = 0) {
+      if (buttonContainer.style.display === 'none') return;
+      window.setTimeout(() => {
+        if (buttonContainer.style.display !== 'none') {
+          sendToHoppr({ type: 'performSkip', skipValue: skipType });
+        }
+      }, delay);
+    }
 
-            // Call setAttributes immediately when the page loads
-            window.onload = () => {
-                setAttributes(0, 0, 500, 150, 85); // Initial attributes on page load
-            };
+    // Mouse/touch/TalkBack activation.
+    buttons.sad.addEventListener('click', () => {
+      selectButton('sad');
+      performSkipAction(1, 200);
+    });
+    buttons.skip.addEventListener('click', () => {
+      selectButton('skip');
+      performSkipAction(3);
+    });
+    buttons.happy.addEventListener('click', () => {
+      selectButton('happy');
+      performSkipAction(5, 200);
+    });
 
+    // Preserve original remote key behavior: Left=sad, Enter=skip, Right=happy.
+    // Prevent default Enter clicks, or the WebView may send duplicate actions.
+    const remoteActions = {
+      ArrowLeft: { button: 'sad', value: 1, delay: 200 },
+      Enter: { button: 'skip', value: 3, delay: 0 },
+      ArrowRight: { button: 'happy', value: 5, delay: 200 },
+    };
+    window.addEventListener('keydown', (event) => {
+      const action = remoteActions[event.key];
+      if (!action || buttonContainer.style.display === 'none') return;
+      event.preventDefault();
+      selectButton(action.button);
+    });
+    window.addEventListener('keyup', (event) => {
+      const action = remoteActions[event.key];
+      if (!action || buttonContainer.style.display === 'none') return;
+      event.preventDefault();
+      performSkipAction(action.value, action.delay);
+    });
 
-            // Keyboard navigation for button selection
-            window.addEventListener("keydown", (event) => {
-                if (["ArrowLeft", "ArrowRight", "Enter"].includes(event.key)) {
-                    // The keyup handler already performs the remote-key action.
-                    // Prevent Enter from also producing a default button click.
-                    event.preventDefault();
-                    switch (event.key) {
-                        case "ArrowLeft":
-                            buttons.skip.classList.remove("selected");
-                            buttons.happy.classList.remove("selected");
-                            buttons.sad.classList.add("selected");
-                            break;
-                        case "ArrowRight":
-                            buttons.skip.classList.remove("selected");
-                            buttons.sad.classList.remove("selected");
-                            buttons.happy.classList.add("selected");
-                            break;
-                        case "Enter":
-                            buttons.happy.classList.remove("selected");
-                            buttons.sad.classList.remove("selected");
-                            buttons.skip.classList.add("selected");
-                            break;
-                    }
-                }
-            });
+    function generateQrCodeToWebView(urlToShorten) {
+      sendToHoppr({ type: 'generateQrCode', urlToShorten });
+    }
 
-            window.addEventListener("keyup", (event) => {
-                switch (event.key) {
-                    case "ArrowLeft":
-                        performSkipAction(1,200);
-                        break;
-                    case "ArrowRight":
-                        performSkipAction(5,200);
-                        break;
-                    case "Enter":
-                        performSkipAction(3);
-                        break;
-                    // case "ArrowUp":
-                    //     generateQrCodeToWebView("https://www.techspot.com/");
-                    //     break;
-                      break;
-                }
-            });
+    let qrUrl = null;
+    let qrResizeTimer = null;
 
+    function renderQrCode() {
+      if (!qrUrl || qrCodeCanvas.style.display !== 'block') return;
+      if (!window.QRCode || typeof window.QRCode.toCanvas !== 'function') {
+        console.error('QR code library could not be loaded.');
+        return;
+      }
+      const size = Math.max(1, Math.floor(Math.min(innerWidth, innerHeight) * 0.88));
+      window.QRCode.toCanvas(qrCodeCanvas, qrUrl, { width: size, margin: 2 }, (error) => {
+        if (error) console.error('Error generating QR code:', error);
+      });
+    }
 
+    // Called by Android after it has shortened the URL.
+    function generateQrCode(shortenedUrl) {
+      if (!shortenedUrl) {
+        console.error('URL is empty or invalid');
+        return;
+      }
+      qrUrl = shortenedUrl;
+      buttonContainer.style.display = 'none';
+      qrCodeCanvas.style.display = 'block';
 
-            // Function to generate a QR code in html and replace the UI
-              function generateQrCode(shortenedUrl) {
+      // Keep existing host behavior: switch to a square QR-code WebView.
+      setAttributes(-30, -30, 280, 280, 85);
+      window.setTimeout(renderQrCode, 200);
+    }
 
-                  //Set QrCode size and position here
-                  setAttributes(-30, -30, 280, 280, 85);
-
-                  if (!shortenedUrl) {
-                      console.error("URL is empty or invalid");
-                      return;
-                  }
-
-              // Hide the button UI and show the QR code
-              buttonContainer.style.display = "none";
-              qrCodeCanvas.style.display = "block";
-
-              setTimeout(() => {
-
-              // Generate the QR code
-              QRCode.toCanvas(qrCodeCanvas, shortenedUrl, { width: window.innerWidth * 0.8, height: window.innerHeight * 0.8  }, function (error) {
-                  if (error) {
-                      console.error("Error generating QR code:", error);
-                  } else {
-                      console.log("QR code generated for URL:", shortenedUrl);
-                  }
-              });
-            }, 200); // Use provided delay or default to 150ms
-
-          }
-
-
-    </script>
+    // If Android resizes the WebView, the CSS controls refit immediately;
+    // a visible QR code is also regenerated at the appropriate resolution.
+    window.addEventListener('resize', () => {
+      if (!qrUrl) return;
+      window.clearTimeout(qrResizeTimer);
+      qrResizeTimer = window.setTimeout(renderQrCode, 80);
+    });
+  </script>
 </body>
 </html>
-
